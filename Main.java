@@ -24,6 +24,7 @@ public class Main {
                 System.out.println("Commande " + "<" + StringCmd[0] + ">" + " Inconnue");
                 continue;
             }
+
             System.out.println("Commande Valide");
             if(!l.isValidCommand(cmd)){
                 System.out.println("ERREUR ARGUMENTS : Commande " + "<" + StringCmd[0] + ">" + " De Type " + cmd.getType() + " Doit recevoir " + cmd.expectedArgs() + " Arguments ");
