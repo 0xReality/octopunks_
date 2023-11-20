@@ -18,6 +18,8 @@ public class Main {
             String[] StringCmd = out.split(" ");
             Command cmd = l.argsToCommand(StringCmd);
 
+            if (StringCmd[0].toUpperCase().equals("EXIT")) return;
+            
             if(!l.isCommand(cmd)){
                 System.out.println("Commande " + "<" + StringCmd[0] + ">" + " Inconnue");
                 continue;
