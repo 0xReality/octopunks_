@@ -1,3 +1,5 @@
+package Compilation;
+
 public class Command {
     public enum Instruction{
         ADDI, LINK, INVALID

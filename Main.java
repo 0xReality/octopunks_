@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import Compilation.Command;
+import Compilation.LexicalAnalyser;
+
 import UI.OctoPunks;
 
 public class Main {

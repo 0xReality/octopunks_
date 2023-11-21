@@ -2,6 +2,9 @@ package UI;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Compilation.Compilator;
+
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -19,6 +22,7 @@ public class OctoPunks extends JFrame {
         this.setTitle("OctoPunks");
         this.setBounds(0, 0, width, height);
         this.setLayout(new BorderLayout());
+        this.setUndecorated(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         JPanel spacer = new JPanel();
@@ -39,8 +43,7 @@ public class OctoPunks extends JFrame {
 
         execute.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String[] test = textArea.getText().split(" ");
-                System.out.println(test[0]);
+                Compilator c = new Compilator(textArea.getText(),1);
             }
         });
 
