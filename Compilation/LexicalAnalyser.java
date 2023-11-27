@@ -1,8 +1,6 @@
 package Compilation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 
 public class LexicalAnalyser {
@@ -13,31 +11,55 @@ public class LexicalAnalyser {
         Collections.addAll(validCommand, Command.Instruction.class.getEnumConstants());
     }
 
-    public Command argsToCommand(String[] s) {
+    public Command argsToCommand(String[] s, int line) {
         Command cmd;
         switch (s[0].toUpperCase()) {
             case "ADDI":
-                return cmd = new Command(Command.Instruction.ADDI, Command.Type.ARITHMETIC, Arrays.copyOfRange(s, 1, s.length));
+                return cmd = new Command(Command.Instruction.ADDI, Arrays.copyOfRange(s, 1, s.length), line);
             case "LINK":
-                return cmd = new Command(Command.Instruction.LINK, Command.Type.MOVEMENT, Arrays.copyOfRange(s, 1, s.length));
+                return cmd = new Command(Command.Instruction.LINK, Arrays.copyOfRange(s, 1, s.length), line);
             default:
-                return cmd = new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length));
+                return cmd = new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
+    }
+
+    public boolean CheckErrors(Command cmd){
+        Exceptions exp = new Exceptions();
+        if(!isCommand(cmd)){
+            exp.sendError(cmd, 1);
+            return false;
+        }else if(isMissingCommand(cmd)){
+            exp.sendError(cmd, 2);
+            return false;
+        }else if(isInvalidCommand(cmd)){
+            exp.sendError(cmd, 3);
+            return false;
+        }else if(numberVerification(Integer.parseInt(cmd.getArgs()[0])) || numberVerification(Integer.parseInt(cmd.getArgs()[2]))){
+            exp.sendError(cmd, 4);
+            return false;
+        }
+
+        //TODO: Ajouter les verifications sur les registres / sur les chiffres
+        return true;
     }
 
     public boolean isCommand(Command c) {
         return validCommand.contains(c.getInstruction()) && !c.getInstruction().equals(Command.Instruction.INVALID);
     }
 
-    public boolean isValidCommand(Command c) {
-        if (validCommand.contains(c.getInstruction()) && !c.getInstruction().equals(Command.Instruction.INVALID)) {
-            return c.expectedArgs() == c.getArgs().length;
-        }
-        return false;
+    public boolean isMissingCommand(Command c) {
+        return c.getExpectedArgs() > c.getArgs().length;
+    }
+
+    public boolean isInvalidCommand(Command c) {
+        return c.getExpectedArgs() < c.getArgs().length;
+    }
+
+    public boolean numberVerification(int n){
+        return (n > 9999 || n < -9999);
     }
 
     public boolean callInstruction(Command c) {
-        if (!isValidCommand(c)) return false;
         switch (c.getInstruction()) {
             case ADDI: {/*APPEL A LA FN ADDI;*/
                 break;

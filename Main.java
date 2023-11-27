@@ -11,7 +11,7 @@ public class Main {
 
     public static String getOutput() {
         System.out.print("> ");
-        return scanner.nextLine(); // Do not close the scanner here
+        return scanner.nextLine();
     }
 
 
@@ -22,7 +22,7 @@ public class Main {
             while(true){        
                 String out = getOutput();
                 String[] StringCmd = out.split(" ");
-                Command cmd = l.argsToCommand(StringCmd);
+                Command cmd = l.argsToCommand(StringCmd, 0);
 
                 if (StringCmd[0].toUpperCase().equals("EXIT")) break;
                 
@@ -32,8 +32,8 @@ public class Main {
                 }
 
                 System.out.println("Commande Valide");
-                if(!l.isValidCommand(cmd)){
-                    System.out.println("ERREUR ARGUMENTS : Commande " + "<" + StringCmd[0] + ">" + " De Type " + cmd.getType() + " Doit recevoir " + cmd.expectedArgs() + " Arguments ");
+                if(!l.isInvalidCommand(cmd)){
+                    System.out.println("ERREUR ARGUMENTS : Commande " + "<" + StringCmd[0] + ">" + " Doit recevoir " + cmd.getExpectedArgs() + " Arguments ");
                     System.out.println("Utilisation : " + StringCmd[0] + " a(R/N)" + " b(R/N)" + " dest(R)" );
                     System.out.println("INFORMATION: \nAjoute a + b et sauvegarde le résultat dans dest. a, b et dest peuvent être le même registre local. Le résultat sera limité entre -9999 et 9999.");
                     continue;

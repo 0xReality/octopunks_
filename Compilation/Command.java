@@ -1,39 +1,35 @@
 package Compilation;
 
 public class Command {
-    public enum Instruction{
-        ADDI, LINK, INVALID
-    }
+    /*
+     * Restructuration de l'enum Instruction
+     * 
+     */
 
-    public enum Type{
-        ARITHMETIC, MOVEMENT, UKNOWN
-    }
+    public enum Instruction {
+        ADDI(3), LINK(1), INVALID(0);
 
-    private Instruction instruction;
-    private Type type;
-    private String[] args;
-    private int expectedArgs;
+        private final int argCount;
 
-
-    public Command(Instruction instruction, String[] args){
-        this.instruction = instruction;
-        this.type = Type.UKNOWN;
-        this.args = args;
-    }
-
-    public Command(Instruction instruction,Type type, String[] args){
-        this.instruction = instruction;
-        this.type = type;
-        this.args = args;
-        this.expectedArgs = expectedArgs();
-    }
-
-    public int expectedArgs(){
-        switch (this.type) {
-            case ARITHMETIC: return 3;
-            case MOVEMENT:
-            default: return 1;
+        Instruction(int argCount) {
+            this.argCount = argCount;
         }
+
+        public int getArgCount() {
+            return argCount;
+        }
+    }
+
+    private final Instruction instruction; //final car les variables ne doivent pas changer
+    private final String[] args;
+    private final int expectedArgs;
+    private final int line;
+
+    public Command(Instruction instruction, String[] args, int line){
+        this.instruction = instruction;
+        this.args = args;
+        this.expectedArgs = instruction.getArgCount();
+        this.line = line;
     }
 
     public Instruction getInstruction() {
@@ -48,10 +44,8 @@ public class Command {
         return expectedArgs;
     }
 
-    public Type getType() {
-        return type;
+    public int getLine() {
+        return line;
     }
-
-
 
 }
