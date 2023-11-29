@@ -143,7 +143,17 @@ public class LexicalAnalyser {
         return (n > 9999 || n < -9999);
     }
 
-    public boolean callInstruction(Command c, Register registre) {
+
+    public Register stringToRegister(String nom, ArrayList<Register> registers){
+        for (Register register : registers) {
+            if(register.getName().equals(nom)) return register;
+        }
+        return null;
+    }
+
+
+    //COMPLETEMENT A REFAIRE
+    public void callInstruction(Command c, Register registre) {
         switch (c.getInstruction()) {
             case ADDI: {/*APPEL A LA FN ADDI;*/
                 int x = Integer.parseInt(c.getArgs()[0]);            
@@ -156,6 +166,6 @@ public class LexicalAnalyser {
             }
             default: break;
         }
-        return true;
+        return;
     }
 }
