@@ -38,13 +38,16 @@ public class LexicalAnalyser {
         if(!isCommand(cmd)){
             exp.sendError(cmd, 1);
             return false;
-        }else if(isMissingCommand(cmd)){
+        }
+        if(isMissingCommand(cmd)){
             exp.sendError(cmd, 2);
             return false;
-        }else if(isInvalidCommand(cmd)){
+        }
+        if(isInvalidCommand(cmd)){
             exp.sendError(cmd, 3);
             return false;
-        }else if(numberVerification(Integer.parseInt(cmd.getArgs()[0])) || numberVerification(Integer.parseInt(cmd.getArgs()[2]))){
+        } 
+        if(numberVerification(Integer.parseInt(cmd.getArgs()[0])) || numberVerification(Integer.parseInt(cmd.getArgs()[2]))){
             exp.sendError(cmd, 4);
             return false;
         }
