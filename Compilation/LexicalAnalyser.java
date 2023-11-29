@@ -35,7 +35,7 @@ public class LexicalAnalyser {
         }
     }
 
-    public boolean CheckErrors(Command cmd, ArrayList<Register> register){
+    public boolean CheckErrors(Command cmd){
         Exceptions exp = new Exceptions();
         if(!isCommand(cmd)){
             exp.sendError(cmd, 1);
@@ -48,8 +48,21 @@ public class LexicalAnalyser {
         if(isInvalidCommand(cmd)){
             exp.sendError(cmd, 3);
             return false;
-        }
-        if(numberVerification(Integer.parseInt(cmd.getArgs()[0])) || numberVerification(Integer.parseInt(cmd.getArgs()[2]))){
+        } 
+        try {
+            if (cmd.getInstruction().equals(Command.Instruction.ADDI) || 
+                cmd.getInstruction().equals(Command.Instruction.MULI) || 
+                cmd.getInstruction().equals(Command.Instruction.SUBI)) {
+        
+                int arg0 = Integer.parseInt(cmd.getArgs()[0]);
+                int arg1 = Integer.parseInt(cmd.getArgs()[1]);
+        
+                if (numberVerification(arg0) || numberVerification(arg1)) {
+                    exp.sendError(cmd, 4);
+                    return false;
+                }
+            }
+        } catch (NumberFormatException e) {
             exp.sendError(cmd, 4);
             return false;
         }
