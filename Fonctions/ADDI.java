@@ -17,6 +17,7 @@ public class ADDI {
         this.val1 = val1; 
         this.val2 = val2; 
         this.registre = R;
+        this.Initialiser(R, val1, val2);
     }
 
     public static int calcul(int val1, int val2)
@@ -26,6 +27,6 @@ public class ADDI {
 
     public void Initialiser(Register R, int val1, int val2)
     {
-        R.valeur =  calcul(val1, val2); 
+        R.setValeur(calcul(val1, val2));
     }
 }

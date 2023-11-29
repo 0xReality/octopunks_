@@ -2,6 +2,8 @@ package Compilation;
 
 import java.util.*;
 
+import Fonctions.ADDI;
+
 
 public class LexicalAnalyser {
     private final ArrayList<Command.Instruction> validCommand;
@@ -33,7 +35,7 @@ public class LexicalAnalyser {
         }
     }
 
-    public boolean CheckErrors(Command cmd){
+    public boolean CheckErrors(Command cmd, ArrayList<Register> register){
         Exceptions exp = new Exceptions();
         if(!isCommand(cmd)){
             exp.sendError(cmd, 1);
@@ -46,7 +48,7 @@ public class LexicalAnalyser {
         if(isInvalidCommand(cmd)){
             exp.sendError(cmd, 3);
             return false;
-        } 
+        }
         if(numberVerification(Integer.parseInt(cmd.getArgs()[0])) || numberVerification(Integer.parseInt(cmd.getArgs()[2]))){
             exp.sendError(cmd, 4);
             return false;
@@ -72,9 +74,15 @@ public class LexicalAnalyser {
         return (n > 9999 || n < -9999);
     }
 
-    public boolean callInstruction(Command c) {
+    public boolean callInstruction(Command c, Register registre) {
         switch (c.getInstruction()) {
             case ADDI: {/*APPEL A LA FN ADDI;*/
+                int x = Integer.parseInt(c.getArgs()[0]);            
+                int y = Integer.parseInt(c.getArgs()[1]);
+
+                ADDI addi = new ADDI(x, y, registre);
+                
+                System.out.println(registre.getValeur());
                 break;
             }
             default: break;

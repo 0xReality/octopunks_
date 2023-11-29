@@ -1,11 +1,14 @@
 package Compilation;
 
+import java.util.ArrayList;
+
 public class Compilator {
     LexicalAnalyser l = new LexicalAnalyser();
     private Command[] lines;
     private int lineNumber;
     private int currentLine;
     private boolean endingCompilation;
+    private ArrayList<Register> registers;
 
     //compiles toutes les lignes doit etre reset a la fin
     public Compilator(String s, int mode) {
@@ -14,6 +17,9 @@ public class Compilator {
         String[] text = s.split("\n");
         lines = new Command[text.length];
         this.lineNumber = text.length;
+        this.registers = new ArrayList<Register>();
+        initRegisters();
+
         for (int i = 0; i < lineNumber; i++) {
             this.currentLine = i + 1;
             lines[i] = l.argsToCommand(text[i].split(" "), currentLine);
@@ -21,7 +27,7 @@ public class Compilator {
 
         
         for (int i = 0; i < text.length; i++) {
-            if(!l.CheckErrors(lines[i])) endingCompilation = true;
+            if(!l.CheckErrors(lines[i], registers)) endingCompilation = true;
         }
         if(endingCompilation){
             reset();
@@ -48,12 +54,24 @@ public class Compilator {
     * pour compiler les lignes d'apres 
     */
 
+    private void initRegisters(){
+        Register X = new Register(0, "X");
+        this.registers.add(X);
+        Register T = new Register(0, "T");
+        this.registers.add(T);
+        Register F = new Register(0, "F");
+        this.registers.add(F);
+        Register M = new Register(0, "M");
+        this.registers.add(M);
+    }
+
 
     //reset le compilateur pour etre pret a une nouvelle compilation
     private void reset() {
         lines = null; 
         lineNumber = 0; 
         currentLine = 0;
+        initRegisters();
     }
 
 }

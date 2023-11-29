@@ -1,5 +1,7 @@
 package Fonctions ;
 
+import Compilation.Register;
+
 public class DIVI {
     private int val1; 
     private int val2; 
@@ -24,6 +26,6 @@ public class DIVI {
 
     public void Initialiser(Register R, int val1, int val2)
     {
-        R.valeur =  calcul(val1, val2); 
+        R.setValeur(calcul(val1, val2));
     }
 }

@@ -1,5 +1,7 @@
 package Fonctions ;
 
+import Compilation.Register;
+
 public class MODI {
     private int val1; 
     private int val2; 
@@ -17,6 +19,14 @@ public class MODI {
         this.registre = R;
     }
 
+    public int getVal1() {
+        return val1;
+    }
+
+    public int getVal2() {
+        return val2;
+    }
+
     public static int calcul(int val1, int val2)
     {
         return val1+val2; 
@@ -24,6 +34,6 @@ public class MODI {
 
     public void Initialiser(Register R, int val1, int val2)
     {
-        R.valeur =  calcul(val1, val2); 
+        R.setValeur(calcul(val1, val2));
     }
 }
