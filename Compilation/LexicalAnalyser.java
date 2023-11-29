@@ -75,7 +75,50 @@ public class LexicalAnalyser {
                 }
         }
 
-        //TODO: Ajouter les verifications sur les registres / sur les chiffres
+        try {
+            if (cmd.getInstruction().equals(Command.Instruction.LINK) || 
+                cmd.getInstruction().equals(Command.Instruction.JUMP) || 
+                cmd.getInstruction().equals(Command.Instruction.FJMP)) {
+        
+                int arg0 = Integer.parseInt(cmd.getArgs()[0]);
+        
+                if (numberVerification(arg0)) {
+                    exp.sendError(cmd, 4);
+                    return false;
+                }
+                if(!(isRegister(cmd.getArgs()[1], registres))){
+                    exp.sendError(cmd, 6);
+                    return false;
+                }
+            }
+        } catch (NumberFormatException e) {
+            if(!(isRegister(cmd.getArgs()[0], registres))){
+                    exp.sendError(cmd, 6);
+                    return false;
+            }
+        }
+
+        try {
+            if (cmd.getInstruction().equals(Command.Instruction.COPY)) {
+        
+                int arg0 = Integer.parseInt(cmd.getArgs()[0]);
+        
+                if (numberVerification(arg0)) {
+                    exp.sendError(cmd, 4);
+                    return false;
+                }
+                if(!(isRegister(cmd.getArgs()[1], registres))){
+                    exp.sendError(cmd, 6);
+                    return false;
+                }
+            }
+        } catch (NumberFormatException e) {
+            if(!(isRegister(cmd.getArgs()[0], registres))||
+               !(isRegister(cmd.getArgs()[1], registres))){
+                    exp.sendError(cmd, 6);
+                    return false;
+            }
+        }
         return true;
     }
 
