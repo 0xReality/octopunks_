@@ -35,7 +35,7 @@ public class LexicalAnalyser {
         }
     }
 
-    public boolean CheckErrors(Command cmd){
+    public boolean CheckErrors(Command cmd, ArrayList<Register> registres){
         Exceptions exp = new Exceptions();
         if(!isCommand(cmd)){
             exp.sendError(cmd, 1);
@@ -61,10 +61,18 @@ public class LexicalAnalyser {
                     exp.sendError(cmd, 4);
                     return false;
                 }
+                if(!(isRegister(cmd.getArgs()[2], registres))){
+                    exp.sendError(cmd, 6);
+                    return false;
+                }
             }
         } catch (NumberFormatException e) {
-            exp.sendError(cmd, 4);
-            return false;
+            if(!(isRegister(cmd.getArgs()[2], registres))|| 
+               !(isRegister(cmd.getArgs()[1], registres))||
+               !(isRegister(cmd.getArgs()[0], registres))){
+                    exp.sendError(cmd, 6);
+                    return false;
+                }
         }
 
         //TODO: Ajouter les verifications sur les registres / sur les chiffres
@@ -74,7 +82,12 @@ public class LexicalAnalyser {
     public boolean isCommand(Command c) {
         return validCommand.contains(c.getInstruction()) && !c.getInstruction().equals(Command.Instruction.INVALID);
     }
-
+    public boolean isRegister(String nom, ArrayList<Register> registers){
+        for (Register register : registers) {
+            if(register.getName().equals(nom)) return true;
+        }
+        return false;
+    }
     public boolean isMissingCommand(Command c) {
         return c.getExpectedArgs() > c.getArgs().length;
     }

@@ -5,7 +5,8 @@ public enum ErrorCode {
     MISSING_ARGUMENTS(2, "Missing arguments."),
     INVALID_ARGUMENTS(3, "Invalid arguments."),
     NUMBER_ERROR(4, "Number Unauthorized."),
-    DIVISION_BY_ZERO(5, "Attempted division by zero.");
+    DIVISION_BY_ZERO(5, "Attempted division by zero."),
+    INVALID_REGISTER(6, "Invalid register.");
 
 
     private final int code;
