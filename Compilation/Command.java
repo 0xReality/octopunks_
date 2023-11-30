@@ -8,7 +8,7 @@ public class Command {
 
     public enum Instruction {
         ADDI(3), LINK(1), INVALID(0), COPY(2),
-        MULI(3), SUBI(3), JUMP(1), FJMP(1); 
+        MULI(3), SUBI(3), DIVI(3), JUMP(1), FJMP(1); 
 
         private final int argCount;
 

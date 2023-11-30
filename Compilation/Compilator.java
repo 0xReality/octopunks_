@@ -27,7 +27,7 @@ public class Compilator {
 
         
         for (int i = 0; i < text.length; i++) {
-            if(!l.CheckErrors(lines[i], registers)) endingCompilation = true;
+            if(!l.checkErrors(lines[i], registers)) endingCompilation = true;
         }
         if(endingCompilation){
             reset();
