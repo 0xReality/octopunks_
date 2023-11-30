@@ -1,0 +1,1 @@
+additionner lss nombres 12 et 15 et enregistrer les dans le registe X
