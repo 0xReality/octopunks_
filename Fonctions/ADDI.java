@@ -11,6 +11,7 @@ public class ADDI {
      * @param val1, prend la première valeur de la commande ADDI 
      * @param val2, prend la deuxième valeur de la commande ADDI
      * @param R, Registre ou est stocké le résultat de la commande ADDI
+     * @throw 
      */
     public ADDI(int val1, int val2, Register R)
     {
@@ -18,6 +19,12 @@ public class ADDI {
         this.val2 = val2; 
         this.registre = R;
         this.Initialiser(R, val1, val2);
+    }
+
+    public ADDI(Register R1, Register R2, Register R)
+    {
+        this.registre = R; 
+        this.Initialiser(R, R1.getValeur(), R2.getValeur());
     }
 
     public static int calcul(int val1, int val2)
