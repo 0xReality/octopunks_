@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Compilation.Command;
 import Compilation.LexicalAnalyser;
-
+import Compilation.Register;
 import UI.OctoPunks;
 
 public class Main {
@@ -15,10 +16,13 @@ public class Main {
     }
 
 
+    //la version terminal ne possede aucun registre 
+    //TODO ajouter les 4 registres au arraylist "r"
 
     public static void main(String[] args) {
         if(args.length > 0 && "1".equals(args[0])){ //FAITES java Main 1 si vous voulez utiliser les commandes terminales sinon  java Main
-            LexicalAnalyser l = new LexicalAnalyser();
+            ArrayList<Register> r= new ArrayList<Register>();
+            LexicalAnalyser l = new LexicalAnalyser(r);
             while(true){        
                 String out = getOutput();
                 String[] StringCmd = out.split(" ");

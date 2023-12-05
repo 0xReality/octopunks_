@@ -3,7 +3,7 @@ package Compilation;
 import java.util.ArrayList;
 
 public class Compilator {
-    LexicalAnalyser l = new LexicalAnalyser();
+    LexicalAnalyser l;
     private Command[] lines;
     private int lineNumber;
     private int currentLine;
@@ -19,6 +19,7 @@ public class Compilator {
         this.lineNumber = text.length;
         this.registers = new ArrayList<Register>();
         initRegisters();
+        l = new LexicalAnalyser(registers);
 
         for (int i = 0; i < lineNumber; i++) {
             this.currentLine = i + 1;
@@ -27,7 +28,7 @@ public class Compilator {
 
         
         for (int i = 0; i < text.length; i++) {
-            if(!l.checkErrors(lines[i], registers)) endingCompilation = true;
+            if(!l.checkErrors(lines[i])) endingCompilation = true;
         }
         if(endingCompilation){
             reset();
@@ -36,14 +37,18 @@ public class Compilator {
         }
         
         /*
-         * Appel a la methode sendSignal(Command cmd) qui appel l'instruction
+         * Appel a la methode callInstruction qui appel l'instruction
          * cmd.getInstruction() a sa propre methode
         */
+        for (int i = 0; i < text.length; i++) {
+            l.callInstruction(lines[i]);
+        }
+        
 
         /*
-         * Appel a une nouvelle methode qui reset les variables de Compilator
+         * Appel reset qui réinitialise les variables de Compilator
+         * Apres l'execution
          */
-
         reset();
         System.out.println("Compilation Done");
     }

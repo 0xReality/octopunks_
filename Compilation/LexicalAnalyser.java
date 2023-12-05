@@ -7,10 +7,12 @@ import Fonctions.*;
 
 public class LexicalAnalyser {
     private final ArrayList<Command.Instruction> validCommand;
+    private final ArrayList<Register> registers;
 
-    public LexicalAnalyser() {
+    public LexicalAnalyser(ArrayList<Register> registers) {
         validCommand = new ArrayList<Command.Instruction>();
         Collections.addAll(validCommand, Command.Instruction.class.getEnumConstants());
+        this.registers = registers;
     }
 
     public Command argsToCommand(String[] s, int line) {
@@ -38,7 +40,7 @@ public class LexicalAnalyser {
     }
 
     
-    public boolean checkErrors(Command cmd, ArrayList<Register> registers) {
+    public boolean checkErrors(Command cmd) {
         Exceptions exp = new Exceptions();
         if (!isCommand(cmd)) {
             exp.sendError(cmd, 1);
@@ -58,20 +60,33 @@ public class LexicalAnalyser {
     }
 
 
-
-    //COMPLETEMENT A REFAIRE
-    public void callInstruction(Command c, Register registre) {
+    /*
+     * Completer les switch cases sur toutes les autres instructions
+     */
+    public void callInstruction(Command c) {
+        Object[] args = new Object[c.getExpectedArgs()];
+        for (int i = 0; i < c.getExpectedArgs(); i++) {
+            args[i] = processArgument(c.getArgs()[i]);
+        }
+        Register r  = stringToRegister(c.getArgs()[c.getExpectedArgs()-1]);
         switch (c.getInstruction()) {
-            case ADDI: {/*APPEL A LA FN ADDI;*/
-                int x = Integer.parseInt(c.getArgs()[0]);            
-                int y = Integer.parseInt(c.getArgs()[1]);
-
-                ADDI addi = new ADDI(x, y, registre);
+            case ADDI:
+                new ADDI((int)args[0],(int)args[1] ,r);
                 break;
-            }
-            default: break;
+            default:
+                break;
         }
         return;
+    }
+
+    private Object processArgument(String arg){
+        if(arg == null) return null;
+        if(isNumber(arg)){
+            return Integer.parseInt(arg);
+        }else{
+            Register r = stringToRegister(arg);
+            return r.getValeur();
+        }
     }
 
     public boolean isCommand(Command c) {
@@ -86,9 +101,16 @@ public class LexicalAnalyser {
         return c.getExpectedArgs() < c.getArgs().length;
     }
 
+    public boolean isNumber(String arg){
+        try {
+            Integer.parseInt(arg);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
-
-    public Register stringToRegister(String nom, ArrayList<Register> registers){
+    public Register stringToRegister(String nom){
         for (Register register : registers) {
             if(register.getName().equals(nom)) return register;
         }
