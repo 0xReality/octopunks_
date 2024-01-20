@@ -1,5 +1,8 @@
 package Compilation;
 
+/**
+ * L'énumération ErrorCode définit les différents codes d'erreur qui peuvent se produire lors de la compilation.
+ */
 public enum ErrorCode {
     INVALID_COMMAND(1, "Invalid command."),
     MISSING_ARGUMENTS(2, "Missing arguments."),

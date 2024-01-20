@@ -2,6 +2,9 @@ package Compilation;
 
 import java.util.ArrayList;
 
+/**
+ * La classe Compilator s'occupe du processus de compilation des instructions.
+ */
 public class Compilator {
     LexicalAnalyser l;
     private Command[] lines;
@@ -10,8 +13,12 @@ public class Compilator {
     private boolean endingCompilation;
     private ArrayList<Register> registers;
 
-    //compiles toutes les lignes doit etre reset a la fin
-    public Compilator(String s, int mode) {
+    /**
+     * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
+     * @param s Le texte à compiler.
+     *  TODO: crée un nouveau constructeur pour gerer la compilation par pas
+     */
+    public Compilator(String s) {
         System.out.println("Compiling...");
         this.endingCompilation = false;
         String[] text = s.split("\n");
@@ -26,7 +33,7 @@ public class Compilator {
             lines[i] = l.argsToCommand(text[i].split(" "), currentLine);
         }
 
-        
+        // Vérifie s'il y a des erreurs dans chaque ligne
         for (int i = 0; i < text.length; i++) {
             if(!l.checkErrors(lines[i])) endingCompilation = true;
         }
@@ -36,29 +43,19 @@ public class Compilator {
             return;
         }
         
-        /*
-         * Appel a la methode callInstruction qui appel l'instruction
-         * cmd.getInstruction() a sa propre methode
-        */
+        // Exécute les instructions de chaque ligne
         for (int i = 0; i < text.length; i++) {
             l.callInstruction(lines[i]);
         }
-        
 
-        /*
-         * Appel reset qui réinitialise les variables de Compilator
-         * Apres l'execution
-         */
+        // Réinitialise les variables du compilateur après l'exécution
         reset();
         System.out.println("Compilation Done");
     }
 
-    /*
-    * Constructeur, compile ligne par ligne doit attendre un 
-    * second appel de compileNextLine()
-    * pour compiler les lignes d'apres 
-    */
-
+    /**
+     * Initialise les registres utilisés dans le compilateur.
+     */
     private void initRegisters(){
         Register X = new Register(0, "X");
         this.registers.add(X);
@@ -70,11 +67,12 @@ public class Compilator {
         this.registers.add(M);
     }
 
-
-    //reset le compilateur pour etre pret a une nouvelle compilation
+    /**
+     * Réinitialise le compilateur pour être prêt à une nouvelle compilation.
+     */
     private void reset() {
-        lines = null; 
-        lineNumber = 0; 
+        lines = null;
+        lineNumber = 0;
         currentLine = 0;
         initRegisters();
     }

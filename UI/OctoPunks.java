@@ -43,7 +43,7 @@ public class OctoPunks extends JFrame {
 
         execute.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Compilator k = new Compilator(textArea.getText(),1);
+                Compilator k = new Compilator(textArea.getText());
             }
         });
 

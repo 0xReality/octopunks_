@@ -4,6 +4,8 @@ import Compilation.Register;
 
 public class COPY implements Cloneable {
 
+    /*
+
     private Register registre1; 
     private Register registre2; 
 
@@ -24,4 +26,5 @@ public class COPY implements Cloneable {
         copie.registre1 = copie.registre2; 
         return R2Clone;
     }
+         */
 }

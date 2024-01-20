@@ -5,41 +5,58 @@ import java.util.*;
 import Fonctions.*;
 
 
+
+/**
+ * La classe LexicalAnalyser effectue l'analyse lexicale des instructions et les transforme en commandes puis apelle l'interpretteur CommandHandler.
+ */
 public class LexicalAnalyser {
     private final ArrayList<Command.Instruction> validCommand;
     private final ArrayList<Register> registers;
 
+    /**
+     * Constructeur de LexicalAnalyser.
+     * @param registers La liste des registres utilisés dans les commandes.
+     */
     public LexicalAnalyser(ArrayList<Register> registers) {
         validCommand = new ArrayList<Command.Instruction>();
         Collections.addAll(validCommand, Command.Instruction.class.getEnumConstants());
         this.registers = registers;
     }
 
+    /**
+     * Convertit le code du joueur en objet Command
+     * @param s Le tableau de chaînes de caractères représentant les arguments de la commande.
+     * @param line Le numéro de la ligne où la commande se trouve.
+     * @return Un objet Command représentant la commande analysée.
+     */
     public Command argsToCommand(String[] s, int line) {
-        Command cmd;
         switch (s[0].toUpperCase()) {
             case "ADDI":
-                return cmd = new Command(Command.Instruction.ADDI, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.ADDI, Arrays.copyOfRange(s, 1, s.length), line);
             case "LINK":
-                return cmd = new Command(Command.Instruction.LINK, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.LINK, Arrays.copyOfRange(s, 1, s.length), line);
             case "COPY":
-                return cmd = new Command(Command.Instruction.COPY, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.COPY, Arrays.copyOfRange(s, 1, s.length), line);
             case "MULI":
-                return cmd = new Command(Command.Instruction.MULI, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.MULI, Arrays.copyOfRange(s, 1, s.length), line);
             case "SUBI":
-                return cmd = new Command(Command.Instruction.SUBI, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.SUBI, Arrays.copyOfRange(s, 1, s.length), line);
             case "DIVI":
-                return cmd = new Command(Command.Instruction.DIVI, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.DIVI, Arrays.copyOfRange(s, 1, s.length), line);
             case "JUMP":
-                return cmd = new Command(Command.Instruction.JUMP, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.JUMP, Arrays.copyOfRange(s, 1, s.length), line);
             case "FJMP":
-                return cmd = new Command(Command.Instruction.FJMP, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.FJMP, Arrays.copyOfRange(s, 1, s.length), line);
             default:
-                return cmd = new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
+                return new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
     }
 
-    
+    /**
+     * Vérifie s'il y a des erreurs dans la commande.
+     * @param cmd La commande à vérifier.
+     * @return Vrai si aucune erreur n'est trouvée, faux sinon.
+     */
     public boolean checkErrors(Command cmd) {
         Exceptions exp = new Exceptions();
         if (!isCommand(cmd)) {
@@ -60,8 +77,10 @@ public class LexicalAnalyser {
     }
 
 
-    /*
-     * Completer les switch cases sur toutes les autres instructions
+    /**
+     * Appelle l'instruction spécifique en fonction de la commande.
+     * @param c La commande dont l'instruction doit être exécutée.
+     * TODO: Completer les switch cases sur toutes les autres instructions
      */
     public void callInstruction(Command c) {
         Object[] args = new Object[c.getExpectedArgs()];

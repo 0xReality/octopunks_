@@ -2,18 +2,28 @@ package Compilation;
 
 import java.util.ArrayList;
 
+
+/**
+ * La classe CommandHandler gère les commandes et interprète les instructions pour manipuler les registres.
+ */
 public class CommandHandler {
     private ArrayList<Register> registers;
     private Exceptions exp;
 
+    /**
+     * Constructeur de CommandHandler.
+     * @param registers La liste des registres utilisés dans le programme.
+     * @param exp Gestionnaire d'exceptions pour traiter les erreurs.
+     */
     public CommandHandler(ArrayList<Register> registers, Exceptions exp) {
         this.registers = registers;
         this.exp = exp;
     }
 
-    /*
-     * a modifier car le joueur doit impérativement entrer un int int registre 
-     * ou registre registre registre pour les fonctions arithmetiques
+    /**
+     * Gère une commande en exécutant l'instruction correspondante.
+     * @param cmd La commande à traiter.
+     * @return Vrai si la commande est traitée avec succès, faux sinon.
      */
     public boolean handleCommand(Command cmd) {
         switch (cmd.getInstruction()) {
@@ -25,7 +35,7 @@ public class CommandHandler {
             case LINK:
             case JUMP:
             case FJMP:
-                return handleJumpCommands(cmd);
+                return handleJumpLinkCommands(cmd);
             case COPY:
                 return handleCopyCommand(cmd);
             default:
@@ -34,6 +44,11 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Gère les commandes arithmétiques.
+     * @param cmd La commande arithmétique à traiter.
+     * @return Vrai si la commande est traitée avec succès, faux sinon.
+     */
     private boolean handleArithmeticCommands(Command cmd) {
         int arg0;
         int arg1;
@@ -113,7 +128,12 @@ public class CommandHandler {
         return true;
     }
     
-    private boolean handleJumpCommands(Command cmd) {
+    /**
+     * Gère les commandes de saut et de mouvement.
+     * @param cmd La commande de saut à traiter.
+     * @return Vrai si la commande est traitée avec succès, faux sinon.
+     */
+    private boolean handleJumpLinkCommands(Command cmd) {
         try {
             int arg0 = Integer.parseInt(cmd.getArgs()[0]);
     
@@ -135,7 +155,11 @@ public class CommandHandler {
         return true;
     }
     
-
+    /**
+     * Gère la commande de copie.
+     * @param cmd La commande COPY à traiter.
+     * @return Vrai si la commande est traitée avec succès, faux sinon.
+     */
     private boolean handleCopyCommand(Command cmd) {
         if (!isAllRegistersValid(cmd)) {
             exp.sendError(cmd, 6); 
