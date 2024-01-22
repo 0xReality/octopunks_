@@ -2,6 +2,7 @@
 
 ## Prérequis
 JavaFX 
+Java 17
 
 ## Instructions de Compilation et d'Exécution
 
