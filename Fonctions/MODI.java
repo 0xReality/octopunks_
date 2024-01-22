@@ -27,9 +27,13 @@ public class MODI {
         return val2;
     }
 
+    public String getRegister(){
+        return registre.getName(); 
+    }
+
     public static int calcul(int val1, int val2)
     {
-        return val1+val2; 
+        return Math.floorMod(val1, val2); 
     }
 
     public void Initialiser(Register R, int val1, int val2)

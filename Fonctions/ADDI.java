@@ -1,6 +1,7 @@
 package Fonctions ;
 
 import Compilation.Register;
+import java.lang.Math; 
 
 public class ADDI {
     private int val1; 
@@ -27,9 +28,22 @@ public class ADDI {
         this.Initialiser(R, R1.getValeur(), R2.getValeur());
     }
 
+    public int getVal1(){
+        return val1; 
+    }
+
+    public int getVal2(){
+        return val2; 
+    }
+
+    public String getRegister()
+    {
+        return registre.getName(); 
+    }
+
     public static int calcul(int val1, int val2)
     {
-        return val1+val2; 
+        return Math.addExact(val1,val2); 
     }
 
     public void Initialiser(Register R, int val1, int val2)

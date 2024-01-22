@@ -2,29 +2,20 @@ package Fonctions;
 
 import Compilation.Register;
 
-public class COPY implements Cloneable {
-
-    /*
+public class COPY{
 
     private Register registre1; 
     private Register registre2; 
 
     public COPY(Register R1, Register R2)
     {
-        this.registre2 = R2; 
-        this.registre1 = (Register) R2.clone();
-    }
-
-    @Override
-    protected COPY clone() throws CloneNotSupportedException {
-        if(!(this instanceof Cloneable))
+        if(R1.equals(R2))
         {
-            throw new CloneNotSupportedException(); 
+            throw new IllegalArgumentException("Les deux registres sont les mêmes !")
         }
-
-        COPY copie = (COPY) super.clone(); 
-        copie.registre1 = copie.registre2; 
-        return R2Clone;
+        this.registre1 = R1; 
+        this.registre2 = R2; 
+        registre2.setValeur(registre1.getValeur());
+        registre2.setGlobal(registre1.isGlobal());
     }
-         */
 }
