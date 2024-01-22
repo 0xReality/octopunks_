@@ -36,6 +36,14 @@ public class Register {
     }
 
     /**
+     * retourne si le registre est global ou non
+     * @return isGlobal
+     */
+    public boolean isGlobal(){
+        return isGlobal;
+    }
+
+    /**
      * Définit la valeur du registre.
      * @param valeur La nouvelle valeur à affecter au registre.
      */
@@ -50,4 +58,5 @@ public class Register {
     public void setGlobal(boolean isGlobal) {
         this.isGlobal = isGlobal;
     }
+
 }

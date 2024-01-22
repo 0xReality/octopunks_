@@ -16,15 +16,19 @@ public class Exceptions {
     public void sendError(Command cmd, int signal) {
         ErrorCode errorCode = findErrorCode(signal);
         String errorMessage;
+        String correctSyntax;
 
         // Formate et affiche le message d'erreur
         if (errorCode != null) {
             errorMessage = String.format("Line %d: %s [%s]", cmd.getLine(), errorCode.getMessage(), errorCode.getCode());
+            correctSyntax = cmd.getCorrectSyntax();
         } else {
             // Message d'erreur pour un signal inconnu
             errorMessage = "<" + cmd.getInstruction() + "> - Unknown error signal: " + signal;
+            correctSyntax = " ";
         }
         System.err.println(errorMessage);
+        System.err.println(correctSyntax);
     }
 
     /**

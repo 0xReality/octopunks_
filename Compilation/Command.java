@@ -55,7 +55,7 @@ public class Command {
         this.instruction = instruction;
         this.args = args;
         this.expectedArgs = instruction.getArgCount();
-        this.line = line;
+        this.line = line;          
     }
 
     // Getters 
@@ -74,6 +74,34 @@ public class Command {
 
     public int getLine() {
         return line;
+    }
+
+    public String getCorrectSyntax(){
+        String correctSyntax;
+
+        switch (instruction) {
+            case ADDI:
+            case MULI:
+            case SUBI:
+            case DIVI:
+                correctSyntax = String.format("usage: %s a(R/N) b(R/N) dest(R)", instruction.toString());
+                break;
+            case JUMP:
+            case FJMP:
+                correctSyntax = String.format("usage: %s dest(R)", instruction.toString());
+                break;
+            case LINK:
+                correctSyntax = String.format("usage: %s dest(R/N)", instruction.toString());
+                break;
+            case COPY:
+                correctSyntax = String.format("usage: %s source(R/N) dest(R)", instruction.toString());  
+                break;
+            default:
+                correctSyntax = "Unkown error";
+                break;
+        }
+
+        return correctSyntax;
     }
 
 }
