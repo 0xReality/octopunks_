@@ -82,7 +82,7 @@ public class LexicalAnalyser {
      * @param c La commande dont l'instruction doit être exécutée.
      * TODO: Completer les switch cases sur toutes les autres instructions
      */
-    public void callInstruction(Command c) {
+    public void callInstruction(Command c, Compilator k) {
         Object[] args = new Object[c.getExpectedArgs()];
         for (int i = 0; i < c.getExpectedArgs(); i++) {
             args[i] = processArgument(c.getArgs()[i]);
@@ -91,6 +91,9 @@ public class LexicalAnalyser {
         switch (c.getInstruction()) {
             case ADDI:
                 new ADDI((int)args[0],(int)args[1] ,r);
+                break;
+            case JUMP:
+                new JUMP((int)args[0], k);
                 break;
             default:
                 break;

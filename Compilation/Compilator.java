@@ -34,7 +34,7 @@ public class Compilator {
         }
 
         // Vérifie s'il y a des erreurs dans chaque ligne
-        for (int i = 0; i < text.length; i++) {
+        for (int i = 0; i < lineNumber; i++) {
             if(!l.checkErrors(lines[i])) endingCompilation = true;
         }
         if(endingCompilation){
@@ -43,10 +43,15 @@ public class Compilator {
             return;
         }
         
+        currentLine = 1;
         // Exécute les instructions de chaque ligne
         for (int i = 0; i < text.length; i++) {
-            l.callInstruction(lines[i]);
+            System.out.println("line: %d: " + i);
+            l.callInstruction(lines[i], this);
+            i = currentLine;
+            currentLine++;
         }
+
 
         // Réinitialise les variables du compilateur après l'exécution
         reset();
@@ -75,6 +80,10 @@ public class Compilator {
         lineNumber = 0;
         currentLine = 0;
         initRegisters();
+    }
+
+    public void setLine(int line){
+        currentLine = line;
     }
 
 }
