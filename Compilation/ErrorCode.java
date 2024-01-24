@@ -9,7 +9,8 @@ public enum ErrorCode {
     INVALID_ARGUMENTS(3, "Invalid arguments."),
     NUMBER_ERROR(4, "Number Unauthorized."),
     DIVISION_BY_ZERO(5, "Attempted division by zero."),
-    INVALID_REGISTER(6, "Invalid register.");
+    INVALID_REGISTER(6, "Invalid register."),
+    LABEL_NOTFOUND(7, "no label found");
 
 
     private final int code;

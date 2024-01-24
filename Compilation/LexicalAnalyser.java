@@ -92,8 +92,28 @@ public class LexicalAnalyser {
             case ADDI:
                 new ADDI((int)args[0],(int)args[1] ,r);
                 break;
+            case SUBI:
+                new SUBI((int)args[0],(int)args[1] ,r);
+                break;
+            case MULI:
+                new MULI((int)args[0],(int)args[1] ,r);
+                break;
+            case MODI:
+                new MODI((int)args[0],(int)args[1] ,r);
+                break;
+            case DIVI:
+                new DIVI((int)args[0],(int)args[1] ,r);
+                break;
             case JUMP:
                 new JUMP((int)args[0], k);
+                break;
+            case FJMP:
+                System.out.println("FJMP not implemented");
+                assert(false);
+                break;
+            case LINK:
+                System.out.println("LINK not implemented");
+                assert(false);
                 break;
             default:
                 break;

@@ -17,6 +17,7 @@ public class Command {
         INVALID(0), 
         COPY(2), 
         MULI(3),
+        MODI(3),
         SUBI(3), 
         DIVI(3),
         JUMP(1),

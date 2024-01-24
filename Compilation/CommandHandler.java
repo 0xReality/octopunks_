@@ -2,6 +2,8 @@ package Compilation;
 
 import java.util.ArrayList;
 
+import Compilation.Command.Instruction;
+
 
 /**
  * La classe CommandHandler gère les commandes et interprète les instructions pour manipuler les registres.
@@ -132,7 +134,6 @@ public class CommandHandler {
      * Gère les commandes de saut et de mouvement.
      * @param cmd La commande de saut à traiter.
      * @return Vrai si la commande est traitée avec succès, faux sinon.
-     * TODO refaire handleJumpLinkCommand
      */
     private boolean handleJumpLinkCommands(Command cmd) {
         try {
@@ -142,16 +143,14 @@ public class CommandHandler {
                 exp.sendError(cmd, 4);
                 return false;
             }
-    
-            /*if (!isRegister(cmd.getArgs()[1])) {
-                exp.sendError(cmd, 6);
-                return false;
-            }*/
-        } catch (NumberFormatException e) {
-            if (!isAllRegistersValid(cmd)) {
-                exp.sendError(cmd, 6);
-                return false;
+            if(cmd.getInstruction() == Instruction.JUMP ||
+            cmd.getInstruction() == Instruction.FJMP){
+                //On doit verifier que le label est contenue dans le codeArea
             }
+    
+        } catch (NumberFormatException e) {
+            exp.sendError(cmd, 7);
+            return false;
         }
         return true;
     }
