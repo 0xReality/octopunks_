@@ -132,6 +132,7 @@ public class CommandHandler {
      * Gère les commandes de saut et de mouvement.
      * @param cmd La commande de saut à traiter.
      * @return Vrai si la commande est traitée avec succès, faux sinon.
+     * TODO refaire handleJumpLinkCommand
      */
     private boolean handleJumpLinkCommands(Command cmd) {
         try {
@@ -142,10 +143,10 @@ public class CommandHandler {
                 return false;
             }
     
-            if (!isRegister(cmd.getArgs()[1])) {
+            /*if (!isRegister(cmd.getArgs()[1])) {
                 exp.sendError(cmd, 6);
                 return false;
-            }
+            }*/
         } catch (NumberFormatException e) {
             if (!isAllRegistersValid(cmd)) {
                 exp.sendError(cmd, 6);
