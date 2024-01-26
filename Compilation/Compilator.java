@@ -33,11 +33,14 @@ public class Compilator {
             lines[i] = l.argsToCommand(text[i].split(" "), currentLine);
         }
 
-
         // Vérifie s'il y a des erreurs dans chaque ligne
         for (int i = 0; i < lineNumber; i++) {
-            currentLine = i;
-            if(!l.checkErrors(lines[i])) endingCompilation = true;
+            if(!l.checkErrors(lines[i])) 
+            {
+                endingCompilation = true; 
+                break;
+            }
+            
         }
         if(endingCompilation){
             reset();
@@ -45,14 +48,18 @@ public class Compilator {
             return;
         }
         
+        
         // Exécute les instructions de chaque ligne
-        for (currentLine = 0; currentLine < lineNumber; currentLine++) {
-            l.callInstruction(lines[currentLine], this);
+        for (int i = 0; i < text.length;i++) {
+            System.out.println(text.length);
+            System.out.println("line: %d: " + i);
+            System.out.println("currentLine : " + currentLine);
+            l.callInstruction(lines[i], this);
+            currentLine++;
         }
 
- 
+
         // Réinitialise les variables du compilateur après l'exécution
-        reset();
         System.out.println("Compilation Done");
     }
 
@@ -84,4 +91,8 @@ public class Compilator {
         currentLine = line;
     }
 
+    public int getCurrentLine()
+    {
+        return currentLine;
+    }
 }
