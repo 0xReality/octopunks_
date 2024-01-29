@@ -7,13 +7,13 @@ JAVAFX_SDK_PATH="lib"
 JAVAFX_MODULES="javafx.controls,javafx.fxml"
 
 # Source files directory
-SRC_DIR="UI/octoPunks.java"
+SRC_DIR="UI/OctoPunksMenu.java"
 
 # Output directory for compiled .class files
 OUT_DIR="out"
 
 # Main class with package
-MAIN_CLASS="UI.octoPunks"
+MAIN_CLASS="UI.OctoPunksMenu"
 
 # Create output directory if it doesn't exist
 mkdir -p ${OUT_DIR}
