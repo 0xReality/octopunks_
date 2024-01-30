@@ -2,6 +2,8 @@ package Compilation;
 
 import java.util.ArrayList;
 
+import UI.Terminal;
+
 /**
  * La classe Compilator s'occupe du processus de compilation des instructions.
  */
@@ -18,8 +20,9 @@ public class Compilator {
      * @param s Le texte à compiler.
      *  TODO: crée un nouveau constructeur pour gerer la compilation par pas
      */
-    public Compilator(String s) {
-        System.out.println("Compiling...");
+    public Compilator(String s, Terminal terminal) {
+        terminal.remove();
+        terminal.print("Compiling...", "white");
         this.endingCompilation = false;
         String[] text = s.split("\n");
         lines = new Command[text.length];
@@ -35,7 +38,7 @@ public class Compilator {
 
         // Vérifie s'il y a des erreurs dans chaque ligne
         for (int i = 0; i < lineNumber; i++) {
-            if(!l.checkErrors(lines[i])) 
+            if(!l.checkErrors(lines[i], terminal)) 
             {
                 endingCompilation = true; 
                 break;
@@ -44,23 +47,22 @@ public class Compilator {
         }
         if(endingCompilation){
             reset();
-            System.out.println("error: compilation aborted");
+            terminal.print("error: compilation aborted","red");
             return;
         }
         
         
         // Exécute les instructions de chaque ligne
         for (int i = 0; i < text.length;i++) {
-            System.out.println(text.length);
-            System.out.println("line: %d: " + i);
-            System.out.println("currentLine : " + currentLine);
             l.callInstruction(lines[i], this);
             currentLine++;
         }
 
 
         // Réinitialise les variables du compilateur après l'exécution
-        System.out.println("Compilation Done");
+        terminal.print("Compilation Done", "green");
+        
+        //nous devons verifier les conditions de victoires
     }
 
     /**

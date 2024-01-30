@@ -3,6 +3,7 @@ package Compilation;
 import java.util.*;
 
 import Fonctions.*;
+import UI.Terminal;
 
 
 
@@ -57,8 +58,8 @@ public class LexicalAnalyser {
      * @param cmd La commande à vérifier.
      * @return Vrai si aucune erreur n'est trouvée, faux sinon.
      */
-    public boolean checkErrors(Command cmd) {
-        Exceptions exp = new Exceptions();
+    public boolean checkErrors(Command cmd, Terminal terminal) {
+        Exceptions exp = new Exceptions(terminal);
         if (!isCommand(cmd)) {
             exp.sendError(cmd, 1);
             return false;

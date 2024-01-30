@@ -43,7 +43,8 @@ public class OctoPunks extends JFrame {
 
         execute.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Compilator k = new Compilator(textArea.getText());
+                System.out.println("La version swing ne marche plus");
+                return;
             }
         });
 

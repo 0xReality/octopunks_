@@ -10,13 +10,15 @@ public class Game extends AnchorPane {
     private int level;
     private NewExa exa = new NewExa();
     private SetButtons setButtons = new SetButtons();
+    private Terminal terminal = new Terminal();
 
     private Compilator compilator;
 
     public Game(int level) {
         this.level = level;
         drawLevel();
-        this.getChildren().addAll(setButtons, exa);
+
+        this.getChildren().addAll(setButtons, exa, terminal);
 
 
         setButtons.getBtnRun().setOnAction(e -> {
@@ -50,7 +52,7 @@ public class Game extends AnchorPane {
             //compilator = new Compilator(exa1, exa2);
             throw new UnsupportedOperationException("Not supported yet.");
         }*/
-        compilator = new Compilator(exa1);
+        compilator = new Compilator(exa1, terminal);
         return true;
     }
 }

@@ -1,12 +1,17 @@
 package Compilation;
 
+import UI.Terminal;
+
 /**
  * La classe Exceptions sert à gérer les erreurs et les exceptions pendant la compilation.
  */
 public class Exceptions {
 
+    private Terminal terminal;
 
-    public Exceptions() { }
+    public Exceptions(Terminal terminal) {
+        this.terminal = terminal;
+     }
 
     /**
      * Envoie un message d'erreur basé sur le code d'erreur et la commande concernée.
@@ -20,15 +25,15 @@ public class Exceptions {
 
         // Formate et affiche le message d'erreur
         if (errorCode != null) {
-            errorMessage = String.format("Line %d: %s [%s]", cmd.getLine(), errorCode.getMessage(), errorCode.getCode());
+            errorMessage = String.format("error: Line %d: %s [%s]", cmd.getLine(), errorCode.getMessage(), errorCode.getCode());
             correctSyntax = cmd.getCorrectSyntax();
         } else {
             // Message d'erreur pour un signal inconnu
             errorMessage = "<" + cmd.getInstruction() + "> - Unknown error signal: " + signal;
             correctSyntax = " ";
         }
-        System.err.println(errorMessage);
-        System.err.println(correctSyntax);
+        terminal.print(errorMessage, "red");
+        terminal.print(correctSyntax, "green");
     }
 
     /**
