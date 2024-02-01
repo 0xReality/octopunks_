@@ -1,4 +1,4 @@
-package UI;
+package UI.gameplay;
 
 import Compilation.Compilator;
 import javafx.scene.control.Button;
@@ -11,6 +11,7 @@ public class Game extends AnchorPane {
     private NewExa exa = new NewExa();
     private SetButtons setButtons = new SetButtons();
     private Terminal terminal = new Terminal();
+    private ShowRegisters registers = new ShowRegisters();
 
     private Compilator compilator;
 
@@ -18,7 +19,7 @@ public class Game extends AnchorPane {
         this.level = level;
         drawLevel();
 
-        this.getChildren().addAll(setButtons, exa, terminal);
+        this.getChildren().addAll(setButtons, registers, terminal, exa);
 
 
         setButtons.getBtnRun().setOnAction(e -> {
@@ -52,7 +53,7 @@ public class Game extends AnchorPane {
             //compilator = new Compilator(exa1, exa2);
             throw new UnsupportedOperationException("Not supported yet.");
         }*/
-        compilator = new Compilator(exa1, terminal);
+        compilator = new Compilator(exa1, terminal, registers);
         return true;
     }
 }

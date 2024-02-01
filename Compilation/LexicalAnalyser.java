@@ -3,7 +3,7 @@ package Compilation;
 import java.util.*;
 
 import Fonctions.*;
-import UI.Terminal;
+import UI.gameplay.Terminal;
 
 
 

@@ -115,10 +115,19 @@ public class CommandHandler {
                 }
             //si on arrive a ce catch cela signifie que arg1 est un registre et arg2 un registre
             } catch (NumberFormatException n) {
-                if (!isAllRegistersValid(cmd)) {
+                if (!isRegister(cmd.getArgs()[0])) {
                     exp.sendError(cmd, 6); 
                     return false;
                 }
+                if (!isRegister(cmd.getArgs()[1])) {
+                    exp.sendError(cmd, 6); 
+                    return false;
+                }
+                if (!isRegister(cmd.getArgs()[2])) {
+                    exp.sendError(cmd, 6); 
+                    return false;
+                }
+
                 Register regArg1 = stringToRegister(cmd.getArgs()[1], registers);
                 // Verification que les 2 chiffres sont entre -9999 et 9999
                 if (numberVerification(regArg0.getValeur()) || numberVerification(regArg1.getValeur())) {
@@ -180,6 +189,7 @@ public class CommandHandler {
         return (n > 9999 || n < -9999);
     }
 
+    //petit soucis a fix incconu
     private boolean isAllRegistersValid(Command cmd){
         for (int i = 0; i < cmd.getArgs().length; i++) {
             if(!(cmd.getArgs()[i].equals(registers.get(i).getName()))) return false;

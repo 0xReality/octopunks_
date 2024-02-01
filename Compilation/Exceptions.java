@@ -1,6 +1,6 @@
 package Compilation;
 
-import UI.Terminal;
+import UI.gameplay.Terminal;
 
 /**
  * La classe Exceptions sert à gérer les erreurs et les exceptions pendant la compilation.

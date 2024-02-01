@@ -2,7 +2,8 @@ package Compilation;
 
 import java.util.ArrayList;
 
-import UI.Terminal;
+import UI.gameplay.ShowRegisters;
+import UI.gameplay.Terminal;
 
 /**
  * La classe Compilator s'occupe du processus de compilation des instructions.
@@ -20,7 +21,7 @@ public class Compilator {
      * @param s Le texte à compiler.
      *  TODO: crée un nouveau constructeur pour gerer la compilation par pas
      */
-    public Compilator(String s, Terminal terminal) {
+    public Compilator(String s, Terminal terminal, ShowRegisters sr) {
         terminal.remove();
         terminal.print("Compiling...", "white");
         this.endingCompilation = false;
@@ -29,6 +30,8 @@ public class Compilator {
         this.lineNumber = text.length;
         this.registers = new ArrayList<Register>();
         initRegisters();
+        sr.setRegisters(registers);
+        sr.updateRegisters(registers);
         l = new LexicalAnalyser(registers);
 
         for (int i = 0; i < lineNumber; i++) {
@@ -56,6 +59,7 @@ public class Compilator {
         for (int i = 0; i < text.length;i++) {
             l.callInstruction(lines[i], this);
             currentLine++;
+            sr.updateRegisters(registers);
         }
 
 

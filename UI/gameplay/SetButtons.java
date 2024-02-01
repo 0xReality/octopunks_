@@ -1,4 +1,4 @@
-package UI;
+package UI.gameplay;
 
 import Compilation.Compilator;
 import javafx.geometry.Pos;
