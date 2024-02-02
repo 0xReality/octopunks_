@@ -170,11 +170,28 @@ public class CommandHandler {
      * @return Vrai si la commande est traitée avec succès, faux sinon.
      */
     private boolean handleCopyCommand(Command cmd) {
-        if (!isAllRegistersValid(cmd)) {
-            exp.sendError(cmd, 6); 
-            return false;
+        try {
+            int arg0 = Integer.parseInt(cmd.getArgs()[0]);
+            if (numberVerification(arg0)) {
+                exp.sendError(cmd, 4);
+                return false;
+            }
+            if(!isRegister(cmd.getArgs()[1])){
+                exp.sendError(cmd, 6); 
+                return false;
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            if(!isRegister(cmd.getArgs()[0])){
+                exp.sendError(cmd, 6); 
+                return false;
+            }
+            if(!isRegister(cmd.getArgs()[1])){
+                exp.sendError(cmd, 6); 
+                return false;
+            }
+            return true;
         }
-        return true;
     }
 
     private boolean isRegister(String nom){

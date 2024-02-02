@@ -1,7 +1,6 @@
 package UI.gameplay;
 
 import Compilation.Compilator;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -12,7 +11,8 @@ public class Game extends AnchorPane {
     private SetButtons setButtons = new SetButtons();
     private Terminal terminal = new Terminal();
     private ShowRegisters registers = new ShowRegisters();
-
+    
+    @SuppressWarnings("unused")
     private Compilator compilator;
 
     public Game(int level) {

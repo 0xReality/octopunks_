@@ -82,6 +82,7 @@ public class LexicalAnalyser {
      * Appelle l'instruction spécifique en fonction de la commande.
      * @param c La commande dont l'instruction doit être exécutée.
      * TODO: Completer les switch cases sur toutes les autres instructions
+     * les fonctions qui prennent le registre en param et non pas sa valeur poses socis
      */
     public void callInstruction(Command c, Compilator k) {
         Object[] args = new Object[c.getExpectedArgs()];
@@ -116,6 +117,8 @@ public class LexicalAnalyser {
                 System.out.println("LINK not implemented");
                 assert(false);
                 break;
+            case COPY:
+                new COPY((Register)args[0], (Register)args[1]);
             default:
                 break;
         }
@@ -125,10 +128,11 @@ public class LexicalAnalyser {
     private Object processArgument(String arg){
         if(arg == null) return null;
         if(isNumber(arg)){
-            return Integer.parseInt(arg);
+            int val =  Integer.parseInt(arg);
+            return new Register(val, null);
         }else{
             Register r = stringToRegister(arg);
-            return r.getValeur();
+            return r;
         }
     }
 

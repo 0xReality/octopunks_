@@ -5,13 +5,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Menu extends Scene {
-
+    
+    @SuppressWarnings("unused")
     private Stage OctoPunks;
     private AnchorPane root;
 
@@ -52,6 +51,7 @@ public class Menu extends Scene {
         level1Button = new Button("Level 1");
         level1Button.setOnAction(event -> {
             AnchorPane game = new Game(1);
+            @SuppressWarnings("unused")
             SceneSwitch ss = new SceneSwitch(root, game);
         });
         layout.getChildren().add(level1Button);
