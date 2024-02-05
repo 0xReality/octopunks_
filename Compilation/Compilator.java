@@ -15,17 +15,19 @@ public class Compilator {
     private int currentLine;
     private boolean endingCompilation;
     private ArrayList<Register> registers;
+    private Terminal terminal;
+    private ShowRegisters sr;
+    private String[] text; //Sert à stocker le texte à compiler
 
     /**
      * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
      * @param s Le texte à compiler.
-     *  TODO: crée un nouveau constructeur pour gerer la compilation par pas
      */
     public Compilator(String s, Terminal terminal, ShowRegisters sr) {
-        terminal.remove();
-        terminal.print("Compiling...", "white");
+        this.terminal = terminal;
+        this.sr = sr;
         this.endingCompilation = false;
-        String[] text = s.split("\n");
+        this.text = s.split("\n");
         lines = new Command[text.length];
         this.lineNumber = text.length;
         this.registers = new ArrayList<Register>();
@@ -33,41 +35,58 @@ public class Compilator {
         sr.setRegisters(registers);
         sr.updateRegisters(registers);
         l = new LexicalAnalyser(registers);
+    }
 
-        for (int i = 0; i < lineNumber; i++) {
+    /*Compile toutes les lignes d'un coup */
+    public void compileAll(){
+        terminal.remove();
+        terminal.print("Compiling...", "white");
+
+        for(int i=0; i < lineNumber; i++){
             this.currentLine = i + 1;
             lines[i] = l.argsToCommand(text[i].split(" "), currentLine);
-        }
-
-        // Vérifie s'il y a des erreurs dans chaque ligne
-        for (int i = 0; i < lineNumber; i++) {
-            if(!l.checkErrors(lines[i], terminal)) 
-            {
-                endingCompilation = true; 
+            if(!l.checkErrors(lines[i], terminal)){
+                endingCompilation = true;
                 break;
             }
-            
         }
+
         if(endingCompilation){
             reset();
-            terminal.print("error: compilation aborted","red");
+            terminal.print("error: compilation aborted", "red");
             return;
         }
-        
-        
-        // Exécute les instructions de chaque ligne
-        for (int i = 0; i < text.length;i++) {
+
+        for(int i = 0; i < lines.length; i++){
             l.callInstruction(lines[i], this);
             currentLine++;
             sr.updateRegisters(registers);
         }
 
-
-        // Réinitialise les variables du compilateur après l'exécution
         terminal.print("Compilation Done", "green");
-        
-        //nous devons verifier les conditions de victoires
     }
+
+    /*Compile une ligne à la fois.
+     *Cette méthode peut être appelée plusieurs fois pour progresser à travers le texte.
+    */
+    public void compileLineByLine(){
+        if(currentLine < lineNumber){
+            lines[currentLine] = l.argsToCommand(text[currentLine].split(" "), currentLine + 1);
+            if(!l.checkErrors(lines[currentLine], terminal)){
+                endingCompilation = true;
+                terminal.print("error: compilation aborted at line " + (currentLine + 1), "red");
+                return;
+            }
+
+            l.callInstruction(lines[currentLine], this);
+            sr.updateRegisters(registers);
+            currentLine++;
+        }   else{
+            terminal.print("All lines have been compiled", "green");
+        }
+    }
+
+
 
     /**
      * Initialise les registres utilisés dans le compilateur.
