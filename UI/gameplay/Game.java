@@ -21,7 +21,7 @@ public class Game extends AnchorPane {
         this.level = level;
         drawLevel();
 
-        this.getChildren().addAll(terminal, loadMenu, setButtons, registers, exa );
+        this.getChildren().addAll( loadMenu, terminal, setButtons, registers, exa );
 
 
         setButtons.getBtnRun().setOnAction(e -> {
