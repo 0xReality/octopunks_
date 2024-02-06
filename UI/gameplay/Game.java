@@ -58,21 +58,20 @@ public class Game extends AnchorPane {
      */
     public boolean callCompiler(CodeArea ca1, CodeArea ca2, int mode){
         if(ca1 == null) return false;
-        String exa1 = ca1.getTextArea().getText();
-        String exa2 = "";
-        if(ca2 != null)  exa2 = ca2.getTextArea().getText();
-        /*if(exa1 != null && exa2 != null){
-            //compilator = new Compilator(exa1, exa2);
-            throw new UnsupportedOperationException("Not supported yet.");
-        }*/
+
+        String separator = "\n-----\n";
+        String exa1 = ca1.getTextArea().getText() + separator;
+        String exa2 = (ca2 != null) ? ca2.getTextArea().getText() : "";
+        
+        String code = exa1 + exa2;
         switch (mode) {
             case 0:
-                compilator = new Compilator(exa1, terminal, registers);   
+                compilator = new Compilator(code, terminal, registers);   
                 compilator.compileAll();
                 return true;
             case 1:
                 if(compilator == null){
-                    compilator = new Compilator(exa1, terminal, registers);   
+                    compilator = new Compilator(code, terminal, registers);   
                     if(compilator.compileNextLine() == 1){
                         compilator = null;
                     }

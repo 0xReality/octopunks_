@@ -2,7 +2,6 @@ package Compilation;
 
 import java.util.ArrayList;
 
-import Compilation.Command.Instruction;
 
 
 /**
@@ -32,6 +31,7 @@ public class CommandHandler {
             case ADDI:
             case MULI:
             case DIVI:
+            case SWIZ:
             case SUBI:
                 return handleArithmeticCommands(cmd);
             case LINK:
@@ -152,11 +152,6 @@ public class CommandHandler {
                 exp.sendError(cmd, 4);
                 return false;
             }
-            if(cmd.getInstruction() == Instruction.JUMP ||
-            cmd.getInstruction() == Instruction.FJMP){
-                //On doit verifier que le label est contenue dans le codeArea
-            }
-    
         } catch (NumberFormatException e) {
             exp.sendError(cmd, 7);
             return false;
@@ -204,14 +199,6 @@ public class CommandHandler {
 
     private boolean numberVerification(int n){
         return (n > 9999 || n < -9999);
-    }
-
-    //petit soucis a fix incconu
-    private boolean isAllRegistersValid(Command cmd){
-        for (int i = 0; i < cmd.getArgs().length; i++) {
-            if(!(cmd.getArgs()[i].equals(registers.get(i).getName()))) return false;
-        }
-        return true;
     }
 
     public Register stringToRegister(String nom, ArrayList<Register> registers){

@@ -1,24 +1,46 @@
 package Fonctions;
+
 import Compilation.Register;
 
 public class SWIZ {
-    private int val1; 
-    private int val2; 
-    private Register registre; 
+    private int input;
+    private int mask;
 
-    /*Commande qui permet de manipuler et réorganiser les chiffres au sein d'un nombre.
-     * Cas spéciaux : Si la val2 est bcp plus petite que la val1 ex : 
-     * val1 : 125
-     * val2 : 45 
-     * R : 
-     * 
-     * @param val1 valeur de référence qui va être manipuler et réorganiser.
-     * @param val2 deuxième valeur qui va guider le sens de la réorganisation de la première valeur. 
-     * @param R registre dans lequel la valeur réorganiser va être stocker. 
-     * 
-     * @throw new IllegalArgumentException si la valeur 2 est plus grande que la valeur 1. 
-     */
-    public SWIZ(int val1, int val2, Register R){
-        
+    public SWIZ(int input, int mask, Register dest){
+        this.input = input;
+        this.mask = mask;
+        this.swizzle(dest);
+    }
+
+    private void swizzle(Register dest) {
+        String inputStr = Integer.toString(Math.abs(this.input));
+        String maskStr = Integer.toString(this.mask);
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < maskStr.length(); i++) {
+            int maskDigit = Character.getNumericValue(maskStr.charAt(i));
+            if (maskDigit >= 1 && maskDigit <= 4) {
+                int index = inputStr.length() - maskDigit;
+                if (index >= 0 && index < inputStr.length()) {
+                    result.append(inputStr.charAt(index));
+                } else {
+                    result.append("0");
+                }
+            } else {
+                result.append("0");
+            }
+        }
+
+        int finalResult = Integer.parseInt(result.toString());
+        if (this.mask < 0) {
+            finalResult *= -1;
+            if (this.input > 0) {
+                finalResult *= -1;
+            }
+        } else if (this.input < 0) {
+            finalResult *= -1;
+        }
+
+        dest.setValeur(finalResult);
     }
 }

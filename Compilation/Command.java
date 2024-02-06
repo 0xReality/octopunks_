@@ -20,6 +20,7 @@ public class Command {
         MODI(3),
         SUBI(3), 
         DIVI(3),
+        SWIZ(3),
         JUMP(1),
         FJMP(1);
 

@@ -1,6 +1,9 @@
 package Compilation;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import Fonctions.*;
 import UI.gameplay.Terminal;
@@ -44,6 +47,8 @@ public class LexicalAnalyser {
                 return new Command(Command.Instruction.SUBI, Arrays.copyOfRange(s, 1, s.length), line);
             case "DIVI":
                 return new Command(Command.Instruction.DIVI, Arrays.copyOfRange(s, 1, s.length), line);
+            case "SWIZ":
+                return new Command(Command.Instruction.SWIZ, Arrays.copyOfRange(s, 1, s.length), line);
             case "JUMP":
                 return new Command(Command.Instruction.JUMP, Arrays.copyOfRange(s, 1, s.length), line);
             case "FJMP":
@@ -81,33 +86,35 @@ public class LexicalAnalyser {
     /**
      * Appelle l'instruction spécifique en fonction de la commande.
      * @param c La commande dont l'instruction doit être exécutée.
-     * TODO: Completer les switch cases sur toutes les autres instructions
-     * les fonctions qui prennent le registre en param et non pas sa valeur poses socis
      */
     public void callInstruction(Command c, Compilator k) {
-        Object[] args = new Object[c.getExpectedArgs()];
+        Register[] args = new Register[c.getExpectedArgs()];
         for (int i = 0; i < c.getExpectedArgs(); i++) {
             args[i] = processArgument(c.getArgs()[i]);
         }
         Register r  = stringToRegister(c.getArgs()[c.getExpectedArgs()-1]);
         switch (c.getInstruction()) {
             case ADDI:
-                new ADDI((int)args[0],(int)args[1] ,r);
+                new ADDI(args[0].getValeur(),args[1].getValeur() ,r);
                 break;
             case SUBI:
-                new SUBI((int)args[0],(int)args[1] ,r);
+                new SUBI(args[0].getValeur(),args[1].getValeur() ,r);
                 break;
             case MULI:
-                new MULI((int)args[0],(int)args[1] ,r);
+                new MULI(args[0].getValeur(),args[1].getValeur() ,r);
                 break;
             case MODI:
-                new MODI((int)args[0],(int)args[1] ,r);
+                new MODI(args[0].getValeur(),args[1].getValeur() ,r);
                 break;
             case DIVI:
-                new DIVI((int)args[0],(int)args[1] ,r);
+                new DIVI(args[0].getValeur(),args[1].getValeur() ,r);
+                break;
+            case SWIZ:
+                //non implmente
+                new SWIZ(args[0].getValeur(),args[1].getValeur() ,r);
                 break;
             case JUMP:
-                new JUMP((int)args[0], k);
+                new JUMP(args[0].getValeur(), k);
                 break;
             case FJMP:
                 System.out.println("FJMP not implemented");
@@ -118,21 +125,21 @@ public class LexicalAnalyser {
                 assert(false);
                 break;
             case COPY:
-                new COPY((Register)args[0], (Register)args[1]);
+                new COPY(args[0], args[1]);
             default:
                 break;
         }
         return;
     }
 
-    private Object processArgument(String arg){
+    private Register processArgument(String arg){
         if(arg == null) return null;
         if(isNumber(arg)){
             int val =  Integer.parseInt(arg);
-            return new Register(val, null).getValeur();
+            return new Register(val, null);
         }else{
             Register r = stringToRegister(arg);
-            return r.getValeur();
+            return r;
         }
     }
 

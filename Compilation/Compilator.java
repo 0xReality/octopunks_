@@ -12,12 +12,15 @@ public class Compilator {
     LexicalAnalyser l;
     private Command[] lines;
     private int lineNumber;
-    private int currentLine;
-    private boolean endingCompilation;
-    private ArrayList<Register> registers;
-    private Terminal terminal;
+    protected int currentLine;
+    protected boolean endingCompilation;
+    protected ArrayList<Register> registers;
+    protected Terminal terminal;
     private ShowRegisters sr;
-    private String[] text; //Sert à stocker le texte à compiler
+    protected String[] text; //Sert à stocker le texte à compiler
+    private boolean block1Priority = true;
+    private int codeBlock1Line;
+    private int codeBlock2Line;
 
     /**
      * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
@@ -77,7 +80,7 @@ public class Compilator {
         }
     }
 
-    private boolean compileLine(int lineIndex) {
+    protected boolean compileLine(int lineIndex) {
         lines[lineIndex] = l.argsToCommand(text[lineIndex].split(" "), lineIndex + 1);
         if(!l.checkErrors(lines[lineIndex], terminal)){
             endingCompilation = true;
@@ -88,8 +91,7 @@ public class Compilator {
         return true;
     }
 
-    private void postCompilation() {
-        System.out.println(lineNumber + " ccurent : " + currentLine);
+    protected void postCompilation() {
         if(endingCompilation){
             reset();
             terminal.print("error: compilation aborted", "red");
@@ -132,5 +134,9 @@ public class Compilator {
     public int getCurrentLine()
     {
         return currentLine;
+    }
+
+    public ArrayList<Register> getRegisters() {
+        return registers;
     }
 }
