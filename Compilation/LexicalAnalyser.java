@@ -129,10 +129,10 @@ public class LexicalAnalyser {
         if(arg == null) return null;
         if(isNumber(arg)){
             int val =  Integer.parseInt(arg);
-            return new Register(val, null);
+            return new Register(val, null).getValeur();
         }else{
             Register r = stringToRegister(arg);
-            return r;
+            return r.getValeur();
         }
     }
 

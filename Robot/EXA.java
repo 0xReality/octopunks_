@@ -1,11 +1,10 @@
-package UI.gameplay;
-package UI; 
+package Robot;
 
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Collections;
 
-public class EXA extends NewExa {
+public class EXA {
     private ArrayList<ObjetOctopunk> inventaire; 
     private String name; /* Options qu'on pourrait rajouter qui serait + fun (personnnaliser son Exa) */
     private Queue<String> messageQueue; /* Les messages pour intéragir avec les deux EXA */

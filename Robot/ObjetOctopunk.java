@@ -1,3 +1,5 @@
+package Robot;
+
 public class ObjetOctopunk {
 
         private String name; 

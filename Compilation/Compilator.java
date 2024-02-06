@@ -35,57 +35,69 @@ public class Compilator {
         sr.setRegisters(registers);
         sr.updateRegisters(registers);
         l = new LexicalAnalyser(registers);
+        this.currentLine = 0;
     }
 
     /*Compile toutes les lignes d'un coup */
-    public void compileAll(){
-        terminal.remove();
-        terminal.print("Compiling...", "white");
-
-        for(int i=0; i < lineNumber; i++){
-            this.currentLine = i + 1;
-            lines[i] = l.argsToCommand(text[i].split(" "), currentLine);
-            if(!l.checkErrors(lines[i], terminal)){
-                endingCompilation = true;
+    public void compileAll() {
+        preCompilation();
+        while (currentLine < lineNumber) {
+            if (!compileLine(currentLine)) {
                 break;
             }
-        }
-
-        if(endingCompilation){
-            reset();
-            terminal.print("error: compilation aborted", "red");
-            return;
-        }
-
-        for(int i = 0; i < lines.length; i++){
-            l.callInstruction(lines[i], this);
             currentLine++;
-            sr.updateRegisters(registers);
         }
-
-        terminal.print("Compilation Done", "green");
+        postCompilation();
     }
 
     /*Compile une ligne à la fois.
      *Cette méthode peut être appelée plusieurs fois pour progresser à travers le texte.
     */
-    public void compileLineByLine(){
-        if(currentLine < lineNumber){
-            lines[currentLine] = l.argsToCommand(text[currentLine].split(" "), currentLine + 1);
-            if(!l.checkErrors(lines[currentLine], terminal)){
-                endingCompilation = true;
-                terminal.print("error: compilation aborted at line " + (currentLine + 1), "red");
-                return;
+    public int compileNextLine() {
+        preCompilation();
+        if (currentLine < lineNumber) {
+            if (!compileLine(currentLine)) {
+                postCompilation();
+                return 0;
             }
-
-            l.callInstruction(lines[currentLine], this);
-            sr.updateRegisters(registers);
             currentLine++;
-        }   else{
-            terminal.print("All lines have been compiled", "green");
+        }
+        if(currentLine >= lineNumber){
+            postCompilation();
+            return 1;
+        }
+        return 0;
+    }
+
+
+    private void preCompilation() {
+        if(currentLine == 0){
+            terminal.remove();
+            terminal.print("Compiling...", "white");
         }
     }
 
+    private boolean compileLine(int lineIndex) {
+        lines[lineIndex] = l.argsToCommand(text[lineIndex].split(" "), lineIndex + 1);
+        if(!l.checkErrors(lines[lineIndex], terminal)){
+            endingCompilation = true;
+            return false;
+        }
+        l.callInstruction(lines[lineIndex], this);
+        sr.updateRegisters(registers);
+        return true;
+    }
+
+    private void postCompilation() {
+        System.out.println(lineNumber + " ccurent : " + currentLine);
+        if(endingCompilation){
+            reset();
+            terminal.print("error: compilation aborted", "red");
+        } else if(lineNumber == currentLine) {
+            terminal.print("Compilation Done", "green");
+            reset();
+        }
+    }
 
 
     /**
@@ -110,6 +122,7 @@ public class Compilator {
         lineNumber = 0;
         currentLine = 0;
         initRegisters();
+        endingCompilation = false;
     }
 
     public void setLine(int line){
