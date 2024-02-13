@@ -19,7 +19,7 @@ public class ShowRegisters extends AnchorPane {
     private ArrayList<Register> registers = new ArrayList<>();
     private Map<String, Label> registerLabels = new HashMap<>();
 
-    public ShowRegisters() {
+    public ShowRegisters(double y, double x) {
         // Initialize labels for different registers
         registers = new ArrayList<Register>();
 
@@ -33,10 +33,8 @@ public class ShowRegisters extends AnchorPane {
         hbox.setSpacing(10);
         hbox.setAlignment(Pos.CENTER);
 
-        AnchorPane.setTopAnchor(hbox, 540.0); // Half of 1080
-        AnchorPane.setRightAnchor(hbox, 0.0);
-        AnchorPane.setBottomAnchor(hbox, 0.0);
-        AnchorPane.setLeftAnchor(hbox, 600.0); // Half of 1200
+        AnchorPane.setTopAnchor(hbox, x); // Half of 1080
+        AnchorPane.setLeftAnchor(hbox, y); // Half of 1200
 
         this.getChildren().add(hbox);
     }

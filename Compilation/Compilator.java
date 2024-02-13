@@ -18,9 +18,6 @@ public class Compilator {
     protected Terminal terminal;
     private ShowRegisters sr;
     protected String[] text; //Sert à stocker le texte à compiler
-    private boolean block1Priority = true;
-    private int codeBlock1Line;
-    private int codeBlock2Line;
 
     /**
      * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
@@ -138,5 +135,9 @@ public class Compilator {
 
     public ArrayList<Register> getRegisters() {
         return registers;
+    }
+
+    public boolean isCompilationComplete(){
+        return currentLine == lineNumber;
     }
 }

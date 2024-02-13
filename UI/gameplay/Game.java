@@ -1,6 +1,7 @@
 package UI.gameplay;
 
 import Compilation.Compilator;
+import Compilation.DoubleCompilator;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -10,14 +11,16 @@ public class Game extends AnchorPane {
     private NewExa exa = new NewExa();
     private SetButtons setButtons = new SetButtons();
     private Terminal terminal = new Terminal();
-    private ShowRegisters registers = new ShowRegisters();
+    private ShowRegisters registers = new ShowRegisters(540.0, 600.0);
+    private ShowRegisters registers2 = new ShowRegisters(300.0, 600.0);
     private Compilator compilator; 
+    private DoubleCompilator doubleCompilator; 
 
     public Game(int level) {
         this.level = level;
         drawLevel();
 
-        this.getChildren().addAll(setButtons, registers, terminal, exa);
+        this.getChildren().addAll(setButtons, registers, registers2, terminal, exa);
 
 
         setButtons.getBtnRun().setOnAction(e -> {
@@ -59,31 +62,54 @@ public class Game extends AnchorPane {
     public boolean callCompiler(CodeArea ca1, CodeArea ca2, int mode){
         if(ca1 == null) return false;
 
-        String separator = "\n-----\n";
-        String exa1 = ca1.getTextArea().getText() + separator;
-        String exa2 = (ca2 != null) ? ca2.getTextArea().getText() : "";
-        
-        String code = exa1 + exa2;
-        switch (mode) {
-            case 0:
-                compilator = new Compilator(code, terminal, registers);   
-                compilator.compileAll();
-                return true;
-            case 1:
-                if(compilator == null){
-                    compilator = new Compilator(code, terminal, registers);   
-                    if(compilator.compileNextLine() == 1){
-                        compilator = null;
-                    }
+        String exa1 = ca1.getTextArea().getText();
+        if(ca2 == null){
+            //il faut bloquer le code area quand le code est en compilation par pas
+            switch (mode) {
+                case 0:
+                    compilator = new Compilator(exa1, terminal, registers);   
+                    compilator.compileAll();
                     return true;
-                }else{
-                    if(compilator.compileNextLine() == 1){
-                        compilator = null;
+                case 1:
+                    if(compilator == null){
+                        compilator = new Compilator(exa1, terminal, registers);   
+                        if(compilator.compileNextLine() == 1){
+                            compilator = null;
+                        }
+                        return true;
+                    }else{
+                        if(compilator.compileNextLine() == 1){
+                            compilator = null;
+                        }
+                        return true;
                     }
+            }
+    
+        }else{
+            String exa2 = ca2.getTextArea().getText();
+            switch (mode) {
+                case 0:
+                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, registers, registers2);   
+                    doubleCompilator.compileAll();
                     return true;
-                }
+                case 1:
+                    if(doubleCompilator == null){
+                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, registers, registers2);   
+                        if(doubleCompilator.compileNextLine() == 1){
+                            doubleCompilator = null;
+                        }
+                        return true;
+                    }else{
+                        if(doubleCompilator.compileNextLine() == 1){
+                            doubleCompilator = null;
+                        }
+                        return true;
+                    }
+            }
         }
-
+        
+        
+       
         return true;
     }
 }
