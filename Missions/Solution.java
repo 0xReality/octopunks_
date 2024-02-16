@@ -13,7 +13,7 @@ public class Solution {
     private File file;
     private String fileName;
     private String s[];
-
+    /* Permet de vérifier que le code rentrer par l'utilisateur est correct ou non ! */
     public Solution(int mission){
         this.mission = mission;
         this.fileName = "Solutions/solution" + mission + ".txt";
