@@ -1,6 +1,7 @@
 package UI;
 
 import UI.gameplay.Game;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,26 +14,49 @@ public class Menu extends Scene {
     @SuppressWarnings("unused")
     private Stage OctoPunks;
     private AnchorPane root;
+    private Scene mainMenuScene; 
 
 
     private Button playButton;
     private Button level1Button;
+    private Button logoutButton; 
+    private Button SettingsButton; 
+    private Button ReturnButton;
+    
 
     private boolean isLevel1Completed = false;
+
 
     public Menu(AnchorPane root, Stage OctoPunks) {
         super(root);
         this.root = root;
         this.OctoPunks = OctoPunks;
+        this.mainMenuScene = this; 
 
         VBox layout = new VBox(10); 
         layout.setAlignment(Pos.CENTER);
+
 
         // Play Button
         playButton = new Button("Play");
         playButton.setOnAction(event -> showLevels(layout));
 
         layout.getChildren().add(playButton);
+
+
+        //  Settings Button 
+        SettingsButton = new Button("Settings"); 
+        layout.getChildren().add(SettingsButton); 
+
+        //  Logout Button 
+        logoutButton = new Button("Logout"); 
+        logoutButton.setOnAction(event -> {
+            OctoPunks.close();
+        });
+
+        layout.getChildren().add(logoutButton); 
+
+        
 
         //ppour centrer le button
         AnchorPane.setTopAnchor(layout, 0.0);
@@ -63,13 +87,26 @@ public class Menu extends Scene {
             
         });
         layout.getChildren().add(level2Button);
+
+        // Return Button (ne marche pas pour l'instant)
+        ReturnButton = new Button("Return"); 
+        ReturnButton.setOnAction(event -> 
+            OctoPunks.setScene(this)
+        );
+        layout.getChildren().add(ReturnButton); 
+        
     }
 
     public Button getPlayButton() {
         return playButton;
     }
 
+
     public Button getLevel1Button() {
         return level1Button;
+    }
+
+    public Scene getMainMenuScene(){
+        return mainMenuScene; 
     }
 }
