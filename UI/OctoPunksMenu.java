@@ -2,6 +2,7 @@ package UI;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -13,10 +14,15 @@ public class OctoPunksMenu extends Application {
     public void start(Stage OctoPunks) {
         OctoPunks.setTitle(name);
 
+        //load l'icone du jeu
+        OctoPunks.getIcons().add(new Image("file:resources/icon.png"));
+
         //mettre le jeu en plein écran
         OctoPunks.setFullScreen(true);
         OctoPunks.setFullScreenExitHint("");
         OctoPunks.initStyle(StageStyle.UNDECORATED);
+
+        
 
         //appel au constructeur du Menu
         Scene menu = new Menu(new AnchorPane(), OctoPunks);

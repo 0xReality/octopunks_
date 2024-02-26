@@ -113,6 +113,8 @@ public class Compilator {
         this.registers.add(M);
     }
 
+
+
     /**
      * Réinitialise le compilateur pour être prêt à une nouvelle compilation.
      */
@@ -139,5 +141,9 @@ public class Compilator {
 
     public boolean isCompilationComplete(){
         return currentLine == lineNumber;
+    }
+
+    public ShowRegisters getSr() {
+        return sr;
     }
 }
