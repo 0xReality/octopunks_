@@ -8,7 +8,7 @@ import UI.gameplay.Terminal;
 /**
  * La classe Compilator s'occupe du processus de compilation des instructions.
  */
-public class Compilator {
+public class Compilator {   
     LexicalAnalyser l;
     private Command[] lines;
     private int lineNumber;

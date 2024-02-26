@@ -11,7 +11,8 @@ public class Game extends AnchorPane {
     private int level;
     private NewExa exa = new NewExa();
     private SetButtons setButtons = new SetButtons();
-    private Terminal terminal = new Terminal();
+    private Terminal helpTerminal = new Terminal(855, 158);
+    private Terminal terminal = new Terminal(435, 158);
     //private ShowRegisters registers = new ShowRegisters(540.0, 600.0);
     //private ShowRegisters registers2 = new ShowRegisters(300.0, 600.0);
     private DoubleCompilator doubleCompilator; 
@@ -23,7 +24,15 @@ public class Game extends AnchorPane {
         this.level = level;
         drawLevel();
 
-        this.getChildren().addAll( loadMenu, terminal, setButtons, exa );
+
+        AnchorPane.setBottomAnchor(terminal,70.0);
+        AnchorPane.setRightAnchor(terminal,60.0);
+
+        AnchorPane.setBottomAnchor(helpTerminal,70.0);
+        AnchorPane.setLeftAnchor(helpTerminal, 564.0);
+
+
+        this.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa );
 
 
         setButtons.getBtnRun().setOnAction(e -> {

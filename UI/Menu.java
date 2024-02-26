@@ -54,7 +54,7 @@ public class Menu extends Scene {
         layout.getChildren().add(SettingsButton); 
 
         //  Logout Button 
-        logoutButton = new Button("Logout"); 
+        logoutButton = new Button("Exit"); 
         logoutButton.setOnAction(event -> {
             OctoPunks.close();
         });

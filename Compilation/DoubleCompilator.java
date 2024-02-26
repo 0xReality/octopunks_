@@ -31,6 +31,7 @@ public class DoubleCompilator {
         Register sharedM = compilator1.getRegisters().get(3);
         compilator2.getRegisters().set(3, sharedM);
 
+
         this.random = new Random();
     }
 
@@ -62,6 +63,7 @@ public class DoubleCompilator {
         if (compilator1.isCompilationComplete() && compilator2.isCompilationComplete()) {
             return 1;
         }
+        
 
         if (random.nextBoolean()) {
             if (!compilator1.isCompilationComplete()) {
