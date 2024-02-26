@@ -37,6 +37,7 @@ public class NewExa extends BorderPane {
         createExaButton.setOnAction(event -> createExa());
     
         HBox buttonContainer = new HBox(createExaButton);
+        buttonContainer.setBorder(new Border(new BorderStroke(Color.RED,BorderStrokeStyle.SOLID,null,null)));
         buttonContainer.setAlignment(Pos.CENTER); 
         buttonContainer.setPadding(new Insets(10, 0, 10, 0));
         

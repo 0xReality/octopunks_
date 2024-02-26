@@ -18,12 +18,12 @@ public class Terminal extends VBox {
                           "-fx-font-family: 'Consolas'; " +
                           "-fx-font-size: 16px;");
         
-        textArea.setPrefSize(700, 250);
+        textArea.setPrefSize(440, 160);
         // Add the TextArea to the VBox
         this.getChildren().add(textArea);
 
-        AnchorPane.setBottomAnchor(this,-265.0);
-        AnchorPane.setRightAnchor(this, -400.0);
+        AnchorPane.setBottomAnchor(this,70.0);
+        AnchorPane.setRightAnchor(this, 58.0);
     }
 
     public void print(String text, String color) {

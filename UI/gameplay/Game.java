@@ -2,6 +2,7 @@ package UI.gameplay;
 
 import Compilation.Compilator;
 import Compilation.DoubleCompilator;
+import UI.Loader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -13,14 +14,16 @@ public class Game extends AnchorPane {
     private Terminal terminal = new Terminal();
     //private ShowRegisters registers = new ShowRegisters(540.0, 600.0);
     //private ShowRegisters registers2 = new ShowRegisters(300.0, 600.0);
-    private Compilator compilator; 
     private DoubleCompilator doubleCompilator; 
+    private Loader loadMenu = new Loader("file:resources/editor/bg.png", "file:resources/editor/bg_panel.png"); 
+
+    private Compilator compilator;
 
     public Game(int level) {
         this.level = level;
         drawLevel();
 
-        this.getChildren().addAll(setButtons, terminal, exa);
+        this.getChildren().addAll( loadMenu, terminal, setButtons, exa );
 
 
         setButtons.getBtnRun().setOnAction(e -> {
