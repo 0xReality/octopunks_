@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 
 public class Solution {
+    @SuppressWarnings("unused")
     private int mission;
     private File file;
     private String fileName;

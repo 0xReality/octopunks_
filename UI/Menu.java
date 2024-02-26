@@ -1,9 +1,7 @@
 package UI;
 
 import UI.gameplay.Game;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -22,11 +22,13 @@ public class NewExa extends BorderPane {
     public NewExa() {
         HBox hbox = new HBox();
     
-        textAreaContainer = new VBox(10); // VBox for TextAreas
-        registersContainer = new VBox(10); // VBox for ShowRegisters, with spacing
-        textAreaContainer.setPadding(new Insets(10));
-        registersContainer.setPadding(new Insets(20));
-        registersContainer.setSpacing(200); // Set spacing between ShowRegisters instances
+        textAreaContainer = new VBox(5); 
+        registersContainer = new VBox(5); 
+        textAreaContainer.setPadding(new Insets(20, -10, 10, 20));
+        registersContainer.setPadding(new Insets(80, 20, 10, 20));
+
+        registersContainer.setSpacing(80);
+
     
         hbox.getChildren().addAll(textAreaContainer, registersContainer);
         this.setBorder(new Border(new BorderStroke(Color.BLACK, 
@@ -63,8 +65,7 @@ public class NewExa extends BorderPane {
             }
 
             textAreaContainer.getChildren().add(codeArea);
-            registersContainer.getChildren().add(registers); // Add the ShowRegisters instance
-
+            registersContainer.getChildren().add(registers); 
             codeArea.getDeleteButton().setOnAction(event -> {
                 textAreaContainer.getChildren().remove(codeArea);
                 registersContainer.getChildren().remove(registers);

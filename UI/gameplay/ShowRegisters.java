@@ -8,10 +8,13 @@ import Compilation.Register;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -23,10 +26,12 @@ public class ShowRegisters extends AnchorPane {
     public ShowRegisters(double y, double x) {
         registers = new ArrayList<Register>();
 
-        registerLabels.put("X", createLabel("X: "));
-        registerLabels.put("T", createLabel("T: "));
-        registerLabels.put("F", createLabel("F: "));
-        registerLabels.put("M", createLabel("M: "));
+        registerLabels.put("X", createLabel("X "));
+        registerLabels.put("T", createLabel("T "));
+        registerLabels.put("F", createLabel("F "));
+        registerLabels.put("M", createLabel("M "));
+
+        updateRegisters(registers);
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(registerLabels.values());
@@ -41,14 +46,33 @@ public class ShowRegisters extends AnchorPane {
 
     public Label createLabel(String text) {
         Label label = new Label(text);
-        label.setFont(new Font("Arial", 16));
-        label.setTextFill(Color.BLUE);
-        BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTGRAY, null, null);
-        label.setBackground(new Background(backgroundFill));
+        label.setFont(new Font("Arial", 14.2));
+        label.setTextFill(Color.GRAY);
+        
+        Image image = new Image("file:resources/exa_cell.png");
+        double aspectRatio = image.getWidth() / image.getHeight();
+    
+    
+        double newWidth = 211 * 0.62;
+        double newHeight = newWidth / aspectRatio ;
+    
+        BackgroundSize backgroundSize = new BackgroundSize(
+            newWidth, newHeight, false, false, false, false
+        );
+    
+        BackgroundImage backgroundImage = new BackgroundImage(
+            image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT, backgroundSize
+        );
+    
+        label.setBackground(new Background(backgroundImage));
         label.setPadding(new Insets(5, 10, 5, 10));
+        label.setMinSize(newWidth, newHeight);
+        label.setMaxSize(newWidth, newHeight);
+    
         return label;
     }
-
+    
     public void updateRegisters(ArrayList<Register> updatedRegisters) {
         for (Register updatedRegister : updatedRegisters) {
             for (Register register : registers) {
@@ -64,7 +88,7 @@ public class ShowRegisters extends AnchorPane {
     private void updateLabel(Register register) {
         Label label = registerLabels.get(register.getName());
         if (label != null) {
-            label.setText(register.getName() + ": " + register.getValeur());
+            label.setText(register.getName() + "        " + register.getValeur());
         }
     }
 

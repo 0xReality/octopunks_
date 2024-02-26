@@ -19,8 +19,21 @@ public class CodeArea extends VBox {
         label = new Label(labelText);
 
         textArea = new TextArea();
-        textArea.setPrefWidth(400);
-        textArea.setMaxWidth(400);
+        textArea.setPrefWidth(260);
+        textArea.setPrefHeight(140);
+
+        textArea.setStyle("-fx-control-inner-background: #19161c; " +
+                          "-fx-text-fill: #515058; " +
+                          "-fx-font-family: 'Consolas'; " +
+                          "-fx-font-size: 16px; " +
+                          "-fx-border-color: transparent; " + 
+                          "-fx-focus-color: transparent; " + 
+                          "-fx-faint-focus-color: transparent; " + 
+                          "-fx-background-color: black; " + 
+                          "-fx-background-insets: 0; " +
+                          "-fx-shadow-highlight-color: transparent;" +
+                          "-fx-border-color: #54454b; " +
+                          "-fx-border-width: 2px;");
 
         deleteButton = new Button("Delete");
 
@@ -31,6 +44,8 @@ public class CodeArea extends VBox {
 
         this.getChildren().addAll(header, textArea);
     }
+
+
 
     public TextArea getTextArea() {
         return textArea;
