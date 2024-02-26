@@ -11,8 +11,8 @@ public class Game extends AnchorPane {
     private NewExa exa = new NewExa();
     private SetButtons setButtons = new SetButtons();
     private Terminal terminal = new Terminal();
-    private ShowRegisters registers = new ShowRegisters(540.0, 600.0);
-    private ShowRegisters registers2 = new ShowRegisters(300.0, 600.0);
+    //private ShowRegisters registers = new ShowRegisters(540.0, 600.0);
+    //private ShowRegisters registers2 = new ShowRegisters(300.0, 600.0);
     private Compilator compilator; 
     private DoubleCompilator doubleCompilator; 
 
@@ -20,7 +20,7 @@ public class Game extends AnchorPane {
         this.level = level;
         drawLevel();
 
-        this.getChildren().addAll(setButtons, registers, registers2, terminal, exa);
+        this.getChildren().addAll(setButtons, terminal, exa);
 
 
         setButtons.getBtnRun().setOnAction(e -> {
@@ -67,12 +67,12 @@ public class Game extends AnchorPane {
             //il faut bloquer le code area quand le code est en compilation par pas
             switch (mode) {
                 case 0:
-                    compilator = new Compilator(exa1, terminal, registers);   
+                    compilator = new Compilator(exa1, terminal, exa.getRegisters1());   
                     compilator.compileAll();
                     return true;
                 case 1:
                     if(compilator == null){
-                        compilator = new Compilator(exa1, terminal, registers);   
+                        compilator = new Compilator(exa1, terminal, exa.getRegisters1());   
                         if(compilator.compileNextLine() == 1){
                             compilator = null;
                         }
@@ -89,12 +89,12 @@ public class Game extends AnchorPane {
             String exa2 = ca2.getTextArea().getText();
             switch (mode) {
                 case 0:
-                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, registers, registers2);   
+                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal,exa.getRegisters1(), exa.getRegisters2());   
                     doubleCompilator.compileAll();
                     return true;
                 case 1:
                     if(doubleCompilator == null){
-                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, registers, registers2);   
+                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2());   
                         if(doubleCompilator.compileNextLine() == 1){
                             doubleCompilator = null;
                         }

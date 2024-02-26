@@ -2,8 +2,11 @@ package UI;
 
 import UI.gameplay.Game;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,19 +17,20 @@ public class Menu extends Scene {
     private Stage OctoPunks;
     private AnchorPane root;
 
-
     private Button playButton;
     private Button level1Button;
 
     private boolean isLevel1Completed = false;
 
-    public Menu(AnchorPane root, Stage OctoPunks) {
+    public  Menu(AnchorPane root, Stage OctoPunks) {
         super(root);
         this.root = root;
         this.OctoPunks = OctoPunks;
+        loadCursor();
 
         VBox layout = new VBox(10); 
         layout.setAlignment(Pos.CENTER);
+
 
         // Play Button
         playButton = new Button("Play");
@@ -41,6 +45,12 @@ public class Menu extends Scene {
         AnchorPane.setLeftAnchor(layout, 0.0);
 
         root.getChildren().add(layout);
+    }
+
+
+    private void loadCursor(){
+        Image cursor = new Image("file:resources/cursor/cursor.png");
+        this.setCursor(new ImageCursor(cursor, 0,0));
     }
 
 
@@ -64,7 +74,7 @@ public class Menu extends Scene {
         });
         layout.getChildren().add(level2Button);
     }
-
+ 
     public Button getPlayButton() {
         return playButton;
     }

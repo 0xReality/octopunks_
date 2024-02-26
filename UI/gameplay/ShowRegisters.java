@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -20,7 +21,6 @@ public class ShowRegisters extends AnchorPane {
     private Map<String, Label> registerLabels = new HashMap<>();
 
     public ShowRegisters(double y, double x) {
-        // Initialize labels for different registers
         registers = new ArrayList<Register>();
 
         registerLabels.put("X", createLabel("X: "));
@@ -28,15 +28,15 @@ public class ShowRegisters extends AnchorPane {
         registerLabels.put("F", createLabel("F: "));
         registerLabels.put("M", createLabel("M: "));
 
-        HBox hbox = new HBox();
-        hbox.getChildren().addAll(registerLabels.values());
-        hbox.setSpacing(10);
-        hbox.setAlignment(Pos.CENTER);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(registerLabels.values());
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.CENTER);
 
-        AnchorPane.setTopAnchor(hbox, x); // Half of 1080
-        AnchorPane.setLeftAnchor(hbox, y); // Half of 1200
+        AnchorPane.setTopAnchor(vbox, x);
+        AnchorPane.setLeftAnchor(vbox, y);
 
-        this.getChildren().add(hbox);
+        this.getChildren().add(vbox);
     }
 
     public Label createLabel(String text) {
@@ -70,6 +70,5 @@ public class ShowRegisters extends AnchorPane {
 
     public void setRegisters(ArrayList<Register> newRegisters) {
         this.registers = newRegisters;
-        // Optionally update all labels here if needed
     }
 }
