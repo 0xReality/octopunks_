@@ -41,6 +41,7 @@ public class CodeArea extends VBox {
         String[] savedCode = data.getSavedCode();
         if (savedCode != null) {
             textArea.setText(String.join("\n", savedCode));
+            instance.updateExaInfoSize();
         }
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {

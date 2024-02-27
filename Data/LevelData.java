@@ -17,12 +17,11 @@ public class LevelData {
         this.level = level;
         savedCode = new String[50]; 
         missionInfo = new String[50]; 
-
         handleFile();
     }
 
     private void handleFile() {
-        File file = new File("savedLevel" + level + "code.octo");
+        File file = new File("Data/savedLevel" + level + "code.octo");
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -34,14 +33,11 @@ public class LevelData {
             System.err.println("INFO: cannot save level data");
         }
 
-        File mFile = new File("mission"+ 2 +".txt");
+        File mFile = new File("Missions/mission"+ level +".octo");
         try{
             if(!file.exists()) System.out.println("didnt find file");
-            List<String> lines = Files.readAllLines(Paths.get(file.getPath()));
+            List<String> lines = Files.readAllLines(Paths.get(mFile.getPath()));
             missionInfo = lines.toArray(new String[0]);
-            for (String string : lines) {
-                System.out.println(string);
-            }
         }catch(IOException e){
             System.out.println("error");
         }
@@ -53,7 +49,7 @@ public class LevelData {
     }
 
     public void writeToFile(String[] text) {
-        try (FileWriter writer = new FileWriter("savedLevel" + level + "code.octo")) {
+        try (FileWriter writer = new FileWriter("Data/savedLevel" + level + "code.octo")) {
             for (String string : text) {
                 writer.write(string);
                 writer.write("\n");

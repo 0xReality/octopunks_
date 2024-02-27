@@ -28,7 +28,7 @@ public class Terminal extends VBox {
                           "-fx--background-radius: 250;");
         
         textArea.setPrefSize(x, y);
-        print(data.getMissionInfo(), "white");
+        if(data != null) print(data.getMissionInfo(), "white");
         this.getChildren().add(textArea);
     }
 

@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 public class Menu extends Scene {
     
-    @SuppressWarnings("unused")
     private Stage OctoPunks;
     private AnchorPane root;
     private Scene mainMenuScene; 

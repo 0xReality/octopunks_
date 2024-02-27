@@ -27,7 +27,7 @@ public class Game extends AnchorPane {
         LevelData data = new LevelData(level);
         exa = new NewExa(data, exaInfo);
         helpTerminal = new Terminal(855, 158, data);
-        terminal = new Terminal(435, 158, data);
+        terminal = new Terminal(435, 158, null);
 
         exa.getTextAreaContainer().getChildren().get(0);
         AnchorPane.setBottomAnchor(terminal,70.0);
