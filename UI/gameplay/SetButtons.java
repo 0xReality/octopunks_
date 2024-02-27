@@ -23,13 +23,16 @@ public class SetButtons extends AnchorPane {
                         "-fx-background-color: transparent;" +
                         "-fx-border-color: transparent;" +
                         "-fx-border-width: 0; " + 
-                        "-fx-faint-focus-color: transparent;");
+                        "-fx-faint-focus-color: transparent;"
+                        );
     }
 
     private ImageView creatImageView(Image image){
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(38);
-        imageView.setFitHeight(64);
+        //imageView.setPreserveRatio(true);
+        //imageView.setFitWidth(100);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(65);
         return imageView;
     }
     // private StackPane createButtonGraphic(Image baseImage, Image overlayImage) {
@@ -50,9 +53,7 @@ public class SetButtons extends AnchorPane {
 
     public SetButtons() {
 
-        //creaction des stack pour les images
-         StackPane graphicStop = new StackPane();
-         StackPane graphicStep = new StackPane();
+        
 
         // Create the buttons
         btnStop = new Button();
@@ -61,8 +62,10 @@ public class SetButtons extends AnchorPane {
         btnExit = new Button();
 
         HBox hbox = new HBox();
-        hbox.setSpacing(10);
-        hbox.setAlignment(Pos.CENTER); 
+        // hbox.setStyle("-fx-padding: 0;" + "-fx-border-style: solid inside;"
+        // + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+        //  + "-fx-border-color: blue;");
+        hbox.setAlignment(Pos.CENTER_LEFT); 
         
 
         // Load the hover/state image
@@ -76,31 +79,40 @@ public class SetButtons extends AnchorPane {
         Image normalImage = new Image("file:resources/playback_normal.png");
         Image hoverNormalImage = new Image("file:resources/playback_hover.png");
         //size (113 x 161) a modifier
-        WritableImage croppedNormalImage = new WritableImage(normalImage.getPixelReader(), 0, 0, 113, 161);
-        WritableImage croppedHoverNormalImage = new WritableImage(hoverNormalImage.getPixelReader(), 0, 0,113,161);
+        WritableImage croppedNormalImage = new WritableImage(normalImage.getPixelReader(), 4, 13, 100, 142);
+        WritableImage croppedHoverNormalImage = new WritableImage(hoverNormalImage.getPixelReader(), 4, 13, 100, 142);
 
         Image stopImage = new Image("file:resources/playback_pause.png");
         Image hoverStopImage = new Image("file:resources/playback_pause_hover.png");
         //size (113 x 161) changer si necessaire
-        WritableImage croppedStopImage = new WritableImage(stopImage.getPixelReader(), 0, 0, 113, 161);
-        WritableImage croppedHoverStopImage = new WritableImage(hoverStopImage.getPixelReader(), 0, 0,113,161);
+        WritableImage croppedStopImage = new WritableImage(stopImage.getPixelReader(), 4, 13, 100, 142);
+        WritableImage croppedHoverStopImage = new WritableImage(hoverStopImage.getPixelReader(), 4, 13, 100, 142);
 
         Image stepImage = new Image("file:resources/playback_step.png");
         Image hoverStepImage = new Image("file:resources/playback_step_hover.png");
         //size (113 x 161) changer si necessaire
-        WritableImage croppedStepImage = new WritableImage(stepImage.getPixelReader(), 0, 0, 113, 161);
-        WritableImage croppedHoverStepImage = new WritableImage(hoverStepImage.getPixelReader(), 0, 0,113,161);
+        WritableImage croppedStepImage = new WritableImage(stepImage.getPixelReader(), 4, 13, 100, 142);
+        WritableImage croppedHoverStepImage = new WritableImage(hoverStepImage.getPixelReader(), 4, 13, 100, 142);
+
+        Image runImage = new Image("file:resources/playback_play.png");
+        Image hoverRunImage = new Image("file:resources/playback_play_hover.png");
+        //size (113 x 161) changer si necessaire
+        WritableImage croppedRunImage = new WritableImage(runImage.getPixelReader(), 4, 13, 100, 142);
+        WritableImage croppedHoverRunImage = new WritableImage(hoverRunImage.getPixelReader(), 4, 13, 100, 142);
         
         
         //creation de l'image coupé dans ImageView
-        ImageView exitView = creatImageView(croppedExitImage);
-
+    
         ImageView stopNormalView = creatImageView(croppedNormalImage);
         ImageView stopView = creatImageView(croppedStopImage);
 
         ImageView stepNormalView = creatImageView(croppedNormalImage);
         ImageView stepView = creatImageView(croppedStepImage);
+
+        ImageView runNormalView = creatImageView(croppedNormalImage);
+        ImageView runView = creatImageView(croppedRunImage);
         
+        ImageView exitView = new ImageView(croppedExitImage);
         //ImageView exitView = new ImageView(exitImage);
         //exitView.setPreserveRatio(true);
         exitView.setFitWidth(38);
@@ -122,27 +134,32 @@ public class SetButtons extends AnchorPane {
         // stepView.setFitWidth(38);
         // stepView.setFitHeight(64);
 
-        AnchorPane.setTopAnchor(hbox, 1080.0 / 2.0);
-        AnchorPane.setRightAnchor(hbox,0.0);
-        AnchorPane.setBottomAnchor(hbox, 0.0);
-        AnchorPane.setLeftAnchor(hbox, 860.0);
+        AnchorPane.setTopAnchor(hbox, 780.3);
+        //AnchorPane.setRightAnchor(hbox,0.0);
+        // AnchorPane.setBottomAnchor(hbox, -100.0);
+        AnchorPane.setLeftAnchor(hbox, 592.5);
 
        
+        //creaction des stack pour les images
+        StackPane graphicStop = new StackPane();
+        StackPane graphicStep = new StackPane();
+        StackPane graphicRun = new StackPane();
 
         // StackPane graphicStep = new StackPane();
         graphicStop.getChildren().addAll(stopNormalView,stopView);
         graphicStep.getChildren().addAll(stepNormalView,stepView);
-
+        graphicRun.getChildren().addAll(runNormalView,runView);
         
         btnStop.setGraphic(graphicStop);
         btnStep.setGraphic(graphicStep);
+        btnRun.setGraphic(graphicRun);
 
         btnExit.setGraphic(exitView);
         //Hovering Exit
         btnExit.setOnMouseEntered(e -> exitView.setImage(croppedHoverExitImage));
         btnExit.setOnMouseExited(e -> exitView.setImage(croppedExitImage));
 
-        // Change the image when hovering "STOP"
+        // Change the image when hovering "Stop"
         btnStop.setOnMouseEntered(e -> {
             stopNormalView.setImage(croppedHoverNormalImage);
             stopView.setImage(croppedHoverStopImage);
@@ -153,7 +170,7 @@ public class SetButtons extends AnchorPane {
             stopView.setImage(croppedStopImage);
         });
         
-        // Change the image when hovering "STEP"
+        // Change the image when hovering "Step"
         btnStep.setOnMouseEntered(e -> {
             stepNormalView.setImage(croppedHoverNormalImage);
             stepView.setImage(croppedHoverStepImage);
@@ -163,11 +180,20 @@ public class SetButtons extends AnchorPane {
             stepNormalView.setImage(croppedNormalImage);
             stepView.setImage(croppedStepImage);
         });
-    
+        // Change the image when hovering "Run"
+        btnRun.setOnMouseEntered(e -> {
+            runNormalView.setImage(croppedHoverNormalImage);
+            runView.setImage(croppedHoverRunImage);
+        });
         
-       //applyButtonStyle(btnStop);
-        //applyButtonStyle(btnRun);
-        //applyButtonStyle(btnStep);
+        btnRun.setOnMouseExited(e -> {
+            runNormalView.setImage(croppedNormalImage);
+            runView.setImage(croppedRunImage);
+        });
+        
+        applyButtonStyle(btnStop);
+        applyButtonStyle(btnRun);
+        applyButtonStyle(btnStep);
         applyButtonStyle(btnExit);
 
         hbox.getChildren().addAll(btnStop, btnStep, btnRun);
