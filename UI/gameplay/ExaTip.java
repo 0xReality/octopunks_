@@ -11,11 +11,11 @@ public class ExaTip extends Tooltip {
     public ExaTip(String path, Button btn){
         Image toolTipBg = new Image(path);
         ImageView ViewToolTip = new ImageView(toolTipBg);
+        //ViewToolTip.setPreserveRatio(true);
+        ViewToolTip.setFitHeight(70);
+        ViewToolTip.setFitWidth(400);
 
-        ViewToolTip.setFitHeight(111);
-        ViewToolTip.setFitWidth(450);
-
-        this.setShowDelay(Duration.ZERO);
+        this.setShowDelay(Duration.seconds(0.4));
 
         this.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
 

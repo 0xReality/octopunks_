@@ -5,7 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import Data.LevelData;
 import javafx.geometry.Insets;
 
@@ -50,6 +54,8 @@ public class CodeArea extends VBox {
 
 
         VBox header = new VBox(5, label, deleteButton);
+        header.setBorder(new Border(new BorderStroke(Color.RED,             
+            BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         
         Image cursor = new Image("file:resources/cursor/cursor.png");
         this.setCursor(new ImageCursor(cursor, 0, 0));

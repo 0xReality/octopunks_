@@ -27,12 +27,12 @@ public class Game extends AnchorPane {
         drawLevel();
         LevelData data = new LevelData(level);
         exa = new NewExa(data);
-        helpTerminal = new Terminal(855, 158, data);
-        terminal = new Terminal(435, 158, data);
+        helpTerminal = new Terminal(854, 158, data);
+        terminal = new Terminal(434, 158, data);
 
-        exa.getTextAreaContainer().getChildren().get(0);
+        //exa.getTextAreaContainer().getChildren().get(0);
         AnchorPane.setBottomAnchor(terminal,70.0);
-        AnchorPane.setRightAnchor(terminal,60.0);
+        AnchorPane.setRightAnchor(terminal,58.0);
 
         AnchorPane.setBottomAnchor(helpTerminal,70.0);
         AnchorPane.setLeftAnchor(helpTerminal, 564.0);
@@ -41,27 +41,27 @@ public class Game extends AnchorPane {
         this.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa );
 
 
-        setButtons.getBtnRun().setOnAction(e -> {
-            if (!exa.getTextAreaContainer().getChildren().isEmpty()) {
-                CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().getChildren().get(0);
-                CodeArea codeArea2 = null;
-                if (exa.getTextAreaContainer().getChildren().size() > 1) {
-                    codeArea2 = (CodeArea) exa.getTextAreaContainer().getChildren().get(1);
-                }
-                callCompiler(codeArea1, codeArea2, 0);
-            }
-        });
+        // setButtons.getBtnRun().setOnAction(e -> {
+        //     if (!exa.getTextAreaContainer().getChildren().isEmpty()) {
+        //         CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().getChildren().get(0);
+        //         CodeArea codeArea2 = null;
+        //         if (exa.getTextAreaContainer().getChildren().size() > 1) {
+        //             codeArea2 = (CodeArea) exa.getTextAreaContainer().getChildren().get(1);
+        //         }
+        //         callCompiler(codeArea1, codeArea2, 0);
+        //     }
+        // });
 
-        setButtons.getBtnStep().setOnAction(e -> {
-            if (!exa.getTextAreaContainer().getChildren().isEmpty()) {
-                CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().getChildren().get(0);
-                CodeArea codeArea2 = null;
-                if (exa.getTextAreaContainer().getChildren().size() > 1) {
-                    codeArea2 = (CodeArea) exa.getTextAreaContainer().getChildren().get(1);
-                }
-                callCompiler(codeArea1, codeArea2, 1);
-            }
-        });
+        // setButtons.getBtnStep().setOnAction(e -> {
+        //     if (!exa.getTextAreaContainer().getChildren().isEmpty()) {
+        //         CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().getChildren().get(0);
+        //         CodeArea codeArea2 = null;
+        //         if (exa.getTextAreaContainer().getChildren().size() > 1) {
+        //             codeArea2 = (CodeArea) exa.getTextAreaContainer().getChildren().get(1);
+        //         }
+        //         callCompiler(codeArea1, codeArea2, 1);
+        //     }
+        // });
 
     }
 
