@@ -67,7 +67,11 @@ public class SetButtons extends AnchorPane {
         btnStep = new Button();
         btnExit = new Button();
 
-        ExaTip runTip = new ExaTip("file:resources/tooltip_frame.png", btnRun);
+
+
+        ExaTip runTip = new ExaTip("file:resources/tooltips/tooltip_run.png", btnRun);
+        ExaTip stepTip = new ExaTip("file:resources/tooltips/tooltip_step.png", btnStep);
+        ExaTip resetTip = new ExaTip("file:resources/tooltips/tooltip_reset.png", btnStop);
 
         HBox hbox = new HBox();
         // hbox.setStyle("-fx-padding: 0;" + "-fx-border-style: solid inside;"

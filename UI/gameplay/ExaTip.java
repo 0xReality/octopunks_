@@ -14,7 +14,7 @@ public class ExaTip extends Tooltip {
         ImageView ViewToolTip = new ImageView(toolTipBg);
 
         ViewToolTip.setFitHeight(111);
-        ViewToolTip.setFitWidth(350);
+        ViewToolTip.setFitWidth(450);
 
         this.setShowDelay(Duration.ZERO);
 
