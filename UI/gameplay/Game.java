@@ -4,11 +4,12 @@ import Compilation.Compilator;
 import Compilation.DoubleCompilator;
 import Data.LevelData;
 import UI.Loader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
-public class Game extends AnchorPane {
+public class Game extends Scene {
     private int level;
     private NewExa exa;
     private SetButtons setButtons = new SetButtons();
@@ -20,9 +21,12 @@ public class Game extends AnchorPane {
     private Loader loadMenu = new Loader("file:resources/editor/bg.png", "file:resources/editor/bg_panel.png"); 
 
     private Compilator compilator;
+    private AnchorPane root; 
 
     public Game(int level) {
+        super(new AnchorPane(),800,600); 
         this.level = level;
+        this.root = (AnchorPane) this.getRoot();
         drawLevel();
         LevelData data = new LevelData(level);
         exa = new NewExa(data, exaInfo);
@@ -41,7 +45,7 @@ public class Game extends AnchorPane {
         AnchorPane.setRightAnchor(exaInfo, 350.0);
 
 
-        this.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,exaInfo );
+        root.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,exaInfo );
 
 
         setButtons.getBtnRun().setOnAction(e -> {
@@ -74,7 +78,7 @@ public class Game extends AnchorPane {
         helloLabel.setLayoutX(1920 / 2 - 30);
         helloLabel.setLayoutY(10);
 
-        this.getChildren().add(helloLabel);
+        root.getChildren().add(helloLabel);
     }
 
     /*

@@ -1,10 +1,11 @@
 package UI;
 
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class SceneSwitch {
-    public SceneSwitch(AnchorPane current, AnchorPane next){
-        current.getChildren().removeAll();
-        current.getChildren().setAll(next);
+    public SceneSwitch(Stage stage, Scene next){
+        stage.setScene(next);
     }
 }

@@ -14,7 +14,6 @@ public class Menu extends Scene {
     
     private Stage OctoPunks;
     private AnchorPane root;
-    private Scene mainMenuScene; 
 
     private Button playButton;
     private Button level1Button;
@@ -24,7 +23,7 @@ public class Menu extends Scene {
     
 
     private boolean isLevel1Completed = false;
-
+    private VBox layout; 
 
 
     public  Menu(AnchorPane root, Stage OctoPunks) {
@@ -32,7 +31,6 @@ public class Menu extends Scene {
         this.root = root;
         this.OctoPunks = OctoPunks;
         loadCursor();
-        this.mainMenuScene = this; 
 
         VBox layout = new VBox(10); 
         layout.setAlignment(Pos.CENTER);
@@ -41,8 +39,6 @@ public class Menu extends Scene {
 
         // Play Button
         playButton = new Button("Play");
-        playButton.setOnAction(event -> showLevels(layout));
-
         layout.getChildren().add(playButton);
 
 
@@ -58,7 +54,10 @@ public class Menu extends Scene {
 
         layout.getChildren().add(logoutButton); 
 
-        
+        playButton.setOnAction(event->{
+            OctoPunks.setScene(new ShowsLevels(this));
+            OctoPunks.setFullScreen(true);
+        });
 
         //ppour centrer le button
         AnchorPane.setTopAnchor(layout, 0.0);
@@ -69,40 +68,17 @@ public class Menu extends Scene {
         root.getChildren().add(layout);
     }
 
+    public Stage getStage(){
+        return OctoPunks; 
+    }
 
     private void loadCursor(){
         Image cursor = new Image("file:resources/cursor/cursor.png");
         this.setCursor(new ImageCursor(cursor, 0,0));
     }
 
-
-    private void showLevels(VBox layout) {
-        layout.getChildren().clear();
-
-        // Level 1 Button
-        level1Button = new Button("Level 1");
-        level1Button.setOnAction(event -> {
-            AnchorPane game = new Game(1);
-            @SuppressWarnings("unused")
-            SceneSwitch ss = new SceneSwitch(root, game);
-        });
-        layout.getChildren().add(level1Button);
-
-        // Level 2 Button
-        Button level2Button = new Button("Level 2");
-        level2Button.setDisable(!isLevel1Completed); 
-        level2Button.setOnAction(event -> {
-            
-        });
-        layout.getChildren().add(level2Button);
-
-        // Return Button (ne marche pas pour l'instant)
-        ReturnButton = new Button("Return"); 
-        ReturnButton.setOnAction(event -> 
-            OctoPunks.setScene(this)
-        );
-        layout.getChildren().add(ReturnButton); 
-        
+    public void returnToMenu(){
+        root.getChildren().setAll(layout);
     }
  
     public Button getPlayButton() {
@@ -115,6 +91,6 @@ public class Menu extends Scene {
     }
 
     public Scene getMainMenuScene(){
-        return mainMenuScene; 
+        return this; 
     }
 }
