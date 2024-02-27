@@ -8,6 +8,7 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.paint.Color;
+import Data.LevelData;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
@@ -18,9 +19,11 @@ public class NewExa extends BorderPane {
     private VBox registersContainer;
     private ShowRegisters registers1;    
     private ShowRegisters registers2;
+    private LevelData data;
 
-    public NewExa() {
+    public NewExa(LevelData data) {
         HBox hbox = new HBox();
+        this.data = data;
     
         textAreaContainer = new VBox(5); 
         registersContainer = new VBox(5); 
@@ -53,7 +56,7 @@ public class NewExa extends BorderPane {
 
     public void createExa() {
         if (exaCount < 2) {
-            CodeArea codeArea = new CodeArea("Exa-" + (exaCount + 1));
+            CodeArea codeArea = new CodeArea("Exa-" + (exaCount + 1), data);
 
 
             ShowRegisters registers = new ShowRegisters(0, 0); 
@@ -101,4 +104,5 @@ public class NewExa extends BorderPane {
     public ShowRegisters getRegisters2() {
         return registers2;
     }
+
 }

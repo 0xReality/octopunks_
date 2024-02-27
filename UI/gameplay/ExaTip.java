@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
 public class ExaTip extends Tooltip {
@@ -23,7 +22,6 @@ public class ExaTip extends Tooltip {
         this.setGraphic(ViewToolTip);
 
         this.setOnShowing(event -> {
-            Window window = this.getOwnerWindow();
             Bounds bounds = btn.localToScreen(btn.getBoundsInLocal());
             this.setX(bounds.getMinX());
             this.setY(bounds.getMinY() - this.getHeight());

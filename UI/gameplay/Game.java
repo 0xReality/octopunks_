@@ -2,6 +2,7 @@ package UI.gameplay;
 
 import Compilation.Compilator;
 import Compilation.DoubleCompilator;
+import Data.LevelData;
 import UI.Loader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -9,13 +10,14 @@ import javafx.scene.text.Font;
 
 public class Game extends AnchorPane {
     private int level;
-    private NewExa exa = new NewExa();
+    private NewExa exa;
     private SetButtons setButtons = new SetButtons();
-    private Terminal helpTerminal = new Terminal(855, 158);
-    private Terminal terminal = new Terminal(435, 158);
+
     //private ShowRegisters registers = new ShowRegisters(540.0, 600.0);
     //private ShowRegisters registers2 = new ShowRegisters(300.0, 600.0);
     private DoubleCompilator doubleCompilator; 
+    private Terminal terminal;
+    private Terminal helpTerminal;
     private Loader loadMenu = new Loader("file:resources/editor/bg.png", "file:resources/editor/bg_panel.png"); 
 
     private Compilator compilator;
@@ -23,8 +25,12 @@ public class Game extends AnchorPane {
     public Game(int level) {
         this.level = level;
         drawLevel();
+        LevelData data = new LevelData(level);
+        exa = new NewExa(data);
+        helpTerminal = new Terminal(855, 158, data);
+        terminal = new Terminal(435, 158, data);
 
-
+        exa.getTextAreaContainer().getChildren().get(0);
         AnchorPane.setBottomAnchor(terminal,70.0);
         AnchorPane.setRightAnchor(terminal,60.0);
 
