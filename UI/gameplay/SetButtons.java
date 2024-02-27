@@ -1,14 +1,20 @@
 package UI.gameplay;
 
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.PopupWindow.AnchorLocation;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
 public class SetButtons extends AnchorPane {
 
@@ -60,6 +66,8 @@ public class SetButtons extends AnchorPane {
         btnRun = new Button();
         btnStep = new Button();
         btnExit = new Button();
+
+        ExaTip runTip = new ExaTip("file:resources/tooltip_frame.png", btnRun);
 
         HBox hbox = new HBox();
         // hbox.setStyle("-fx-padding: 0;" + "-fx-border-style: solid inside;"
