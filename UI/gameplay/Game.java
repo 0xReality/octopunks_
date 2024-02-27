@@ -4,6 +4,8 @@ import Compilation.Compilator;
 import Compilation.DoubleCompilator;
 import Data.LevelData;
 import UI.Loader;
+import UI.Menu;
+import UI.SceneSwitch;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -17,14 +19,16 @@ public class Game extends Scene {
     private DoubleCompilator doubleCompilator; 
     private Terminal terminal;
     private Terminal helpTerminal;
+    private Menu mainMenu;
     private ExaInfo exaInfo = new ExaInfo();
     private Loader loadMenu = new Loader("file:resources/editor/bg.png", "file:resources/editor/bg_panel.png"); 
 
     private Compilator compilator;
     private AnchorPane root; 
 
-    public Game(int level) {
+    public Game(int level, Menu MainMenu) {
         super(new AnchorPane(),800,600); 
+        this.mainMenu = MainMenu;
         this.level = level;
         this.root = (AnchorPane) this.getRoot();
         drawLevel();
@@ -68,6 +72,11 @@ public class Game extends Scene {
                 }
                 callCompiler(codeArea1, codeArea2, 1);
             }
+        });
+
+        setButtons.getBtnExit().setOnAction(e ->{
+            new SceneSwitch(mainMenu.getStage(), mainMenu); 
+            mainMenu.getStage().setFullScreen(true);
         });
 
     }

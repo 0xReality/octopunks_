@@ -27,7 +27,7 @@ public class ShowsLevels extends Scene{
         //Level 1 Button
         level1Button = new Button("Level 1"); 
         level1Button.setOnAction(event -> {
-            Scene gamScene = new Game(1); 
+            Scene gamScene = new Game(1, mainMenu); 
             new SceneSwitch(mainMenu.getStage(), gamScene); 
             mainMenu.getStage().setFullScreen(true);
         });

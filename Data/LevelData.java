@@ -21,7 +21,7 @@ public class LevelData {
     }
 
     private void handleFile() {
-        File file = new File("Data/savedLevel" + level + "code.octo");
+        File file = new File("Data/Saved/savedLevel" + level + "code.octo");
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -49,7 +49,7 @@ public class LevelData {
     }
 
     public void writeToFile(String[] text) {
-        try (FileWriter writer = new FileWriter("Data/savedLevel" + level + "code.octo")) {
+        try (FileWriter writer = new FileWriter("Data/Saved/savedLevel" + level + "code.octo")) {
             for (String string : text) {
                 writer.write(string);
                 writer.write("\n");
