@@ -2,6 +2,7 @@ package Compilation;
 
 import java.util.ArrayList;
 
+import UI.gameplay.ExaInfo;
 import UI.gameplay.ShowRegisters;
 import UI.gameplay.Terminal;
 
@@ -17,15 +18,17 @@ public class Compilator {
     protected ArrayList<Register> registers;
     protected Terminal terminal;
     private ShowRegisters sr;
+    private ExaInfo exaInfo;
     protected String[] text; //Sert à stocker le texte à compiler
 
     /**
      * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
      * @param s Le texte à compiler.
      */
-    public Compilator(String s, Terminal terminal, ShowRegisters sr) {
+    public Compilator(String s, Terminal terminal, ShowRegisters sr, ExaInfo exaInfo) {
         this.terminal = terminal;
         this.sr = sr;
+        this.exaInfo = exaInfo;
         this.endingCompilation = false;
         this.text = s.split("\n");
         lines = new Command[text.length];
@@ -72,6 +75,7 @@ public class Compilator {
 
     private void preCompilation() {
         if(currentLine == 0){
+            exaInfo.updateValues(null, 0, 0);
             terminal.remove();
             terminal.print("Compiling...", "white");
         }
@@ -83,7 +87,7 @@ public class Compilator {
             endingCompilation = true;
             return false;
         }
-        l.callInstruction(lines[lineIndex], this);
+        l.callInstruction(lines[lineIndex], this, exaInfo);
         sr.updateRegisters(registers);
         return true;
     }

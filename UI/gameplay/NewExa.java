@@ -1,5 +1,6 @@
 package UI.gameplay;
 
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -20,10 +21,12 @@ public class NewExa extends BorderPane {
     private ShowRegisters registers1;    
     private ShowRegisters registers2;
     private LevelData data;
+    private ExaInfo exaInfo;
 
-    public NewExa(LevelData data) {
+    public NewExa(LevelData data, ExaInfo exaInfo) {
         HBox hbox = new HBox();
         this.data = data;
+        this.exaInfo = exaInfo;
     
         textAreaContainer = new VBox(5); 
         registersContainer = new VBox(5); 
@@ -52,11 +55,25 @@ public class NewExa extends BorderPane {
 
         createExa();
     }
+
+    public void updateExaInfoSize() {
+        int totalLines = 0;
+
+        // Calculate the total number of lines in both Exa bots' text areas
+        for (Node child : textAreaContainer.getChildren()) {
+            if (child instanceof CodeArea) {
+                CodeArea codeArea = (CodeArea) child;
+                int lineCount = codeArea.getLineNumber();
+                totalLines += lineCount;
+            }
+        }
+        exaInfo.updateValues(totalLines, null, null);
+    }
     
 
     public void createExa() {
         if (exaCount < 2) {
-            CodeArea codeArea = new CodeArea("Exa-" + (exaCount + 1), data);
+            CodeArea codeArea = new CodeArea("Exa-" + (exaCount + 1), data, exaInfo, this);
 
 
             ShowRegisters registers = new ShowRegisters(0, 0); 

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import Fonctions.*;
+import UI.gameplay.ExaInfo;
 import UI.gameplay.Terminal;
 
 
@@ -53,6 +54,8 @@ public class LexicalAnalyser {
                 return new Command(Command.Instruction.JUMP, Arrays.copyOfRange(s, 1, s.length), line);
             case "FJMP":
                 return new Command(Command.Instruction.FJMP, Arrays.copyOfRange(s, 1, s.length), line);
+            case "Kill":
+                return new Command(Command.Instruction.KILL, Arrays.copyOfRange(s, 1, s.length), line);
             default:
                 return new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
@@ -87,12 +90,16 @@ public class LexicalAnalyser {
      * Appelle l'instruction spécifique en fonction de la commande.
      * @param c La commande dont l'instruction doit être exécutée.
      */
-    public void callInstruction(Command c, Compilator k) {
+    public void callInstruction(Command c, Compilator k, ExaInfo exaInfo) {
         Register[] args = new Register[c.getExpectedArgs()];
         for (int i = 0; i < c.getExpectedArgs(); i++) {
             args[i] = processArgument(c.getArgs()[i]);
         }
         Register r  = stringToRegister(c.getArgs()[c.getExpectedArgs()-1]);
+
+        int cycles = exaInfo.getCycles() + 1;;
+        int activity = exaInfo.getActivity();
+        boolean isActivityInstruction = false;
         switch (c.getInstruction()) {
             case ADDI:
                 new ADDI(args[0].getValeur(),args[1].getValeur() ,r);
@@ -110,18 +117,22 @@ public class LexicalAnalyser {
                 new DIVI(args[0].getValeur(),args[1].getValeur() ,r);
                 break;
             case SWIZ:
-                //non implmente
                 new SWIZ(args[0].getValeur(),args[1].getValeur() ,r);
                 break;
             case JUMP:
                 new JUMP(args[0].getValeur(), k);
                 break;
             case FJMP:
-                System.out.println("FJMP not implemented");
-                assert(false);
+                new FJMP(args[0].getValeur(), k);
                 break;
             case LINK:
+                isActivityInstruction = true;
                 System.out.println("LINK not implemented");
+                assert(false);
+                break;
+            case KILL:
+                isActivityInstruction = true;
+                System.out.println("KILL not implemented");
                 assert(false);
                 break;
             case COPY:
@@ -129,6 +140,10 @@ public class LexicalAnalyser {
             default:
                 break;
         }
+
+        if (isActivityInstruction) activity++;
+        exaInfo.updateValues(null, cycles, activity);
+
         return;
     }
 

@@ -14,7 +14,7 @@ public class CodeArea extends VBox {
     private Label label;
     private Button deleteButton;
 
-    public CodeArea(String labelText, LevelData data) {
+    public CodeArea(String labelText, LevelData data, ExaInfo exaInfo, NewExa instance) {
         super(5); 
         this.setPadding(new Insets(5));
         label = new Label(labelText);
@@ -45,6 +45,7 @@ public class CodeArea extends VBox {
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             data.setSavedCode(newValue.split("\n"));
+            instance.updateExaInfoSize();
         });
 
 
@@ -67,4 +68,8 @@ public class CodeArea extends VBox {
         return deleteButton;
     }
 
+
+    public int getLineNumber(){
+        return textArea.getText().split("\n").length;
+    }
 }

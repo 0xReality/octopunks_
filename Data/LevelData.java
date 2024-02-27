@@ -34,7 +34,7 @@ public class LevelData {
             System.err.println("INFO: cannot save level data");
         }
 
-        File mFile = new File("Missions/mission"+ 2 +".txt");
+        File mFile = new File("mission"+ 2 +".txt");
         try{
             if(!file.exists()) System.out.println("didnt find file");
             List<String> lines = Files.readAllLines(Paths.get(file.getPath()));

@@ -13,11 +13,10 @@ public class Game extends AnchorPane {
     private NewExa exa;
     private SetButtons setButtons = new SetButtons();
 
-    //private ShowRegisters registers = new ShowRegisters(540.0, 600.0);
-    //private ShowRegisters registers2 = new ShowRegisters(300.0, 600.0);
     private DoubleCompilator doubleCompilator; 
     private Terminal terminal;
     private Terminal helpTerminal;
+    private ExaInfo exaInfo = new ExaInfo();
     private Loader loadMenu = new Loader("file:resources/editor/bg.png", "file:resources/editor/bg_panel.png"); 
 
     private Compilator compilator;
@@ -26,7 +25,7 @@ public class Game extends AnchorPane {
         this.level = level;
         drawLevel();
         LevelData data = new LevelData(level);
-        exa = new NewExa(data);
+        exa = new NewExa(data, exaInfo);
         helpTerminal = new Terminal(855, 158, data);
         terminal = new Terminal(435, 158, data);
 
@@ -38,7 +37,11 @@ public class Game extends AnchorPane {
         AnchorPane.setLeftAnchor(helpTerminal, 564.0);
 
 
-        this.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa );
+        AnchorPane.setBottomAnchor(exaInfo, 245.0);
+        AnchorPane.setRightAnchor(exaInfo, 350.0);
+
+
+        this.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,exaInfo );
 
 
         setButtons.getBtnRun().setOnAction(e -> {
@@ -85,12 +88,12 @@ public class Game extends AnchorPane {
             //il faut bloquer le code area quand le code est en compilation par pas
             switch (mode) {
                 case 0:
-                    compilator = new Compilator(exa1, terminal, exa.getRegisters1());   
+                    compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo);   
                     compilator.compileAll();
                     return true;
                 case 1:
                     if(compilator == null){
-                        compilator = new Compilator(exa1, terminal, exa.getRegisters1());   
+                        compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo);   
                         if(compilator.compileNextLine() == 1){
                             compilator = null;
                         }
@@ -107,12 +110,12 @@ public class Game extends AnchorPane {
             String exa2 = ca2.getTextArea().getText();
             switch (mode) {
                 case 0:
-                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal,exa.getRegisters1(), exa.getRegisters2());   
+                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal,exa.getRegisters1(), exa.getRegisters2(), exaInfo);   
                     doubleCompilator.compileAll();
                     return true;
                 case 1:
                     if(doubleCompilator == null){
-                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2());   
+                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2(), exaInfo);   
                         if(doubleCompilator.compileNextLine() == 1){
                             doubleCompilator = null;
                         }
