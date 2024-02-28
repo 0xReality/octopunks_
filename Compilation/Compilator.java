@@ -83,6 +83,7 @@ public class Compilator {
 
     protected boolean compileLine(int lineIndex) {
         lines[lineIndex] = l.argsToCommand(text[lineIndex].split(" "), lineIndex + 1);
+        if(lines[lineIndex] == null) return false;
         if(!l.checkErrors(lines[lineIndex], terminal)){
             endingCompilation = true;
             return false;

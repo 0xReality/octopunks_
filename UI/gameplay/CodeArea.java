@@ -38,11 +38,24 @@ public class CodeArea extends VBox {
 
         deleteButton = new Button("Delete");
 
-        String[] savedCode = data.getSavedCode();
-        if (savedCode != null) {
-            textArea.setText(String.join("\n", savedCode));
-            instance.updateExaInfoSize();
+        String[] savedCode;
+        if(instance.getTextAreaContainer().getChildren().size() <= 0){
+            savedCode = data.getSavedCode();
+            if (savedCode != null) {
+                textArea.setText(String.join("\n", savedCode));
+                instance.updateExaInfoSize();
+            }
+        }else{
+            savedCode = data.getSavedCode2();
+            for (String string : savedCode) {
+                System.out.println(string);
+            }
+            if (savedCode != null) {
+                textArea.setText(String.join("\n", savedCode));
+                instance.updateExaInfoSize();
+            }
         }
+    
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             if(textArea.getText() .isBlank()){
@@ -52,10 +65,17 @@ public class CodeArea extends VBox {
                 sb.getBtnRun().setDisable(false);
                 sb.getBtnStep().setDisable(false);
             }
+
+            if(instance.getTextAreaContainer().getChildren().size() <= 0){
+                data.setSavedCode(newValue.split("\n"), 1);
+            }else{
+                data.setSavedCode(newValue.split("\n"), 2);
+            }
             
-            data.setSavedCode(newValue.split("\n"));
             instance.updateExaInfoSize();
         });
+
+
 
 
 
