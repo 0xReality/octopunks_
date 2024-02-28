@@ -24,7 +24,7 @@ public class Game extends Scene {
     private AnchorPane root; 
 
     public Game(int level) {
-        super(new AnchorPane(),800,600); 
+        super(new AnchorPane(),0,0); 
         this.level = level;
         this.root = (AnchorPane) this.getRoot();
         drawLevel();

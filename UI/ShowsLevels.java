@@ -1,10 +1,12 @@
 package UI;
 
 import UI.gameplay.Game;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class ShowsLevels extends Scene{
     
@@ -28,8 +30,27 @@ public class ShowsLevels extends Scene{
         level1Button = new Button("Level 1"); 
         level1Button.setOnAction(event -> {
             Scene gamScene = new Game(1); 
-            new SceneSwitch(mainMenu.getStage(), gamScene); 
+            
             mainMenu.getStage().setFullScreen(true);
+            
+            FadeTransition fadeOut= new FadeTransition(Duration.millis(1000), mainMenu.getStage().getScene().getRoot()); 
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), mainMenu.getStage().getScene().getRoot()); 
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+
+            fadeOut.setOnFinished(e ->{
+            fadeIn.play();
+            new SceneSwitch(mainMenu.getStage(), gamScene); 
+            mainMenu.getStage().setScene(gamScene);
+            mainMenu.getStage().setFullScreen(true); 
+            
+
+            });
+            fadeOut.play();
+    
         });
         levelslayout.getChildren().add(level1Button); 
 
