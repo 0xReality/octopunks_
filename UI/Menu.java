@@ -71,10 +71,11 @@ public class Menu extends Scene {
     }
 
 
-    private void loadCursor(){
-        Image cursor = new Image("file:resources/cursor/cursor.png");
-        this.setCursor(new ImageCursor(cursor, 0,0));
-    }
+    private void loadCursor() {
+    Image cursor = new Image("file:resources/cursor/cursor.png");
+    this.setCursor(new ImageCursor(cursor, cursor.getWidth() / 2, cursor.getHeight() / 2));
+}
+
 
 
     private void showLevels(VBox layout) {

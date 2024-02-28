@@ -57,8 +57,8 @@ public class CodeArea extends VBox {
         header.setBorder(new Border(new BorderStroke(Color.RED,             
             BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         
-        Image cursor = new Image("file:resources/cursor/cursor.png");
-        this.setCursor(new ImageCursor(cursor, 0, 0));
+        // Image cursor = new Image("file:resources/cursor/cursor.png");
+        // this.setCursor(new ImageCursor(cursor, 0, 0));
 
         this.getChildren().addAll(header, textArea);
     }
