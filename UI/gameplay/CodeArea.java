@@ -1,22 +1,15 @@
 package UI.gameplay;
 
-import javafx.scene.ImageCursor;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import Data.LevelData;
 import javafx.geometry.Insets;
 
 public class CodeArea extends VBox {
     private TextArea textArea;
     private Label label;
-    private Button deleteButton;
+    //private Button deleteButton;
 
     public CodeArea(String labelText, LevelData data) {
         super(5); 
@@ -40,7 +33,7 @@ public class CodeArea extends VBox {
                           "-fx-border-color: #54454b; " +
                           "-fx-border-width: 2px;");
 
-        deleteButton = new Button("Delete");
+        //deleteButton = new Button("Delete");
 
         String[] savedCode = data.getSavedCode();
         if (savedCode != null) {
@@ -53,14 +46,14 @@ public class CodeArea extends VBox {
 
 
 
-        VBox header = new VBox(5, label, deleteButton);
-        header.setBorder(new Border(new BorderStroke(Color.RED,             
-            BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
+        // VBox header = new VBox(5, label, deleteButton);
+        // header.setBorder(new Border(new BorderStroke(Color.RED,             
+        //     BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         
         // Image cursor = new Image("file:resources/cursor/cursor.png");
         // this.setCursor(new ImageCursor(cursor, 0, 0));
 
-        this.getChildren().addAll(header, textArea);
+        this.getChildren().addAll(textArea);
     }
 
 
@@ -69,8 +62,8 @@ public class CodeArea extends VBox {
         return textArea;
     }
 
-    public Button getDeleteButton() {
-        return deleteButton;
-    }
+    // public Button getDeleteButton() {
+    //     return deleteButton;
+    // }
 
 }
