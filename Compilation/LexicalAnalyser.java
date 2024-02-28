@@ -35,6 +35,7 @@ public class LexicalAnalyser {
      * @return Un objet Command représentant la commande analysée.
      */
     public Command argsToCommand(String[] s, int line) {
+        if(s[0].isBlank()) return null;
         switch (s[0].toUpperCase()) {
             case "ADDI":
                 return new Command(Command.Instruction.ADDI, Arrays.copyOfRange(s, 1, s.length), line);
