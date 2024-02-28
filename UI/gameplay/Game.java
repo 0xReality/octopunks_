@@ -38,6 +38,8 @@ public class Game extends Scene {
         terminal = new Terminal(435, 158, null);
 
         exa.getTextAreaContainer().getChildren().get(0);
+
+        AnchorPane.setLeftAnchor(exa,30.0);
         AnchorPane.setBottomAnchor(terminal,70.0);
         AnchorPane.setRightAnchor(terminal,60.0);
 
