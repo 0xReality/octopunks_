@@ -14,7 +14,7 @@ public class CodeArea extends VBox {
     private Label label;
     private Button deleteButton;
 
-    public CodeArea(String labelText, LevelData data, ExaInfo exaInfo, NewExa instance) {
+    public CodeArea(String labelText, LevelData data, ExaInfo exaInfo, NewExa instance, SetButtons sb) {
         super(5); 
         this.setPadding(new Insets(5));
         label = new Label(labelText);
@@ -45,9 +45,18 @@ public class CodeArea extends VBox {
         }
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(textArea.getText() .isBlank()){
+                sb.getBtnRun().setDisable(true);
+                sb.getBtnStep().setDisable(true);
+            }else{
+                sb.getBtnRun().setDisable(false);
+                sb.getBtnStep().setDisable(false);
+            }
+            
             data.setSavedCode(newValue.split("\n"));
             instance.updateExaInfoSize();
         });
+
 
 
 

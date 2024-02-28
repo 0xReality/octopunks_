@@ -33,7 +33,7 @@ public class Game extends Scene {
         this.root = (AnchorPane) this.getRoot();
         drawLevel();
         LevelData data = new LevelData(level);
-        exa = new NewExa(data, exaInfo);
+        exa = new NewExa(data, exaInfo, setButtons);
         helpTerminal = new Terminal(855, 158, data);
         terminal = new Terminal(435, 158, null);
 
@@ -62,6 +62,8 @@ public class Game extends Scene {
                 callCompiler(codeArea1, codeArea2, 0);
             }
         });
+
+
 
         setButtons.getBtnStep().setOnAction(e -> {
             if (!exa.getTextAreaContainer().getChildren().isEmpty()) {

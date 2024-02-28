@@ -22,9 +22,11 @@ public class NewExa extends BorderPane {
     private ShowRegisters registers2;
     private LevelData data;
     private ExaInfo exaInfo;
+    private SetButtons sb;
 
-    public NewExa(LevelData data, ExaInfo exaInfo) {
+    public NewExa(LevelData data, ExaInfo exaInfo, SetButtons sb) {
         HBox hbox = new HBox();
+        this.sb = sb;
         this.data = data;
         this.exaInfo = exaInfo;
     
@@ -73,7 +75,7 @@ public class NewExa extends BorderPane {
 
     public void createExa() {
         if (exaCount < 2) {
-            CodeArea codeArea = new CodeArea("Exa-" + (exaCount + 1), data, exaInfo, this);
+            CodeArea codeArea = new CodeArea("Exa-" + (exaCount + 1), data, exaInfo, this, sb);
 
 
             ShowRegisters registers = new ShowRegisters(0, 0); 

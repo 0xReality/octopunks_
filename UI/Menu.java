@@ -1,6 +1,7 @@
 package UI;
 
 import UI.gameplay.Game;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
@@ -55,8 +56,11 @@ public class Menu extends Scene {
         layout.getChildren().add(logoutButton); 
 
         playButton.setOnAction(event->{
-            OctoPunks.setScene(new ShowsLevels(this));
-            OctoPunks.setFullScreen(true);
+            Platform.runLater(() ->{
+                ShowsLevels sl = new ShowsLevels(this);
+                OctoPunks.setScene(sl);
+                OctoPunks.setFullScreen(true);
+            });
         });
 
         //ppour centrer le button
