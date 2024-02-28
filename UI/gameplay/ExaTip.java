@@ -12,10 +12,10 @@ public class ExaTip extends Tooltip {
         Image toolTipBg = new Image(path);
         ImageView ViewToolTip = new ImageView(toolTipBg);
 
-        ViewToolTip.setFitHeight(111);
-        ViewToolTip.setFitWidth(450);
+        ViewToolTip.setFitHeight(70);
+        ViewToolTip.setFitWidth(400);
 
-        this.setShowDelay(Duration.ZERO);
+        this.setShowDelay(Duration.seconds(0.4));
 
         this.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
 
