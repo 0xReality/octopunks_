@@ -60,6 +60,8 @@ public class Game extends Scene {
         drawLevel();
 
         exa.getTextAreaContainer().getChildren().get(0);
+
+        AnchorPane.setLeftAnchor(exa,30.0);
         AnchorPane.setBottomAnchor(terminal,70.0);
         AnchorPane.setRightAnchor(terminal,60.0);
 
