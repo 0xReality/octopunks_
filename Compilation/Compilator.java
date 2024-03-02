@@ -2,6 +2,7 @@ package Compilation;
 
 import java.util.ArrayList;
 
+import Missions.Solution;
 import UI.gameplay.ExaInfo;
 import UI.gameplay.ShowRegisters;
 import UI.gameplay.Terminal;
@@ -20,12 +21,14 @@ public class Compilator {
     private ShowRegisters sr;
     private ExaInfo exaInfo;
     protected String[] text; //Sert à stocker le texte à compiler
+    private int level;
 
     /**
      * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
      * @param s Le texte à compiler.
      */
-    public Compilator(String s, Terminal terminal, ShowRegisters sr, ExaInfo exaInfo) {
+    public Compilator(String s, Terminal terminal,
+     ShowRegisters sr, ExaInfo exaInfo, int level) {
         this.terminal = terminal;
         this.sr = sr;
         this.exaInfo = exaInfo;
@@ -38,11 +41,12 @@ public class Compilator {
         sr.setRegisters(registers);
         sr.updateRegisters(registers);
         l = new LexicalAnalyser(registers);
+        this.level = level;
         this.currentLine = 0;
     }
 
     /*Compile toutes les lignes d'un coup */
-    public void compileAll() {
+    public boolean compileAll() {
         preCompilation();
         while (currentLine < lineNumber) {
             if (!compileLine(currentLine)) {
@@ -50,7 +54,7 @@ public class Compilator {
             }
             currentLine++;
         }
-        postCompilation();
+        return postCompilation();  
     }
 
     /*Compile une ligne à la fois.
@@ -93,15 +97,24 @@ public class Compilator {
         return true;
     }
 
-    protected void postCompilation() {
+    protected boolean postCompilation() {
         if(endingCompilation){
             reset();
             terminal.print("error: compilation aborted", "red");
         } else if(lineNumber == currentLine) {
             terminal.print("Compilation Done", "green");
             reset();
+            return true;
         }
+        return false;
     }
+
+    //a modifier 
+    public boolean correctAnswer(Compilator cmp){
+        Solution sln = new Solution(level);
+        return sln.CompareTo(text);
+    }
+    
 
 
     /**

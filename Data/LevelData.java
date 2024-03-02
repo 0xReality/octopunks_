@@ -66,7 +66,7 @@ public class LevelData {
 
     public void setSavedCode(String[] savedCode, int x) {
         this.savedCode = savedCode;
-        writeToFile(savedCode, (x == 1 ? this.name:this.name2));
+        writeToFile(savedCode, (x == 1 ? this.name : this.name2));
     }
 
     public void writeToFile(String[] text, String name) {

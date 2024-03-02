@@ -1,5 +1,14 @@
 package UI.gameplay;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Compilation.Compilator;
 import Compilation.DoubleCompilator;
 import Data.LevelData;
@@ -9,6 +18,8 @@ import UI.SceneSwitch;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 
 public class Game extends Scene {
@@ -22,20 +33,31 @@ public class Game extends Scene {
     private Menu mainMenu;
     private ExaInfo exaInfo = new ExaInfo();
     private Loader loadMenu = new Loader("file:resources/editor/bg.png", "file:resources/editor/bg_panel.png"); 
-
+    private LevelData data;
     private Compilator compilator;
-    private AnchorPane root; 
+    private AnchorPane root;
+    private Clip clip; 
 
     public Game(int level, Menu MainMenu) {
         super(new AnchorPane(),800,600); 
         this.mainMenu = MainMenu;
         this.level = level;
         this.root = (AnchorPane) this.getRoot();
-        drawLevel();
-        LevelData data = new LevelData(level);
+        data = new LevelData(level);
         exa = new NewExa(data, exaInfo, setButtons);
         helpTerminal = new Terminal(855, 158, data);
         terminal = new Terminal(435, 158, null);
+        
+        try {
+            File audioFile = new File("resources/sounds/fanfare_solving1.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            clip = AudioSystem.getClip();
+            clip.open(audioStream);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+
+        drawLevel();
 
         exa.getTextAreaContainer().getChildren().get(0);
         AnchorPane.setBottomAnchor(terminal,70.0);
@@ -59,7 +81,12 @@ public class Game extends Scene {
                 if (exa.getTextAreaContainer().getChildren().size() > 1) {
                     codeArea2 = (CodeArea) exa.getTextAreaContainer().getChildren().get(1);
                 }
-                callCompiler(codeArea1, codeArea2, 0);
+                if(callCompiler(codeArea1, codeArea2, 0)){
+                    helpTerminal.remove();
+                    helpTerminal.print("BRAVO TA REUSSI", "green");
+                    clip.setMicrosecondPosition(0);
+                    clip.start();
+                }
             }
         });
 
@@ -72,7 +99,12 @@ public class Game extends Scene {
                 if (exa.getTextAreaContainer().getChildren().size() > 1) {
                     codeArea2 = (CodeArea) exa.getTextAreaContainer().getChildren().get(1);
                 }
-                callCompiler(codeArea1, codeArea2, 1);
+                if(callCompiler(codeArea1, codeArea2, 1)){
+                    helpTerminal.remove();
+                    helpTerminal.print("BRAVO TA REUSSI", "green");
+                    clip.setMicrosecondPosition(0);
+                    clip.start();
+                }
             }
         });
 
@@ -96,28 +128,28 @@ public class Game extends Scene {
      * 0 pour compiler tout et 1 pour
      */
     public boolean callCompiler(CodeArea ca1, CodeArea ca2, int mode){
-        if(ca1 == null) return false;
+        if(ca1 == null) return false;;
 
         String exa1 = ca1.getTextArea().getText();
         if(ca2 == null){
             //il faut bloquer le code area quand le code est en compilation par pas
             switch (mode) {
                 case 0:
-                    compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo);   
+                    compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo, level);   
                     compilator.compileAll();
-                    return true;
+                    return compilator.correctAnswer(null);
                 case 1:
                     if(compilator == null){
-                        compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo);   
+                        compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo, level);   
                         if(compilator.compileNextLine() == 1){
                             compilator = null;
                         }
-                        return true;
+                        return compilator.correctAnswer(null);
                     }else{
                         if(compilator.compileNextLine() == 1){
                             compilator = null;
                         }
-                        return true;
+                        return compilator.correctAnswer(null);
                     }
             }
     
@@ -125,27 +157,25 @@ public class Game extends Scene {
             String exa2 = ca2.getTextArea().getText();
             switch (mode) {
                 case 0:
-                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal,exa.getRegisters1(), exa.getRegisters2(), exaInfo);   
+                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal,exa.getRegisters1(), exa.getRegisters2(), exaInfo, level);   
                     doubleCompilator.compileAll();
-                    return true;
+                    return compilator.correctAnswer(null);
                 case 1:
                     if(doubleCompilator == null){
-                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2(), exaInfo);   
+                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2(), exaInfo, level);   
                         if(doubleCompilator.compileNextLine() == 1){
                             doubleCompilator = null;
                         }
-                        return true;
+                        return compilator.correctAnswer(null);
                     }else{
                         if(doubleCompilator.compileNextLine() == 1){
                             doubleCompilator = null;
                         }
-                        return true;
+                        return compilator.correctAnswer(null);
                     }
             }
         }
-        
-        
        
-        return true;
+        return compilator.correctAnswer(null);
     }
 }

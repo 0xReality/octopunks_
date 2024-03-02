@@ -3,8 +3,8 @@
 # Path to the JavaFX SDK lib directory
 JAVAFX_SDK_PATH="lib"
 
-# JavaFX modules used in the application
-JAVAFX_MODULES="javafx.controls,javafx.fxml"
+# JavaFX modules used in the application (now includes javafx.media)
+JAVAFX_MODULES="javafx.controls,javafx.fxml,javafx.media"
 
 # Source files directory
 SRC_DIR="UI/OctoPunksMenu.java"

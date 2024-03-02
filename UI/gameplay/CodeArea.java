@@ -47,9 +47,6 @@ public class CodeArea extends VBox {
             }
         }else{
             savedCode = data.getSavedCode2();
-            for (String string : savedCode) {
-                System.out.println(string);
-            }
             if (savedCode != null) {
                 textArea.setText(String.join("\n", savedCode));
                 instance.updateExaInfoSize();
@@ -66,7 +63,7 @@ public class CodeArea extends VBox {
                 sb.getBtnStep().setDisable(false);
             }
 
-            if(instance.getTextAreaContainer().getChildren().size() <= 0){
+            if(instance.getTextAreaContainer().getChildren().size() <= 1){
                 data.setSavedCode(newValue.split("\n"), 1);
             }else{
                 data.setSavedCode(newValue.split("\n"), 2);

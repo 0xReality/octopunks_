@@ -16,7 +16,7 @@ public class Solution {
     /* Permet de vérifier que le code rentrer par l'utilisateur est correct ou non ! */
     public Solution(int mission){
         this.mission = mission;
-        this.fileName = "Solutions/solution" + mission + ".txt";
+        this.fileName = "Missions/Solutions/solution" + mission + ".octo";
         file = new File(fileName);
         s = loadFile(file).split("\n");
     }
