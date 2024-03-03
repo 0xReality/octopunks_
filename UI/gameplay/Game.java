@@ -133,7 +133,8 @@ public class Game {
      * 0 pour compiler tout et 1 pour
      */
     public boolean callCompiler(CodeArea ca1, CodeArea ca2, int mode){
-        if(ca1 == null) return false;;
+        if(ca1 == null) return false;
+        boolean returnCall;
 
         String exa1 = ca1.getTextArea().getText();
         if(ca2 == null){
@@ -147,14 +148,18 @@ public class Game {
                     if(compilator == null){
                         compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo, level);   
                         if(compilator.compileNextLine() == 1){
+                            returnCall = compilator.correctAnswer(null);
                             compilator = null;
+                            return returnCall;
                         }
-                        return compilator.correctAnswer(null);
+                        return false;
                     }else{
                         if(compilator.compileNextLine() == 1){
+                            returnCall = compilator.correctAnswer(null);
                             compilator = null;
+                            return returnCall;
                         }
-                        return compilator.correctAnswer(null);
+                        return false;
                     }
             }
     
@@ -169,19 +174,23 @@ public class Game {
                     if(doubleCompilator == null){
                         doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2(), exaInfo, level);   
                         if(doubleCompilator.compileNextLine() == 1){
+                            returnCall = doubleCompilator.correctAnswer();
                             doubleCompilator = null;
+                            return returnCall;
                         }
-                        return compilator.correctAnswer(null);
+                        return false;
                     }else{
                         if(doubleCompilator.compileNextLine() == 1){
+                            returnCall = doubleCompilator.correctAnswer();
                             doubleCompilator = null;
+                            return returnCall;
                         }
-                        return compilator.correctAnswer(null);
+                        return false;
                     }
             }
         }
        
-        return compilator.correctAnswer(null);
+        return false;
     }
 
     public Scene getSceneGame() {

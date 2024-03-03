@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 public class Terminal extends VBox {
 
     private TextArea textArea;
+    @SuppressWarnings("unused")
     private LevelData data;
 
     public Terminal(int x, int y, LevelData data) {

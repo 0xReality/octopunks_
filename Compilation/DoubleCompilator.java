@@ -79,4 +79,10 @@ public class DoubleCompilator {
         return (compilator1.isCompilationComplete() && compilator2.isCompilationComplete()) ? 1 : 0;
     }
 
+    public boolean correctAnswer(){
+        return compilator1.correctAnswer(null);
+    }
+    
+
 }
+
