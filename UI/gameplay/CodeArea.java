@@ -14,6 +14,8 @@ import javafx.geometry.Insets;
 
 public class CodeArea extends VBox {
     private TextArea textArea;
+    
+    @SuppressWarnings("unused")
     private Label label;
 
 
@@ -66,6 +68,8 @@ public class CodeArea extends VBox {
                 sb.getBtnRun().setDisable(false);
                 sb.getBtnStep().setDisable(false);
             }
+
+            textArea.setText(newValue.toUpperCase());
 
             if(instance.getTextAreaContainer().size() <= 1){
                 data.setSavedCode(newValue.split("\n"), 1);

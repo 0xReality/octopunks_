@@ -2,7 +2,6 @@ package UI.gameplay;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -16,6 +15,7 @@ import Data.LevelData;
 import UI.Loader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.text.Font;
@@ -99,6 +99,7 @@ public class Game {
                     helpTerminal.print("BRAVO TA REUSSI", "green");
                     clip.setMicrosecondPosition(0);
                     clip.start();
+                    
                 }
             }
         });
@@ -118,6 +119,23 @@ public class Game {
                     clip.setMicrosecondPosition(0);
                     clip.start();
                 }
+            }
+        });
+
+        setButtons.getBtnStop().setOnAction(e -> {
+            exa.updateExaInfoSize();
+            exaInfo.updateValues(null, 0, 0);
+            terminal.remove();
+        });
+
+
+        root.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.F4) {
+                setButtons.getBtnRun().fire();
+            } else if (event.getCode() == KeyCode.F5) {
+                setButtons.getBtnStep().fire();
+            } else if (event.getCode() == KeyCode.ESCAPE) {
+                setButtons.getBtnStop().fire();
             }
         });
 
@@ -174,7 +192,7 @@ public class Game {
                 case 0:
                     doubleCompilator = new DoubleCompilator(exa1, exa2, terminal,exa.getRegisters1(), exa.getRegisters2(), exaInfo, level);   
                     doubleCompilator.compileAll();
-                    return compilator.correctAnswer(null);
+                    return doubleCompilator.correctAnswer();
                 case 1:
                     if(doubleCompilator == null){
                         doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2(), exaInfo, level);   
