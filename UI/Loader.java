@@ -29,4 +29,18 @@ public class Loader extends AnchorPane{
         this.getChildren().addAll(imgView1, imgView2);
 
     }
+
+    public Loader(String p1){
+        Image img1;
+        
+        ImageView imgView1;
+
+        if (p1 == null) return;
+        else {
+            img1 = new Image(p1,1920,1080,false,false);
+            imgView1 = new ImageView(img1);
+        }
+
+        this.getChildren().addAll(imgView1);
+    }
 }

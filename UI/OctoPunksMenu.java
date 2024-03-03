@@ -10,6 +10,7 @@ public class OctoPunksMenu extends Application {
     
     // private final String name = "OctoPunks";
     private Stage stage;
+    private Menu mainScene;
 
     @Override
     public void start(Stage OctoPunks) {
@@ -25,7 +26,7 @@ public class OctoPunksMenu extends Application {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.initStyle(StageStyle.UNDECORATED);
 
-        Menu mainScene = new Menu(stage);
+        mainScene = new Menu(stage);
 
         stage.setScene(mainScene.getMainScene());
         stage.show();
@@ -34,5 +35,9 @@ public class OctoPunksMenu extends Application {
    
     public static void main(String[] args) {
         launch(args); 
+    }
+
+    public Menu getSceneMain(){
+        return mainScene; 
     }
 }

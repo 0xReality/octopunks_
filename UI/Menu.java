@@ -3,6 +3,7 @@ package UI;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -27,7 +28,7 @@ public class Menu{
     }
 
     public Scene createSceneOne(){
-        
+        StackPane stack = new StackPane(); 
         vBox = new VBox();
         vBox.setStyle("-fx-padding: 5;" +
                     "-fx-border-style: solid inside;" + 
@@ -40,6 +41,7 @@ public class Menu{
         vBox.setSpacing(10);
         vBox.setMinSize(400, 400);
         vBox.setMaxSize(400, 400);
+        Loader menu= new Loader("file:resources/MENU.png");
 
         playButton = new Button("Play");
         settingsButton = new Button("Settings");
@@ -53,13 +55,14 @@ public class Menu{
                 new SceneSwitch(stage,scene2);
         });
 
+        
         vBox.getChildren().addAll(playButton,settingsButton,logoutButton);
-       
+        stack.getChildren().addAll(menu, vBox); 
         // stackPane1 = new StackPane();
         // StackPane.setAlignment(vBox,Pos.CENTER);
         // stackPane1.getChildren().addAll(vBox);
         // mainScene = new Scene(stackPane1,0,0);
-        mainScene = new Scene(vBox,1920,1080);
+        mainScene = new Scene(stack,1920,1080);
         return mainScene;
     }
 

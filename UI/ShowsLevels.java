@@ -56,6 +56,10 @@ public class ShowsLevels{
 
         //Return Button 
         ReturnButton = new Button("Return"); 
+        ReturnButton.setOnAction(e->{
+            Menu ma = new Menu(stage); 
+            new SceneSwitch(stage, ma.getMainScene()); 
+        });
         
         levelslayout.getChildren().add(ReturnButton); 
 

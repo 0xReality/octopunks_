@@ -13,18 +13,27 @@ import Compilation.Compilator;
 import Compilation.DoubleCompilator;
 import Data.LevelData;
 import UI.Loader;
+import UI.SceneSwitch;
+import UI.ShowsLevels;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+
 
 public class Game {
 
-    //private Stage stage;
+    private Stage stage;
     private Scene sceneGame;
+
 
     private int level;
     private NewExa exa;
@@ -45,10 +54,11 @@ public class Game {
 
        // super(new AnchorPane(),800,600); 
         //this.mainMenu = MainMenu;
-        //this.stage = stage;
+        this.stage = stage;
         this.level = level;
         // this.root = (AnchorPane) this.getRoot();
         root = new AnchorPane();
+    
         
         data = new LevelData(level);
         exa = new NewExa(data, exaInfo, setButtons);
@@ -86,7 +96,7 @@ public class Game {
 
         root.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,/*exa,*/exaInfo );
 
-
+        // victoire mission réussi 
         setButtons.getBtnRun().setOnAction(e -> {
             if (!exa.getTextAreaContainer().isEmpty()) {
                 CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().get(0);
@@ -95,17 +105,17 @@ public class Game {
                     codeArea2 = (CodeArea) exa.getTextAreaContainer().get(1);
                 }
                 if(callCompiler(codeArea1, codeArea2, 0)){
-                    helpTerminal.remove();
+                    helpTerminal.remove();   
                     helpTerminal.print("BRAVO TA REUSSI", "green");
                     clip.setMicrosecondPosition(0);
                     clip.start();
-                    
+                    popUpWin();
                 }
             }
         });
 
 
-
+        // victoire mission réussi 
         setButtons.getBtnStep().setOnAction(e -> {
             if (!exa.getTextAreaContainer().isEmpty()) {
                 CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().get(0);
@@ -117,7 +127,8 @@ public class Game {
                     helpTerminal.remove();
                     helpTerminal.print("BRAVO TA REUSSI", "green");
                     clip.setMicrosecondPosition(0);
-                    clip.start();
+                    clip.start();                                               // LANCEMENT DE LA MUSIQUE 
+                    popUpWin();                                                 // POPUP FELICITATIONS DE FIN DE MISSIONS
                 }
             }
         });
@@ -141,6 +152,10 @@ public class Game {
 
 
         sceneGame = new Scene(root,1920,1080);
+
+
+
+       
     }
 
     public void drawLevel(){
@@ -221,5 +236,30 @@ public class Game {
     }
     public SetButtons getSetButtons() {
         return setButtons;
+    }
+
+    private void popUpWin(){
+
+        Stage popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.setTitle("FÉLICITATIONS !");
+
+        Label label = new Label("Bien jouer !"); 
+
+        Button closeButton = new Button("Fermer"); 
+        closeButton.setOnAction(e->{popup.close();
+            ShowsLevels a = new ShowsLevels(stage); 
+            new SceneSwitch(stage, a.getScene2()); 
+        });
+
+        
+        VBox layout = new VBox(10); 
+        layout.getChildren().addAll(label, closeButton); 
+        layout.setAlignment(Pos.CENTER);
+
+        Scene popupScene = new Scene(layout, 300,200); 
+        popup.setScene(popupScene);
+        popup.showAndWait();
+
     }
 }
