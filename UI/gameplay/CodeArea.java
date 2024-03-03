@@ -1,18 +1,21 @@
 package UI.gameplay;
 
 import javafx.scene.ImageCursor;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import Data.LevelData;
 import javafx.geometry.Insets;
 
 public class CodeArea extends VBox {
     private TextArea textArea;
     private Label label;
-    private Button deleteButton;
+
 
     public CodeArea(String labelText, LevelData data, ExaInfo exaInfo, NewExa instance, SetButtons sb) {
         super(5); 
@@ -36,10 +39,11 @@ public class CodeArea extends VBox {
                           "-fx-border-color: #54454b; " +
                           "-fx-border-width: 2px;");
 
-        deleteButton = new Button("Delete");
+        //// deleteButton = new Button("Delete");
 
         String[] savedCode;
-        if(instance.getTextAreaContainer().getChildren().size() <= 0){
+        
+        if(instance.getTextAreaContainer().size() <= 0){
             savedCode = data.getSavedCode();
             if (savedCode != null) {
                 textArea.setText(String.join("\n", savedCode));
@@ -63,7 +67,7 @@ public class CodeArea extends VBox {
                 sb.getBtnStep().setDisable(false);
             }
 
-            if(instance.getTextAreaContainer().getChildren().size() <= 1){
+            if(instance.getTextAreaContainer().size() <= 1){
                 data.setSavedCode(newValue.split("\n"), 1);
             }else{
                 data.setSavedCode(newValue.split("\n"), 2);
@@ -77,12 +81,13 @@ public class CodeArea extends VBox {
 
 
 
-        VBox header = new VBox(5, label, deleteButton);
+        //VBox header = new VBox(5, label,deleteButton);
         
         Image cursor = new Image("file:resources/cursor/cursor.png");
         this.setCursor(new ImageCursor(cursor, 0, 0));
-
-        this.getChildren().addAll(header, textArea);
+        this.setBorder(new Border(new BorderStroke(Color.RED, 
+            BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
+        this.getChildren().addAll(textArea);
     }
 
 
@@ -91,9 +96,9 @@ public class CodeArea extends VBox {
         return textArea;
     }
 
-    public Button getDeleteButton() {
-        return deleteButton;
-    }
+    // public Button getDeleteButton() {
+    //     return deleteButton;
+    // }
 
 
     public int getLineNumber(){

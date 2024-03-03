@@ -15,6 +15,9 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -38,9 +41,10 @@ public class ShowRegisters extends AnchorPane {
         vbox.setSpacing(10);
         vbox.setAlignment(Pos.CENTER);
 
-        AnchorPane.setTopAnchor(vbox, x);
+        AnchorPane.setBottomAnchor(vbox, x+10);
         AnchorPane.setLeftAnchor(vbox, y);
-
+        this.setBorder(new Border(new BorderStroke(Color.RED, 
+            BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         this.getChildren().add(vbox);
     }
 

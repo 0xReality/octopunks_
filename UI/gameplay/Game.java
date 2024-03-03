@@ -2,6 +2,7 @@ package UI.gameplay;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -65,8 +66,12 @@ public class Game {
 
         drawLevel();
 
-        exa.getTextAreaContainer().getChildren().get(0);
-
+       // exa.getTextAreaContainer().getChildren().get(0);
+        exa.getTextAreaContainer().get(0);
+    //    List<CodeArea> allCodeAreas = exa.getTextAreaContainer();
+    //     if (!allCodeAreas.isEmpty()) {
+    //         CodeArea firstCodeArea = allCodeAreas.get(0);
+    //     }
         AnchorPane.setLeftAnchor(exa,30.0);
         AnchorPane.setBottomAnchor(terminal,70.0);
         AnchorPane.setRightAnchor(terminal,60.0);
@@ -79,15 +84,15 @@ public class Game {
         AnchorPane.setRightAnchor(exaInfo, 350.0);
 
 
-        root.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,exaInfo );
+        root.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,/*exa,*/exaInfo );
 
 
         setButtons.getBtnRun().setOnAction(e -> {
-            if (!exa.getTextAreaContainer().getChildren().isEmpty()) {
-                CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().getChildren().get(0);
+            if (!exa.getTextAreaContainer().isEmpty()) {
+                CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().get(0);
                 CodeArea codeArea2 = null;
-                if (exa.getTextAreaContainer().getChildren().size() > 1) {
-                    codeArea2 = (CodeArea) exa.getTextAreaContainer().getChildren().get(1);
+                if (exa.getTextAreaContainer().size() > 1) {
+                    codeArea2 = (CodeArea) exa.getTextAreaContainer().get(1);
                 }
                 if(callCompiler(codeArea1, codeArea2, 0)){
                     helpTerminal.remove();
@@ -101,11 +106,11 @@ public class Game {
 
 
         setButtons.getBtnStep().setOnAction(e -> {
-            if (!exa.getTextAreaContainer().getChildren().isEmpty()) {
-                CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().getChildren().get(0);
+            if (!exa.getTextAreaContainer().isEmpty()) {
+                CodeArea codeArea1 = (CodeArea) exa.getTextAreaContainer().get(0);
                 CodeArea codeArea2 = null;
-                if (exa.getTextAreaContainer().getChildren().size() > 1) {
-                    codeArea2 = (CodeArea) exa.getTextAreaContainer().getChildren().get(1);
+                if (exa.getTextAreaContainer().size() > 1) {
+                    codeArea2 = (CodeArea) exa.getTextAreaContainer().get(1);
                 }
                 if(callCompiler(codeArea1, codeArea2, 1)){
                     helpTerminal.remove();

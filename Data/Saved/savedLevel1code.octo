@@ -1,2 +1,1 @@
-ADDI 2 0 X
-MULI X X X
+ADDI 2 3 X 
