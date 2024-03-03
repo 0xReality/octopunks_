@@ -13,16 +13,18 @@ import Compilation.Compilator;
 import Compilation.DoubleCompilator;
 import Data.LevelData;
 import UI.Loader;
-import UI.Menu;
-import UI.SceneSwitch;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Font;
 
-public class Game extends Scene {
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+public class Game {
+
+    //private Stage stage;
+    private Scene sceneGame;
+
     private int level;
     private NewExa exa;
     private SetButtons setButtons = new SetButtons();
@@ -30,7 +32,7 @@ public class Game extends Scene {
     private DoubleCompilator doubleCompilator; 
     private Terminal terminal;
     private Terminal helpTerminal;
-    private Menu mainMenu;
+
     private ExaInfo exaInfo = new ExaInfo();
     private Loader loadMenu = new Loader("file:resources/editor/bg.png", "file:resources/editor/bg_panel.png"); 
     private LevelData data;
@@ -38,11 +40,15 @@ public class Game extends Scene {
     private AnchorPane root;
     private Clip clip; 
 
-    public Game(int level, Menu MainMenu) {
-        super(new AnchorPane(),800,600); 
-        this.mainMenu = MainMenu;
+    public Game(int level,Stage stage) {
+
+       // super(new AnchorPane(),800,600); 
+        //this.mainMenu = MainMenu;
+        //this.stage = stage;
         this.level = level;
-        this.root = (AnchorPane) this.getRoot();
+        // this.root = (AnchorPane) this.getRoot();
+        root = new AnchorPane();
+        
         data = new LevelData(level);
         exa = new NewExa(data, exaInfo, setButtons);
         helpTerminal = new Terminal(855, 158, data);
@@ -110,11 +116,8 @@ public class Game extends Scene {
             }
         });
 
-        setButtons.getBtnExit().setOnAction(e ->{
-            new SceneSwitch(mainMenu.getStage(), mainMenu); 
-            mainMenu.getStage().setFullScreen(true);
-        });
 
+        sceneGame = new Scene(root,1920,1080);
     }
 
     public void drawLevel(){
@@ -179,5 +182,12 @@ public class Game extends Scene {
         }
        
         return compilator.correctAnswer(null);
+    }
+
+    public Scene getSceneGame() {
+        return sceneGame;
+    }
+    public SetButtons getSetButtons() {
+        return setButtons;
     }
 }

@@ -1,100 +1,96 @@
 package UI;
 
-import UI.gameplay.Game;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Menu extends Scene {
-    
-    private Stage OctoPunks;
-    private AnchorPane root;
+public class Menu{
+
+    private Stage stage;
+    private Scene mainScene;
+    private Scene scene2;
+    //private StackPane stackPane1;
+    private VBox vBox;
 
     private Button playButton;
-    private Button level1Button;
     private Button logoutButton; 
-    private Button SettingsButton; 
-    private Button ReturnButton;
+    private Button settingsButton; 
     
-
-    private boolean isLevel1Completed = false;
-    private VBox layout; 
-
-
-    public  Menu(AnchorPane root, Stage OctoPunks) {
-        super(root);
-        this.root = root;
-        this.OctoPunks = OctoPunks;
-        loadCursor();
-
-        VBox layout = new VBox(10); 
-        layout.setAlignment(Pos.CENTER);
-
-
-
-        // Play Button
-        playButton = new Button("Play");
-        layout.getChildren().add(playButton);
-
-
-        //  Settings Button 
-        SettingsButton = new Button("Settings"); 
-        layout.getChildren().add(SettingsButton); 
-
-        //  Logout Button 
-        logoutButton = new Button("Exit"); 
-        logoutButton.setOnAction(event -> {
-            OctoPunks.close();
-        });
-
-        layout.getChildren().add(logoutButton); 
-
-        playButton.setOnAction(event->{
-            Platform.runLater(() ->{
-                ShowsLevels sl = new ShowsLevels(this);
-                OctoPunks.setScene(sl);
-                OctoPunks.setFullScreen(true);
-            });
-        });
-
-        //ppour centrer le button
-        AnchorPane.setTopAnchor(layout, 0.0);
-        AnchorPane.setRightAnchor(layout, 0.0);
-        AnchorPane.setBottomAnchor(layout, 0.0);
-        AnchorPane.setLeftAnchor(layout, 0.0);
-
-        root.getChildren().add(layout);
+    public Menu(Stage stage){
+        this.stage = stage;
+        //Scene Principale
+        mainScene = createSceneOne();
+        scene2 = createSceneTwo();
+        
     }
 
-    public Stage getStage(){
-        return OctoPunks; 
-    }
-
-    private void loadCursor(){
-        Image cursor = new Image("file:resources/cursor/cursor.png");
-        this.setCursor(new ImageCursor(cursor, 0,0));
-    }
-
-    public void returnToMenu(){
-        root.getChildren().setAll(layout);
-    }
+    public Scene createSceneOne(){
+        
+        vBox = new VBox();
+        vBox.setStyle("-fx-padding: 5;" +
+                    "-fx-border-style: solid inside;" + 
+                    "-fx-border-width: 2;" +
+                    "-fx-border-insets: 5;" + 
+                    "-fx-border-radius: 5;" + 
+                    "-fx-border-color: blue;");
  
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+        vBox.setMinSize(400, 400);
+        vBox.setMaxSize(400, 400);
+
+        playButton = new Button("Play");
+        settingsButton = new Button("Settings");
+        logoutButton = new Button("Exit");
+
+        logoutButton.setOnAction(event -> {
+            stage.close();
+        });
+
+        playButton.setOnAction(event -> {
+                new SceneSwitch(stage,scene2);
+        });
+
+        vBox.getChildren().addAll(playButton,settingsButton,logoutButton);
+       
+        // stackPane1 = new StackPane();
+        // StackPane.setAlignment(vBox,Pos.CENTER);
+        // stackPane1.getChildren().addAll(vBox);
+        // mainScene = new Scene(stackPane1,0,0);
+        mainScene = new Scene(vBox,1920,1080);
+        return mainScene;
+    }
+
+    public Scene createSceneTwo(){
+        
+        ShowsLevels sl = new ShowsLevels(stage);
+        sl.getReturnButton().setOnAction(event->{
+            new SceneSwitch(stage,mainScene);
+
+        });
+        return sl.getScene2();
+        
+    }
+
+    // public void switchScenes(Scene scene){
+    //     stage.setScene(scene);
+    // }
+    // public Stage getStage(){
+    //     return stage;
+    // }
+    public Scene getMainScene(){
+        return mainScene;
+    }
+    public Scene getScene2(){
+        return scene2;
+    }
+    public Button getLogoutButton() {
+        return logoutButton;
+    }
     public Button getPlayButton() {
         return playButton;
     }
 
-
-    public Button getLevel1Button() {
-        return level1Button;
-    }
-
-    public Scene getMainMenuScene(){
-        return this; 
-    }
 }

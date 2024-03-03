@@ -1,38 +1,37 @@
 package UI;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class OctoPunksMenu extends Application {
-    private final String name = "OctoPunks";
+    
+    // private final String name = "OctoPunks";
+    private Stage stage;
 
     @Override
     public void start(Stage OctoPunks) {
-        OctoPunks.setTitle(name);
 
+        stage = OctoPunks;
+        stage.setTitle("OctoPunks");
         //load l'icone du jeu
-        OctoPunks.getIcons().add(new Image("file:resources/icon.png"));
-
+        stage.getIcons().add(new Image("file:resources/icon.png"));
         //mettre le jeu en plein écran
-        OctoPunks.setFullScreen(true);
-        OctoPunks.setFullScreenExitHint("");
-        OctoPunks.initStyle(StageStyle.UNDECORATED);
 
-        
+        stage.setFullScreen(true);
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.initStyle(StageStyle.UNDECORATED);
 
-        //appel au constructeur du Menu
-        Scene menu = new Menu(new AnchorPane(), OctoPunks);
+        Menu mainScene = new Menu(stage);
 
-
-        //lancement du jeu dans le menu principal
-        OctoPunks.setScene(menu);
-        OctoPunks.show();
+        stage.setScene(mainScene.getMainScene());
+        stage.show();
     }
 
+   
     public static void main(String[] args) {
         launch(args); 
     }
