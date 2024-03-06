@@ -2,7 +2,9 @@ package Compilation;
 
 import java.util.Random;
 
+import Robot.EXA;
 import UI.gameplay.ExaInfo;
+import UI.gameplay.InitialisedGame;
 import UI.gameplay.ShowRegisters;
 import UI.gameplay.Terminal;
 
@@ -10,6 +12,8 @@ public class DoubleCompilator {
     private Compilator compilator1;
     private Compilator compilator2;
     private Random random;
+    private InitialisedGame game; 
+    private EXA exa; 
     protected Terminal terminal;
     
 
@@ -23,10 +27,12 @@ public class DoubleCompilator {
      */
     public DoubleCompilator(
         String s1, String s2, Terminal terminal,
-        ShowRegisters sr1, ShowRegisters sr2, ExaInfo exaInfo, int level) { 
+        ShowRegisters sr1, ShowRegisters sr2, ExaInfo exaInfo, int level,InitialisedGame ga, EXA ex) { 
+        this.game = ga; 
+        this.exa = ex; 
         this.terminal = terminal;
-        this.compilator1 = new Compilator(s1, terminal, sr1, exaInfo, level);
-        this.compilator2 = new Compilator(s2, terminal, sr2, exaInfo, level);
+        this.compilator1 = new Compilator(s1, terminal, sr1, exaInfo, level,game,exa);
+        this.compilator2 = new Compilator(s2, terminal, sr2, exaInfo, level,game,exa);
 
         //permet d'assigner le meme registre aux 2 valeurs
         Register sharedM = compilator1.getRegisters().get(3);

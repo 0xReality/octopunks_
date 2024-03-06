@@ -15,18 +15,25 @@ import Data.LevelData;
 import UI.Loader;
 import UI.SceneSwitch;
 import UI.ShowsLevels;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import Robot.*;
 
 
 public class Game {
@@ -50,6 +57,10 @@ public class Game {
     private AnchorPane root;
     private Clip clip; 
 
+    private InitialisedGame game; 
+
+    
+
     public Game(int level,Stage stage) {
 
        // super(new AnchorPane(),800,600); 
@@ -64,7 +75,16 @@ public class Game {
         exa = new NewExa(data, exaInfo, setButtons);
         helpTerminal = new Terminal(855, 158, data);
         terminal = new Terminal(435, 158, null);
-        
+
+  
+
+        //initialisation grille de jeu 
+        game = new InitialisedGame(stage); 
+        game.InitializeGameGrille(); 
+        game.positionGameGrille(); 
+        root.getChildren().add(game.getGrille()); 
+
+
         try {
             File audioFile = new File("resources/sounds/fanfare_solving1.wav");
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -175,16 +195,19 @@ public class Game {
         boolean returnCall;
 
         String exa1 = ca1.getTextArea().getText();
+        EXA exaInstance = new EXA(0, "exa1");
+
+
         if(ca2 == null){
             //il faut bloquer le code area quand le code est en compilation par pas
             switch (mode) {
                 case 0:
-                    compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo, level);   
+                    compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo, level,game,exaInstance);   
                     compilator.compileAll();
                     return compilator.correctAnswer(null);
                 case 1:
                     if(compilator == null){
-                        compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo, level);   
+                        compilator = new Compilator(exa1, terminal, exa.getRegisters1(), exaInfo, level,game,exaInstance);   
                         if(compilator.compileNextLine() == 1){
                             returnCall = compilator.correctAnswer(null);
                             compilator = null;
@@ -205,12 +228,12 @@ public class Game {
             String exa2 = ca2.getTextArea().getText();
             switch (mode) {
                 case 0:
-                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal,exa.getRegisters1(), exa.getRegisters2(), exaInfo, level);   
+                    doubleCompilator = new DoubleCompilator(exa1, exa2, terminal,exa.getRegisters1(), exa.getRegisters2(), exaInfo, level,game,exaInstance);   
                     doubleCompilator.compileAll();
                     return doubleCompilator.correctAnswer();
                 case 1:
                     if(doubleCompilator == null){
-                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2(), exaInfo, level);   
+                        doubleCompilator = new DoubleCompilator(exa1, exa2, terminal, exa.getRegisters1(), exa.getRegisters2(), exaInfo, level,game,exaInstance);   
                         if(doubleCompilator.compileNextLine() == 1){
                             returnCall = doubleCompilator.correctAnswer();
                             doubleCompilator = null;
@@ -253,6 +276,7 @@ public class Game {
         });
 
         
+        
         VBox layout = new VBox(10); 
         layout.getChildren().addAll(label, closeButton); 
         layout.setAlignment(Pos.CENTER);
@@ -262,4 +286,5 @@ public class Game {
         popup.showAndWait();
 
     }
+
 }

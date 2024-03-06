@@ -1,5 +1,7 @@
 package Compilation;
 
+import Fonctions.GRAB;
+
 /**
  * La classe Command représente une commande dans le processus de Compilation.
  * Elle contient une instruction, ses arguments et le numéro de la ligne où elle se trouve.
@@ -23,7 +25,9 @@ public class Command {
         SWIZ(3),
         JUMP(1),
         FJMP(1),
-        KILL(0);
+        KILL(0),
+        GRAB(1);
+        
 
         private final int argCount; // Nombre d'arguments pour l'instruction
 

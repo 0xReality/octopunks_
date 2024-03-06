@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import Fonctions.*;
+import Robot.EXA;
 import UI.gameplay.ExaInfo;
+import UI.gameplay.InitialisedGame;
 import UI.gameplay.Terminal;
 
 
@@ -17,15 +19,19 @@ import UI.gameplay.Terminal;
 public class LexicalAnalyser {
     private final ArrayList<Command.Instruction> validCommand;
     private final ArrayList<Register> registers;
+    private InitialisedGame game; 
+    private EXA exa; 
 
     /**
      * Constructeur de LexicalAnalyser.
      * @param registers La liste des registres utilisés dans les commandes.
      */
-    public LexicalAnalyser(ArrayList<Register> registers) {
+    public LexicalAnalyser(ArrayList<Register> registers, InitialisedGame ga, EXA ex) {
         validCommand = new ArrayList<Command.Instruction>();
         Collections.addAll(validCommand, Command.Instruction.class.getEnumConstants());
         this.registers = registers;
+        this.game = ga; 
+        this.exa = ex; 
     }
 
     /**
@@ -81,7 +87,7 @@ public class LexicalAnalyser {
             exp.sendError(cmd, 3);
             return false;
         } 
-        CommandHandler handler = new CommandHandler(registers, exp);
+        CommandHandler handler = new CommandHandler(registers, exp,game,exa);
         
         return handler.handleCommand(cmd);
     }

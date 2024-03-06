@@ -2,6 +2,11 @@ package Compilation;
 
 import java.util.ArrayList;
 
+import Fonctions.LINK;
+import Robot.EXA;
+import UI.gameplay.InitialisedGame;
+
+
 
 
 /**
@@ -10,15 +15,19 @@ import java.util.ArrayList;
 public class CommandHandler {
     private ArrayList<Register> registers;
     private Exceptions exp;
+    private InitialisedGame game; 
+    private EXA exa; 
 
     /**
      * Constructeur de CommandHandler.
      * @param registers La liste des registres utilisés dans le programme.
      * @param exp Gestionnaire d'exceptions pour traiter les erreurs.
      */
-    public CommandHandler(ArrayList<Register> registers, Exceptions exp) {
+    public CommandHandler(ArrayList<Register> registers, Exceptions exp, InitialisedGame ga, EXA ex) {
         this.registers = registers;
         this.exp = exp;
+        this.game = ga; 
+        this.exa = ex; 
     }
 
     /**
@@ -40,6 +49,8 @@ public class CommandHandler {
                 return handleJumpLinkCommands(cmd);
             case COPY:
                 return handleCopyCommand(cmd);
+            case GRAB:
+                return handleGrabCommand(cmd); 
             default:
                 exp.sendError(cmd, 1);  
                 return false;
@@ -145,6 +156,19 @@ public class CommandHandler {
      * @return Vrai si la commande est traitée avec succès, faux sinon.
      */
     private boolean handleJumpLinkCommands(Command cmd) {
+        if(cmd.getInstruction()==Command.Instruction.LINK){
+            //On récupére l'argument suivi de LINK puis on la traduit pour ce déplacer vers une autre case
+            String label = cmd.getArgs()[0]; 
+            Integer newPosition = game.getPosForLabel(label); 
+            if(newPosition != null){
+                new LINK(game).Link(exa, newPosition);
+                return true; 
+            }
+            else{
+                System.out.println("newposition null");
+            }
+        }
+        
         try {
             int arg0 = Integer.parseInt(cmd.getArgs()[0]);
     
@@ -187,6 +211,12 @@ public class CommandHandler {
             }
             return true;
         }
+    }
+
+    
+    private boolean handleGrabCommand(Command cmd){
+        return true;
+        //implémenter la logique pour attrapper un objet dans la salle. 
     }
 
     private boolean isRegister(String nom){

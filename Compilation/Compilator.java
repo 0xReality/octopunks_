@@ -3,7 +3,9 @@ package Compilation;
 import java.util.ArrayList;
 
 import Missions.Solution;
+import Robot.EXA;
 import UI.gameplay.ExaInfo;
+import UI.gameplay.InitialisedGame;
 import UI.gameplay.ShowRegisters;
 import UI.gameplay.Terminal;
 
@@ -22,13 +24,17 @@ public class Compilator {
     private ExaInfo exaInfo;
     protected String[] text; //Sert à stocker le texte à compiler
     private int level;
+    private InitialisedGame game; 
+    private EXA exa; 
 
     /**
      * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
      * @param s Le texte à compiler.
      */
     public Compilator(String s, Terminal terminal,
-     ShowRegisters sr, ExaInfo exaInfo, int level) {
+     ShowRegisters sr, ExaInfo exaInfo, int level,InitialisedGame ga, EXA ex) {
+        this.game = ga; 
+        this.exa = ex; 
         this.terminal = terminal;
         this.sr = sr;
         this.exaInfo = exaInfo;
@@ -40,7 +46,7 @@ public class Compilator {
         initRegisters();
         sr.setRegisters(registers);
         sr.updateRegisters(registers);
-        l = new LexicalAnalyser(registers);
+        l = new LexicalAnalyser(registers,game,exa);
         this.level = level;
         this.currentLine = 0;
     }
