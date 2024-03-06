@@ -10,7 +10,8 @@ public enum ErrorCode {
     NUMBER_ERROR(4, "Number Unauthorized."),
     DIVISION_BY_ZERO(5, "Attempted division by zero."),
     INVALID_REGISTER(6, "Invalid register."),
-    LABEL_NOTFOUND(7, "no label found");
+    TRIED_TO_STORE_F(7, "tried to store date in File register."),
+    LABEL_NOTFOUND(8, "no label found.");
 
 
     private final int code;

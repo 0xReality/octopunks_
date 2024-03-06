@@ -80,7 +80,11 @@ public class LexicalAnalyser {
         if(isInvalidCommand(cmd)){
             exp.sendError(cmd, 3);
             return false;
-        } 
+        }
+        if(hasUsedFileRegister(cmd)){
+            exp.sendError(cmd, 7);
+            return false;
+        }
         CommandHandler handler = new CommandHandler(registers, exp);
         
         return handler.handleCommand(cmd);
@@ -169,6 +173,10 @@ public class LexicalAnalyser {
 
     public boolean isInvalidCommand(Command c) {
         return c.getExpectedArgs() < c.getArgs().length;
+    }
+
+    public boolean hasUsedFileRegister(Command c){
+        return c.getArgs()[c.getExpectedArgs()-1].equals("F");
     }
 
     public boolean isNumber(String arg){
