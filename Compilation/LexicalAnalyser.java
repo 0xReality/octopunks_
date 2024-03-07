@@ -177,6 +177,10 @@ public class LexicalAnalyser {
         return c.getExpectedArgs() < c.getArgs().length;
     }
 
+    public boolean hasUsedFileRegister(Command c){
+        return c.getArgs()[c.getExpectedArgs()-1].equals("F");
+    }
+
     public boolean isNumber(String arg){
         try {
             Integer.parseInt(arg);
