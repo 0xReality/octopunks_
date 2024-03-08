@@ -1,6 +1,5 @@
 package Compilation;
 
-import Fonctions.GRAB;
 
 /**
  * La classe Command représente une commande dans le processus de Compilation.
