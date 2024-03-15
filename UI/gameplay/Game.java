@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -39,16 +41,32 @@ public class Game {
     private NewExa exa;
     private SetButtons setButtons = new SetButtons();
 
-    private DoubleCompilator doubleCompilator; 
+    private boolean isMusicStopped = false;
+
     private Terminal terminal;
     private Terminal helpTerminal;
 
     private ExaInfo exaInfo = new ExaInfo();
     private Loader loadMenu = new Loader("file:resources/editor/bg.png", "file:resources/editor/bg_panel.png"); 
+
     private LevelData data;
+
     private Compilator compilator;
+    private DoubleCompilator doubleCompilator; 
+
     private AnchorPane root;
+
+
     private Clip clip; 
+    private Clip bgClip; 
+
+    private int currentTrackNumber = 0;
+    private File[] musicTracks = {
+        new File("resources/sounds/octo1.wav"),
+        new File("resources/sounds/octo2.wav"),
+        new File("resources/sounds/octo3.wav"),
+        new File("resources/sounds/octo4.wav")
+    };
 
     private InitialisedGame game; 
 
@@ -62,6 +80,8 @@ public class Game {
         this.level = level;
         // this.root = (AnchorPane) this.getRoot();
         root = new AnchorPane();
+
+        startMusicLoop();
     
         
         data = new LevelData(level);
@@ -83,9 +103,17 @@ public class Game {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
+
+
+            
+
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
+
+        
+
+
 
         drawLevel();
 
@@ -118,6 +146,7 @@ public class Game {
                     codeArea2 = (CodeArea) exa.getTextAreaContainer().get(1);
                 }
                 if(callCompiler(codeArea1, codeArea2, 0)){
+                    stopBackgroundMusic();
                     CompletedLevels cl = new CompletedLevels();
                     cl.setCompletedLevel(level);
                     helpTerminal.remove();   
@@ -139,6 +168,7 @@ public class Game {
                     codeArea2 = (CodeArea) exa.getTextAreaContainer().get(1);
                 }
                 if(callCompiler(codeArea1, codeArea2, 1)){
+                    stopBackgroundMusic();
                     CompletedLevels cl = new CompletedLevels();
                     cl.setCompletedLevel(level);
                     helpTerminal.remove();
@@ -268,6 +298,8 @@ public class Game {
 
         Button closeButton = new Button("Fermer"); 
         closeButton.setOnAction(e->{popup.close();
+            clip.stop();
+            bgClip = null;
             ShowsLevels a = new ShowsLevels(stage); 
             new SceneSwitch(stage, a.getScene2()); 
         });
@@ -282,6 +314,51 @@ public class Game {
         popup.setScene(popupScene);
         popup.showAndWait();
 
+    }
+
+
+    public void playBackgroundMusic(File musicFile) {
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
+            bgClip = AudioSystem.getClip();
+            bgClip.open(audioStream);
+
+            FloatControl gainControl = (FloatControl) bgClip.getControl(FloatControl.Type.MASTER_GAIN);
+            float dB = (float) (Math.log(0.2) / Math.log(10.0) * 20.0);
+            gainControl.setValue(dB);
+
+            bgClip.addLineListener(event -> {
+                if (event.getType() == LineEvent.Type.STOP && !isMusicStopped) {
+                    playNextTrack();
+                }
+            });
+            
+
+            bgClip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopBackgroundMusic() {
+        if (bgClip != null) {
+            isMusicStopped = true; 
+            bgClip.stop();          
+            bgClip.close();        
+            bgClip = null;          
+        }
+    }
+    
+    
+
+
+    public void playNextTrack() {
+        currentTrackNumber = (currentTrackNumber + 1) % musicTracks.length;
+        playBackgroundMusic(musicTracks[currentTrackNumber]);
+    }
+
+    public void startMusicLoop() {
+        playNextTrack(); 
     }
 
 }
