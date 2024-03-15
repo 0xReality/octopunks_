@@ -1,5 +1,6 @@
 package UI;
 
+import Data.CompletedLevels;
 import UI.gameplay.Game;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,9 +16,9 @@ public class ShowsLevels{
     private Game game;
     private Button level1Button; 
     private Button level2Button; 
+    private Button level3Button; 
     private Button ReturnButton; 
     //private Menu mainMenu; 
-    private boolean isLevel1Completed = false; 
     private VBox levelslayout; 
 
     public ShowsLevels(Stage stage){
@@ -31,28 +32,13 @@ public class ShowsLevels{
         levelslayout = new VBox();
         levelslayout.setAlignment(Pos.CENTER);
 
-        //Level 1 Button
-        level1Button = new Button("Level 1"); 
-         level1Button.setOnAction(event -> {
+        level1Button = createLevelButton(1, stage, scene2);
 
-            game = new Game(1, stage);
-            Scene gamScene = game.getSceneGame() ;
+        level2Button = createLevelButton(2, stage, scene2);
 
-            game.getSetButtons().getBtnExit().setOnAction(e ->{
-                new SceneSwitch(stage,scene2); 
-            });
-
-            new SceneSwitch(stage, gamScene);
-         });
-        levelslayout.getChildren().add(level1Button); 
-
-        //Level 2 Button
-        level2Button = new Button("Level 2"); 
-        level2Button.setDisable(!isLevel1Completed);
-        level2Button.setOnAction(event->{
-
-        });
-        levelslayout.getChildren().add(level2Button); 
+        level3Button = createLevelButton(3, stage, scene2);
+        
+        levelslayout.getChildren().addAll(level1Button,level2Button, level3Button);
 
         //Return Button 
         ReturnButton = new Button("Return"); 
@@ -74,4 +60,19 @@ public class ShowsLevels{
     public Scene getScene2() {
         return scene2;
     }
+
+    private Button createLevelButton(int level, Stage stage, Scene levelSelectScene) {
+        CompletedLevels levels = new CompletedLevels();
+        Button levelButton = new Button("Level " + level);
+        levelButton.setDisable(!levels.isLevelCompleted(level));
+        levelButton.setOnAction(event -> {
+            game = new Game(level, stage);
+            Scene gameScene = game.getSceneGame();
+    
+            game.getSetButtons().getBtnExit().setOnAction(e -> new SceneSwitch(stage, levelSelectScene));
+            new SceneSwitch(stage, gameScene);
+        });
+        return levelButton;
+    }
+    
 }

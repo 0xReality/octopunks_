@@ -11,6 +11,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Compilation.Compilator;
 import Compilation.DoubleCompilator;
+import Data.CompletedLevels;
 import Data.LevelData;
 import UI.Loader;
 import UI.SceneSwitch;
@@ -117,6 +118,8 @@ public class Game {
                     codeArea2 = (CodeArea) exa.getTextAreaContainer().get(1);
                 }
                 if(callCompiler(codeArea1, codeArea2, 0)){
+                    CompletedLevels cl = new CompletedLevels();
+                    cl.setCompletedLevel(level);
                     helpTerminal.remove();   
                     helpTerminal.print("BRAVO TA REUSSI", "green");
                     clip.setMicrosecondPosition(0);
@@ -136,6 +139,8 @@ public class Game {
                     codeArea2 = (CodeArea) exa.getTextAreaContainer().get(1);
                 }
                 if(callCompiler(codeArea1, codeArea2, 1)){
+                    CompletedLevels cl = new CompletedLevels();
+                    cl.setCompletedLevel(level);
                     helpTerminal.remove();
                     helpTerminal.print("BRAVO TA REUSSI", "green");
                     clip.setMicrosecondPosition(0);
