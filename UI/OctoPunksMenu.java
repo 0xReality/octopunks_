@@ -8,13 +8,11 @@ import javafx.stage.StageStyle;
 
 public class OctoPunksMenu extends Application {
     
-    // private final String name = "OctoPunks";
     private Stage stage;
     private Menu mainScene;
-
     @Override
     public void start(Stage OctoPunks) {
-
+       
         stage = OctoPunks;
         stage.setTitle("OctoPunks");
         //load l'icone du jeu
@@ -32,7 +30,6 @@ public class OctoPunksMenu extends Application {
         stage.show();
     }
 
-   
     public static void main(String[] args) {
         launch(args); 
     }

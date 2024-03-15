@@ -16,6 +16,7 @@ public class EXA {
     private int position; 
     private ObjetOctopunk Crypto; 
     private String lastMessage; 
+    private boolean isActive; 
 
     /* Constructeur EXA */
     public EXA(int maxMemory, String name)
@@ -171,6 +172,14 @@ public class EXA {
                 "\n portefeuille crypto : " + Crypto + "bitcoin" +
                 "\n script = " + getScript() + 
                 '}'; 
+    }
+
+    public void setActive(boolean isActive){
+        this.isActive = isActive; 
+    }
+
+    public boolean getActive(){
+        return this.isActive; 
     }
     
 }

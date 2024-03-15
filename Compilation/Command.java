@@ -25,7 +25,9 @@ public class Command {
         JUMP(1),
         FJMP(1),
         KILL(0),
+        HALT(0),
         GRAB(1);
+        
         
 
         private final int argCount; // Nombre d'arguments pour l'instruction

@@ -54,11 +54,15 @@ public class Compilator {
     /*Compile toutes les lignes d'un coup */
     public boolean compileAll() {
         preCompilation();
+        
         while (currentLine < lineNumber) {
             if (!compileLine(currentLine)) {
                 break;
             }
             currentLine++;
+            if(exa.getActive()==false){
+                currentLine = lineNumber; 
+            }
         }
         return postCompilation();  
     }
@@ -78,6 +82,9 @@ public class Compilator {
         if(currentLine >= lineNumber){
             postCompilation();
             return 1;
+        }
+        if(exa.getActive()==false){
+            currentLine = lineNumber;
         }
         return 0;
     }

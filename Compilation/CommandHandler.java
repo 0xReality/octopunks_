@@ -37,6 +37,8 @@ public class CommandHandler {
      */
     public boolean handleCommand(Command cmd) {
         switch (cmd.getInstruction()) {
+            case HALT: 
+                return true;  
             case ADDI:
             case MULI:
             case DIVI:
@@ -56,6 +58,8 @@ public class CommandHandler {
                 return false;
         }
     }
+
+
 
     /**
      * Gère les commandes arithmétiques.

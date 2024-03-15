@@ -16,6 +16,7 @@ import UI.gameplay.Terminal;
 /**
  * La classe LexicalAnalyser effectue l'analyse lexicale des instructions et les transforme en commandes puis apelle l'interpretteur CommandHandler.
  */
+        
 public class LexicalAnalyser {
     private final ArrayList<Command.Instruction> validCommand;
     private final ArrayList<Register> registers;
@@ -63,6 +64,8 @@ public class LexicalAnalyser {
                 return new Command(Command.Instruction.FJMP, Arrays.copyOfRange(s, 1, s.length), line);
             case "Kill":
                 return new Command(Command.Instruction.KILL, Arrays.copyOfRange(s, 1, s.length), line);
+            case "HALT":
+                return new Command(Command.Instruction.HALT, Arrays.copyOfRange(s, 1, s.length), line);            
             default:
                 return new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
@@ -79,6 +82,7 @@ public class LexicalAnalyser {
             exp.sendError(cmd, 1);
             return false;
         }
+        
         if(isMissingCommand(cmd)){
             exp.sendError(cmd, 2);
             return false;
@@ -98,59 +102,71 @@ public class LexicalAnalyser {
      * @param c La commande dont l'instruction doit être exécutée.
      */
     public void callInstruction(Command c, Compilator k, ExaInfo exaInfo) {
-        Register[] args = new Register[c.getExpectedArgs()];
-        for (int i = 0; i < c.getExpectedArgs(); i++) {
-            args[i] = processArgument(c.getArgs()[i]);
+        if(c.getArgs() != null && c.getArgs().length >= c.getExpectedArgs()){
+            Register[] args = new Register[c.getExpectedArgs()];
+            for (int i = 0; i < c.getExpectedArgs(); i++) {
+                args[i] = processArgument(c.getArgs()[i]);
+            }
+
+            // si la commande attend au moins un argument, on obtient le dernier registre
+            Register r  = null;  
+            if(c.getExpectedArgs()>0){
+            r = stringToRegister(c.getArgs()[c.getExpectedArgs()-1]);
+            }
+
+            int cycles = exaInfo.getCycles() + 1;;
+            int activity = exaInfo.getActivity();
+            boolean isActivityInstruction = false;
+            switch (c.getInstruction()) {
+                case ADDI:
+            
+                    new ADDI(args[0].getValeur(),args[1].getValeur() ,r);
+                    break;
+                case SUBI:
+                    new SUBI(args[0].getValeur(),args[1].getValeur() ,r);
+                    break;
+                case MULI:
+                    new MULI(args[0].getValeur(),args[1].getValeur() ,r);
+                    break;
+                case MODI:
+                    new MODI(args[0].getValeur(),args[1].getValeur() ,r);
+                    break;
+                case DIVI:
+                    new DIVI(args[0].getValeur(),args[1].getValeur() ,r);
+                    break;
+                case SWIZ:
+                    new SWIZ(args[0].getValeur(),args[1].getValeur() ,r);
+                    break;
+                case JUMP:
+                    new JUMP(args[0].getValeur(), k);
+                    break;
+                case FJMP:
+                    new FJMP(args[0].getValeur(), k);
+                    break;
+                case LINK:
+            
+                    isActivityInstruction = true;
+                    System.out.println("LINK not implemented");
+                    assert(false);
+                    break;
+                case KILL:
+                    isActivityInstruction = true;
+                    System.out.println("KILL not implemented");
+                    assert(false);
+                    break;
+                case COPY:
+                    new COPY(args[0], args[1]);
+                case HALT:
+                    HALT halt = new HALT(exa); 
+                default:
+                    break;
+            }
+
+            if (isActivityInstruction) activity++;
+            exaInfo.updateValues(null, cycles, activity);
+        }else{
+            System.out.println("y a un problémes avec les arguments de tes fonctions dans lexical analyseur chef");
         }
-        Register r  = stringToRegister(c.getArgs()[c.getExpectedArgs()-1]);
-
-        int cycles = exaInfo.getCycles() + 1;;
-        int activity = exaInfo.getActivity();
-        boolean isActivityInstruction = false;
-        switch (c.getInstruction()) {
-            case ADDI:
-                new ADDI(args[0].getValeur(),args[1].getValeur() ,r);
-                break;
-            case SUBI:
-                new SUBI(args[0].getValeur(),args[1].getValeur() ,r);
-                break;
-            case MULI:
-                new MULI(args[0].getValeur(),args[1].getValeur() ,r);
-                break;
-            case MODI:
-                new MODI(args[0].getValeur(),args[1].getValeur() ,r);
-                break;
-            case DIVI:
-                new DIVI(args[0].getValeur(),args[1].getValeur() ,r);
-                break;
-            case SWIZ:
-                new SWIZ(args[0].getValeur(),args[1].getValeur() ,r);
-                break;
-            case JUMP:
-                new JUMP(args[0].getValeur(), k);
-                break;
-            case FJMP:
-                new FJMP(args[0].getValeur(), k);
-                break;
-            case LINK:
-                isActivityInstruction = true;
-                System.out.println("LINK not implemented");
-                assert(false);
-                break;
-            case KILL:
-                isActivityInstruction = true;
-                System.out.println("KILL not implemented");
-                assert(false);
-                break;
-            case COPY:
-                new COPY(args[0], args[1]);
-            default:
-                break;
-        }
-
-        if (isActivityInstruction) activity++;
-        exaInfo.updateValues(null, cycles, activity);
-
         return;
     }
 
