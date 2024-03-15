@@ -186,6 +186,12 @@ public class Game {
             terminal.remove();
         });
 
+        setButtons.getBtnExit().setOnAction(e -> {
+            stopBackgroundMusic();
+            ShowsLevels a = new ShowsLevels(stage); 
+            new SceneSwitch(stage, a.getScene2()); 
+        });
+
 
         root.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.F4) {
@@ -349,8 +355,6 @@ public class Game {
         }
     }
     
-    
-
 
     public void playNextTrack() {
         currentTrackNumber = (currentTrackNumber + 1) % musicTracks.length;

@@ -68,8 +68,6 @@ public class ShowsLevels{
         levelButton.setOnAction(event -> {
             game = new Game(level, stage);
             Scene gameScene = game.getSceneGame();
-    
-            game.getSetButtons().getBtnExit().setOnAction(e -> new SceneSwitch(stage, levelSelectScene));
             new SceneSwitch(stage, gameScene);
         });
         return levelButton;

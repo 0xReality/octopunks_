@@ -165,7 +165,9 @@ public class SetButtons extends AnchorPane {
 
         btnExit.setGraphic(exitView);
         //Hovering Exit
-        btnExit.setOnMouseEntered(e -> exitView.setImage(croppedHoverExitImage));
+        btnExit.setOnMouseEntered(e ->{
+            exitView.setImage(croppedHoverExitImage);
+        });
         btnExit.setOnMouseExited(e -> exitView.setImage(croppedExitImage));
 
         // Change the image when hovering "Stop"
