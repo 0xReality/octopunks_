@@ -3,11 +3,10 @@
     import Robot.EXA;
     import Robot.ObjetOctopunk;
 
-    public class GRAB {
-        
-        
-        public GRAB(ObjetOctopunk nfile, EXA exa)
-        {
-            exa.addObjet(nfile);
-        }
-    }   
+public class GRAB <O>{
+    
+    public GRAB(O nfile, EXA exa)
+    {
+        exa.addObjet((ObjetOctopunk)nfile);
+    }
+}

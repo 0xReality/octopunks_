@@ -72,13 +72,19 @@ public class NewExa extends VBox{
         //     BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         createBox.setBorder(new Border(new BorderStroke(Color.GREEN, 
             BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
-
-        Image topImage = new Image("file:resources/list_detail_top.png",400,45,false,false);
+        Image topImage = new Image("file:resources/list_detail_top.png", 400, 45, false, false);
         ImageView topImageView = new ImageView(topImage);
+            
+        Label topImageLabel = new Label("Level " + data.getLevel());
+        topImageLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: red; -fx-font-weight: bold;");
+            
 
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(topImageView, topImageLabel);
 
-        topBox.getChildren().add(topImageView);
-
+        StackPane.setMargin(topImageLabel, new Insets(0, 20, 0, 0));
+            
+        topBox.getChildren().add(stackPane);
         createBox.setOnAction(event -> createExa());
 
         // zone.getChildren().addAll(textAreaContainer,registersContainer);

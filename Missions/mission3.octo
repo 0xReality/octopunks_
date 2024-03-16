@@ -1,1 +1,4 @@
-additionner lss nombres 12 et 15 et enregistrer les dans le registe X
+L'Exa doit tous ranger dans le camion avec le chauffeur pour cela il doit avancer d'une case faire 200-100 pour X et le copier dans F, calculer le modulo 3 de X dans T
+, Diviser X par T dans X, et il recule d'une case . Ensuite, Le Chauffeur doit faire 100+100 dans F, diviser F par 5 dans T, echanger la position des deux chiffres du resultat de T dans X,
+ et Tester la valeur de X si elle est correcte alors on peut s'enfuire !!!
+

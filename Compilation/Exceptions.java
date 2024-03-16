@@ -25,7 +25,7 @@ public class Exceptions {
 
         // Formate et affiche le message d'erreur
         if (errorCode != null) {
-            errorMessage = String.format("error: Line %d: %s [%s]", cmd.getLine(), errorCode.getMessage(), errorCode.getCode());
+            errorMessage = String.format("error:%d: %s [%s]", cmd.getLine(), errorCode.getMessage(), errorCode.getCode());
             correctSyntax = cmd.getCorrectSyntax();
         } else {
             // Message d'erreur pour un signal inconnu

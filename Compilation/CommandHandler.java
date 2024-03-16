@@ -2,7 +2,6 @@ package Compilation;
 
 import java.util.ArrayList;
 
-import Fonctions.LINK;
 import Robot.EXA;
 import UI.gameplay.InitialisedGame;
 
@@ -15,7 +14,9 @@ import UI.gameplay.InitialisedGame;
 public class CommandHandler {
     private ArrayList<Register> registers;
     private Exceptions exp;
+    @SuppressWarnings("unused")
     private InitialisedGame game; 
+    @SuppressWarnings("unused")
     private EXA exa; 
 
     /**
@@ -159,20 +160,7 @@ public class CommandHandler {
      * @param cmd La commande de saut à traiter.
      * @return Vrai si la commande est traitée avec succès, faux sinon.
      */
-    private boolean handleJumpLinkCommands(Command cmd) {
-        if(cmd.getInstruction()==Command.Instruction.LINK){
-            //On récupére l'argument suivi de LINK puis on la traduit pour ce déplacer vers une autre case
-            String label = cmd.getArgs()[0]; 
-            Integer newPosition = game.getPosForLabel(label); 
-            if(newPosition != null){
-                new LINK(game).Link(exa, newPosition);
-                return true; 
-            }
-            else{
-                System.out.println("newposition null");
-            }
-        }
-        
+    private boolean handleJumpLinkCommands(Command cmd) {        
         try {
             int arg0 = Integer.parseInt(cmd.getArgs()[0]);
     

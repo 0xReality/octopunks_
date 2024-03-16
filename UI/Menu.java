@@ -1,8 +1,10 @@
 package UI;
 
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -24,6 +26,10 @@ public class Menu{
         //Scene Principale
         mainScene = createSceneOne();
         scene2 = createSceneTwo();
+        
+        Image cursor = new Image("file:resources/cursor/cursor.png");
+        scene2.setCursor(new ImageCursor(cursor, 0, 0));
+        mainScene.setCursor(new ImageCursor(cursor, 0, 0));
         
     }
 
