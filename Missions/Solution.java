@@ -11,14 +11,26 @@ public class Solution {
     @SuppressWarnings("unused")
     private int mission;
     private File file;
+    private File file2;
     private String fileName;
+    private String fileName2;
     private String s[];
+    private String s2[];
     /* Permet de vérifier que le code rentrer par l'utilisateur est correct ou non ! */
     public Solution(int mission){
         this.mission = mission;
         this.fileName = "Missions/Solutions/solution" + mission + ".octo";
+        this.fileName2 = "Missions/Solutions/solutionBis" + mission + ".octo";
+
         file = new File(fileName);
         s = loadFile(file).split("\n");
+
+        if(mission == 3){
+            file2 = new File(fileName2);
+            s2 = loadFile(file).split("\n");
+        }
+
+       
     }
 
     public String getFileName() {
@@ -33,6 +45,14 @@ public class Solution {
         if (Arrays.equals(s, s2)){
             return true;
         }
+        return false;
+    }
+
+    public Boolean CompareTo(String[] s2, String[] s3){
+        if (Arrays.equals(s, s2) && Arrays.equals(this.s2,s3) ){
+            return true;
+        }
+
         return false;
     }
 
@@ -54,7 +74,7 @@ public class Solution {
         {
             ie.printStackTrace(); 
         }
+        
         return null;
     }
 }
-
