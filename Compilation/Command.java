@@ -26,6 +26,7 @@ public class Command {
         FJMP(1),
         KILL(0),
         HALT(0),
+        NOTE(0),
         GRAB(1);
         
         
@@ -84,13 +85,14 @@ public class Command {
         return line;
     }
 
-    public String getCorrectSyntax(){
+    public String   getCorrectSyntax(){
         String correctSyntax;
 
         switch (instruction) {
             case ADDI:
             case MULI:
             case SUBI:
+            case SWIZ:
             case DIVI:
                 correctSyntax = String.format("usage: %s a(R/N) b(R/N) dest(R)", instruction.toString());
                 break;
@@ -105,7 +107,7 @@ public class Command {
                 correctSyntax = String.format("usage: %s source(R/N) dest(R)", instruction.toString());  
                 break;
             default:
-                correctSyntax = "Unkown error";
+                correctSyntax = " ";
                 break;
         }
 

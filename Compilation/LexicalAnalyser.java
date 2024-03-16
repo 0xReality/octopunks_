@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import Compilation.Command.Instruction;
 import Fonctions.*;
 import Robot.EXA;
 import UI.gameplay.ExaInfo;
@@ -65,7 +66,9 @@ public class LexicalAnalyser {
             case "Kill":
                 return new Command(Command.Instruction.KILL, Arrays.copyOfRange(s, 1, s.length), line);
             case "HALT":
-                return new Command(Command.Instruction.HALT, Arrays.copyOfRange(s, 1, s.length), line);            
+                return new Command(Command.Instruction.HALT, Arrays.copyOfRange(s, 1, s.length), line); 
+            case "NOTE":
+                return new Command(Command.Instruction.NOTE, Arrays.copyOfRange(s, 1, s.length), line);      
             default:
                 return new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
@@ -82,7 +85,7 @@ public class LexicalAnalyser {
             exp.sendError(cmd, 1);
             return false;
         }
-        
+        if(isNote(cmd)) return true;
         if(isMissingCommand(cmd)){
             exp.sendError(cmd, 2);
             return false;
@@ -123,7 +126,6 @@ public class LexicalAnalyser {
             boolean isActivityInstruction = false;
             switch (c.getInstruction()) {
                 case ADDI:
-            
                     new ADDI(args[0].getValeur(),args[1].getValeur() ,r);
                     break;
                 case SUBI:
@@ -148,15 +150,17 @@ public class LexicalAnalyser {
                     new FJMP(args[0].getValeur(), k);
                     break;
                 case LINK:
-            
                     isActivityInstruction = true;
-                    System.out.println("LINK not implemented");
-                    assert(false);
+                    String label = c.getArgs()[0]; 
+                    Integer newPosition = game.getPosForLabel(label); 
+                    if(newPosition != null){
+                        new LINK(game).Link(exa, newPosition);
+                        return; 
+                    }
                     break;
                 case KILL:
                     isActivityInstruction = true;
-                    System.out.println("KILL not implemented");
-                    assert(false);
+                    new HALT(exa);
                     break;
                 case COPY:
                     new COPY(args[0], args[1]);
@@ -218,10 +222,15 @@ public class LexicalAnalyser {
     }
 
     public boolean checkRegisterF(Command cmd){
+        if(cmd.getExpectedArgs() < 1) return false;
         if(cmd.getArgs()[cmd.getExpectedArgs() - 1].equals("F")){
             return true;
         }
         return false;
+    }
+
+    public boolean isNote(Command cmd){
+        return cmd.getInstruction() == Instruction.NOTE;
     }
 
 }
