@@ -19,7 +19,6 @@ import UI.Loader;
 import UI.SceneSwitch;
 import UI.ShowsLevels;
 import javafx.geometry.Pos;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,7 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
+
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Robot.*;
@@ -101,8 +100,7 @@ public class Game {
         //initialisation grille de jeu 
         game = new InitialisedGame(stage); 
         game.InitializeGameGrille(); 
-        game.positionGameGrille(); 
-        root.getChildren().add(game.getGrille()); 
+        // game.positionGameGrille();
 
 
         try {
@@ -142,7 +140,7 @@ public class Game {
         AnchorPane.setRightAnchor(exaInfo, 350.0);
 
 
-        root.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,/*exa,*/exaInfo );
+        root.getChildren().addAll( game.getStackPane(),loadMenu, terminal, helpTerminal, setButtons, exa,/*exa,*/exaInfo);
 
         // victoire mission réussi 
         setButtons.getBtnRun().setOnAction(e -> {
@@ -207,6 +205,8 @@ public class Game {
                 setButtons.getBtnStep().fire();
             } else if (event.getCode() == KeyCode.ESCAPE) {
                 setButtons.getBtnStop().fire();
+            }else if (event.getCode() == KeyCode.F1) {
+                setButtons.getBtnExit().fire();
             }
         });
 
@@ -359,7 +359,15 @@ public class Game {
                         + "-fx-border-radius: 20;"
                         + "-fx-border-color: white;" );
         // Utils.applyImageCursor(layout,cursor);
+        
+
         Scene popupScene = new Scene(layout, 550,450);
+        
+        popupScene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                closeButton.fire();
+            }
+        });
         popup.initStyle(StageStyle.TRANSPARENT);
         popupScene.setFill(Color.TRANSPARENT);
         
