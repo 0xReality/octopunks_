@@ -16,7 +16,7 @@ public class EXA {
     private int position; 
     private ObjetOctopunk Crypto; 
     private String lastMessage; 
-    private boolean isActive; 
+    private boolean isActive = true; 
 
     /* Constructeur EXA */
     public EXA(int maxMemory, String name)

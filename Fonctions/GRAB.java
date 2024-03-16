@@ -3,11 +3,10 @@ package Fonctions;
 import Robot.EXA;
 import Robot.ObjetOctopunk;
 
-public class GRAB {
+public class GRAB <O>{
     
-    
-    public GRAB(ObjetOctopunk nfile, EXA exa)
+    public GRAB(O nfile, EXA exa)
     {
-        exa.addObjet(nfile);
+        exa.addObjet((ObjetOctopunk)nfile);
     }
 }

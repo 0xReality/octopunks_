@@ -5,9 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import Data.LevelData;
-import javafx.geometry.Insets;
 
 public class CodeArea extends VBox {
     private TextArea textArea;

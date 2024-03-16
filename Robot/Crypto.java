@@ -10,7 +10,7 @@ public class Crypto extends ObjetOctopunk{
     Random rand = new Random();
 
     public Crypto(){
-        super("Crypto",2,"p"); 
+        super("Crypto",2); 
         binance(); 
     }
 
