@@ -1,6 +1,11 @@
-L'exa doit se faufiller dans un batiment en trouvant le code secret. 
-a l'entree du batiment il trouve une feuille avec un l'interieure des instructions ( additionner 6+2 dans X , diviser 21 par 7 dans F et multipler 3 fois 3 dans T)
-Une fois que vous avez réussi a trouver le code et a avancer dans la salle secrete.
-Vous pouvez récuperer une somme d'argent. (Attention à ne pas être trop gourmand car le coffre detecte une anomalie lorsque il reste moin de 127 grammes sachant que une piece pesent 1g)
-Ensuite vous devez repartir au point de départ. 
+L'Exa doit se faufiler dans un bâtiment en trouvant le code secret.
 
+À l'entrée du bâtiment, il trouve une feuille avec des instructions :
+additionner 6 + 2 dans X, diviser 21 par 7 dans F et multiplier 3 fois 3 dans T.
+
+Une fois que vous avez réussi à trouver le code et à avancer dans la salle secrète,
+vous pouvez récupérer une somme d'argent.
+
+(Attention à ne pas être trop gourmand, car le coffre détecte une anomalie lorsque qu'il reste moins de 127 grammes, sachant qu'une pièce pèse 1 g).
+
+Ensuite, vous devez repartir au point de départ.

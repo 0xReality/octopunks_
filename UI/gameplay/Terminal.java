@@ -12,6 +12,7 @@ public class Terminal extends VBox {
 
     public Terminal(int x, int y, LevelData data) {
         textArea = new TextArea();
+        textArea.setWrapText(true);
         this.data = data;
         textArea.setEditable(false); 
 

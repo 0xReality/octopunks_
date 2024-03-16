@@ -25,6 +25,7 @@ public class CodeArea extends VBox {
         label = new Label(labelText);
 
         textArea = new TextArea();
+        textArea.setWrapText(true);
         textArea.setPrefWidth(260);
         textArea.setPrefHeight(140);
 
