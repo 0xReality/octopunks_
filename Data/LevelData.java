@@ -92,4 +92,8 @@ public class LevelData {
     public String[] getMissionInfo() {
         return missionInfo;
     }
+
+    public int getLevel() {
+        return level;
+    }
 }

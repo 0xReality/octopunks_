@@ -157,7 +157,7 @@ public class LexicalAnalyser {
                 case COPY:
                     new COPY(args[0], args[1]);
                 case HALT:
-                    HALT halt = new HALT(exa); 
+                    new HALT(exa); 
                 default:
                     break;
             }

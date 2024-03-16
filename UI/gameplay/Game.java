@@ -19,11 +19,11 @@ import UI.Loader;
 import UI.SceneSwitch;
 import UI.ShowsLevels;
 import javafx.geometry.Pos;
-
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -31,7 +31,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Robot.*;
@@ -83,13 +82,16 @@ public class Game {
 
        // super(new AnchorPane(),800,600); 
         //this.mainMenu = MainMenu;
+        
         this.stage = stage;
         this.level = level;
         // this.root = (AnchorPane) this.getRoot();
         root = new AnchorPane();
 
         startMusicLoop();
-    
+        
+        Image cursor = new Image("file:resources/cursor/cursor.png");
+        root.setCursor(new ImageCursor(cursor, 0, 0));
         
         data = new LevelData(level);
         exa = new NewExa(data, exaInfo, setButtons);
