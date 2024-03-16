@@ -20,14 +20,14 @@ public class CodeArea extends VBox {
 
 
     public CodeArea(String labelText, LevelData data, ExaInfo exaInfo, NewExa instance, SetButtons sb) {
-        super(5); 
-        this.setPadding(new Insets(5));
+        //super(5); 
+        //this.setPadding(new Insets(5));
         label = new Label(labelText);
 
         textArea = new TextArea();
         textArea.setWrapText(true);
-        textArea.setPrefWidth(260);
-        textArea.setPrefHeight(140);
+        textArea.setPrefWidth(250);
+        textArea.setPrefHeight(150);
 
         textArea.setStyle("-fx-control-inner-background: #19161c; " +
                           "-fx-text-fill: #515058; " +
@@ -37,10 +37,10 @@ public class CodeArea extends VBox {
                           "-fx-focus-color: transparent; " + 
                           "-fx-faint-focus-color: transparent; " + 
                           "-fx-background-color: black; " + 
-                          "-fx-background-insets: 0; " +
                           "-fx-shadow-highlight-color: transparent;" +
-                          "-fx-border-color: #54454b; " +
-                          "-fx-border-width: 2px;");
+                          "-fx-border-color: rgba(54,45,51,255); " +
+                          "-fx-border-width: 2px;" +
+                          "-fx-border-radius: 2;");
 
         //// deleteButton = new Button("Delete");
 
@@ -90,8 +90,8 @@ public class CodeArea extends VBox {
         
         Image cursor = new Image("file:resources/cursor/cursor.png");
         this.setCursor(new ImageCursor(cursor, 0, 0));
-        this.setBorder(new Border(new BorderStroke(Color.RED, 
-            BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
+        // this.setBorder(new Border(new BorderStroke(Color.RED, 
+        //     BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         this.getChildren().addAll(textArea);
     }
 

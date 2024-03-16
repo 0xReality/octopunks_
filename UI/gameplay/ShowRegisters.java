@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class ShowRegisters extends AnchorPane {
+public class ShowRegisters extends VBox {
     private ArrayList<Register> registers = new ArrayList<>();
     private Map<String, Label> registerLabels = new HashMap<>();
 
@@ -38,27 +38,25 @@ public class ShowRegisters extends AnchorPane {
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(registerLabels.values());
-        vbox.setSpacing(10);
-        vbox.setAlignment(Pos.CENTER);
-
-        AnchorPane.setBottomAnchor(vbox, x+10);
-        AnchorPane.setLeftAnchor(vbox, y);
-        this.setBorder(new Border(new BorderStroke(Color.RED, 
-            BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
+        vbox.setSpacing(2);
+        //vbox.setAlignment(Pos.CENTER);
+        //this.setAlignment(Pos.CENTER);
+        // this.setBorder(new Border(new BorderStroke(Color.RED, 
+        //     BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         this.getChildren().add(vbox);
     }
 
     public Label createLabel(String text) {
         Label label = new Label(text);
-        label.setFont(new Font("Arial", 14.2));
+        //label.setFont(new Font("Arial", 14.2));
         label.setTextFill(Color.GRAY);
         
         Image image = new Image("file:resources/exa_cell.png");
-        double aspectRatio = image.getWidth() / image.getHeight();
+        // double aspectRatio = image.getWidth() / image.getHeight();
     
     
-        double newWidth = 211 * 0.62;
-        double newHeight = newWidth / aspectRatio ;
+         double newWidth = 105/* 211 * 0.62 */;
+         double newHeight = 30/* newWidth / aspectRatio */ ;
     
         BackgroundSize backgroundSize = new BackgroundSize(
             newWidth, newHeight, false, false, false, false
@@ -70,7 +68,7 @@ public class ShowRegisters extends AnchorPane {
         );
     
         label.setBackground(new Background(backgroundImage));
-        label.setPadding(new Insets(5, 10, 5, 10));
+        label.setPadding(new Insets(5, 10, 5, 7));//haut,droite,bas,gauche
         label.setMinSize(newWidth, newHeight);
         label.setMaxSize(newWidth, newHeight);
     
