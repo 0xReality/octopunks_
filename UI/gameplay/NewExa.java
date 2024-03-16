@@ -8,6 +8,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 
 import javafx.scene.layout.BorderStroke;
@@ -36,7 +38,9 @@ public class NewExa extends VBox{
         this.sb = sb;
         this.data = data;
         this.exaInfo = exaInfo;
-        VBox topBox = new VBox(5);
+        VBox topBox = new VBox();
+        topBox.setPadding(new Insets(11,10,10,10));
+        topBox.setAlignment(Pos.CENTER);
 
         registers1 = new ShowRegisters(0, 0);
         registers2 = new ShowRegisters(0, 0);
@@ -52,8 +56,8 @@ public class NewExa extends VBox{
         //this.setMaxSize(420,1080);
 
         
-        topBox.setBorder(new Border(new BorderStroke(Color.BLACK, 
-            BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
+        // topBox.setBorder(new Border(new BorderStroke(Color.BLACK, 
+        //     BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         
         
         middleBox.setBorder(new Border(new BorderStroke(Color.BLUE, 
@@ -61,6 +65,11 @@ public class NewExa extends VBox{
         createBox.setBorder(new Border(new BorderStroke(Color.GREEN, 
             BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
 
+        Image topImage = new Image("file:resources/list_detail_top.png",400,45,false,false);
+        ImageView topImageView = new ImageView(topImage);
+
+
+        topBox.getChildren().add(topImageView);
 
         createBox.setOnAction(event -> createExa());
 
@@ -70,7 +79,7 @@ public class NewExa extends VBox{
         // this.setTop(topBox);
         // this.setCenter(middleBox);
         // this.setCenter(createBox);
-        this.setPadding(new Insets(5));
+        this.setPadding(new Insets(0));
         this.setAlignment(Pos.TOP_CENTER);
         this.getChildren().addAll(topBox,middleBox,createBox);
         createExa();
@@ -131,10 +140,10 @@ public class NewExa extends VBox{
             Button deleteButton = new Button("delete");
             VBox exaBox = new VBox(deleteButton, exaContainer);
             exaBox.setAlignment(Pos.CENTER);
-            /*exaBox.setPadding(new Insets(10));
-            exaBox.setBorder(new Border(new BorderStroke(Color.RED, 
+            // exaBox.setPadding(new Insets(10));
+            exaBox.setBorder(new Border(new BorderStroke(Color.GREEN, 
             BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
-            exaBox.setPadding(new Insets(10)); */
+            exaBox.setPadding(new Insets(5,0,5,0));
             deleteButton.setOnAction(event -> {
                 // Remove the entire exaBox from middleBox
                 exaContainer.getChildren().remove(codeArea);
