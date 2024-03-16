@@ -90,6 +90,10 @@ public class LexicalAnalyser {
         if(isInvalidCommand(cmd)){
             exp.sendError(cmd, 3);
             return false;
+        }
+        if(checkRegisterF(cmd)){
+            exp.sendError(cmd, 7);
+            return false;
         } 
         CommandHandler handler = new CommandHandler(registers, exp,game,exa);
         
@@ -211,6 +215,13 @@ public class LexicalAnalyser {
             if(register.getName().equals(nom)) return register;
         }
         return null;
+    }
+
+    public boolean checkRegisterF(Command cmd){
+        if(cmd.getArgs()[cmd.getExpectedArgs() - 1].equals("F")){
+            return true;
+        }
+        return false;
     }
 
 }

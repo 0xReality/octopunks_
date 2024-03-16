@@ -1,32 +1,20 @@
 package Fonctions.MetaFichier;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class File {
     private int id;
-    private List<Integer> content;
-    boolean isInHand;
+    private int content;
 
-    public File(int id, boolean isInHand) {
+    public File(int id, int content) {
         this.id = id;
-        this.content = new ArrayList<>();
-        this.isInHand = isInHand;
-    }
-
-    public void addContent(int data) {
-        content.add(data);
+        this.content = content;
     }
 
     public int getId() {
         return id;
     }
 
-    public List<Integer> getContent() {
-        return new ArrayList<>(content);
+    public int getContent() {
+        return this.content;
     }
 
-    public boolean isInHand() {
-        return isInHand;
-    }
 }
