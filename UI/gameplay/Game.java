@@ -44,6 +44,7 @@ public class Game {
 
 
     private int level;
+    private ObjetOctopunk objet; 
     private NewExa exa;
     private SetButtons setButtons = new SetButtons();
 

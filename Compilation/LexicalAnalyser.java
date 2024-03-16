@@ -7,6 +7,7 @@ import java.util.Collections;
 
 import Fonctions.*;
 import Robot.EXA;
+import Robot.ObjetOctopunk;
 import UI.gameplay.ExaInfo;
 import UI.gameplay.InitialisedGame;
 import UI.gameplay.Terminal;
@@ -22,17 +23,19 @@ public class LexicalAnalyser {
     private final ArrayList<Register> registers;
     private InitialisedGame game; 
     private EXA exa; 
+    private ObjetOctopunk objet; 
 
     /**
      * Constructeur de LexicalAnalyser.
      * @param registers La liste des registres utilisés dans les commandes.
      */
-    public LexicalAnalyser(ArrayList<Register> registers, InitialisedGame ga, EXA ex) {
+    public LexicalAnalyser(ArrayList<Register> registers, InitialisedGame ga, EXA ex,ObjetOctopunk obj) {
         validCommand = new ArrayList<Command.Instruction>();
         Collections.addAll(validCommand, Command.Instruction.class.getEnumConstants());
         this.registers = registers;
         this.game = ga; 
-        this.exa = ex; 
+        this.exa = ex;
+        this.objet = obj; 
     }
 
     /**
@@ -66,6 +69,8 @@ public class LexicalAnalyser {
                 return new Command(Command.Instruction.KILL, Arrays.copyOfRange(s, 1, s.length), line);
             case "HALT":
                 return new Command(Command.Instruction.HALT, Arrays.copyOfRange(s, 1, s.length), line);            
+            case "GRAB":
+                return new Command(Command.Instruction.GRAB, Arrays.copyOfRange(s, 1, s.length), line);
             default:
                 return new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
@@ -89,10 +94,6 @@ public class LexicalAnalyser {
         }
         if(isInvalidCommand(cmd)){
             exp.sendError(cmd, 3);
-            return false;
-        }
-        if(checkRegisterF(cmd)){
-            exp.sendError(cmd, 7);
             return false;
         } 
         CommandHandler handler = new CommandHandler(registers, exp,game,exa);
@@ -161,7 +162,9 @@ public class LexicalAnalyser {
                 case COPY:
                     new COPY(args[0], args[1]);
                 case HALT:
-                    HALT halt = new HALT(exa); 
+                    new HALT(exa);  
+                case GRAB:
+                    new GRAB(objet, exa); 
                 default:
                     break;
             }
@@ -214,14 +217,13 @@ public class LexicalAnalyser {
         for (Register register : registers) {
             if(register.getName().equals(nom)) return register;
         }
-        return null;
+        return null;    
     }
-
-    public boolean checkRegisterF(Command cmd){
-        if(cmd.getArgs()[cmd.getExpectedArgs() - 1].equals("F")){
-            return true;
+        public boolean checkRegisterF(Command cmd){
+            if(cmd.getArgs()[cmd.getExpectedArgs() - 1].equals("F")){
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
-
+    
 }

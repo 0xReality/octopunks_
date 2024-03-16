@@ -1,13 +1,13 @@
-package Fonctions;
+    package Fonctions;
 
-import Robot.EXA;
-import Robot.ObjetOctopunk;
+    import Robot.EXA;
+    import Robot.ObjetOctopunk;
 
-public class GRAB {
-    
-    
-    public GRAB(ObjetOctopunk nfile, EXA exa)
-    {
-        exa.addObjet(nfile);
-    }
-}
+    public class GRAB {
+        
+        
+        public GRAB(ObjetOctopunk nfile, EXA exa)
+        {
+            exa.addObjet(nfile);
+        }
+    }   

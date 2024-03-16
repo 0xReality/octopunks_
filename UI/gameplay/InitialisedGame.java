@@ -27,6 +27,10 @@ public class InitialisedGame {
     // pour pouvoir gérer les positions du robot sur la grille (Commande LINK)
     private Map<String,Integer> labelPos; 
 
+    // pour pouvoir gérer les positions 
+    private Map<Integer, ImageView> objImage ; 
+    private Map<Integer, Integer[]> obj;
+
 
     public void addLabelPos(String label, int column, int row){
         int position = row * 5 + column; 

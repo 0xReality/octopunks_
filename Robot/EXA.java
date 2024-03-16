@@ -98,10 +98,16 @@ public class EXA {
 
     public void addObjet(ObjetOctopunk obj)
     {
-        if(inventaire.size() < MAX_INVENTAIRE && obj != null)
-        {
-            inventaire.add(obj); 
+        if(isFull()){
+            System.out.println("Inventaire plein, impossible d'ajouter" + obj.getName());
+            return; 
+        }
+
+        if(!containsObjet(obj)){
+            inventaire.add(obj);
             trierListe();
+        }else{
+            System.out.println(obj.getName()+ "déja dans l'inventaire");
         }
     }
 
@@ -181,5 +187,24 @@ public class EXA {
     public boolean getActive(){
         return this.isActive; 
     }
+
+    public boolean isFull(){
+        return inventaire.size() >= MAX_INVENTAIRE; 
+    }
+
+    public boolean containsObjet(ObjetOctopunk obj){
+        return inventaire.contains(obj);
+    }
+
+    public ObjetOctopunk getObjetWithName(String Name){
+        for(ObjetOctopunk obj : inventaire){
+            if(obj.getName().equalsIgnoreCase(Name)){
+                return obj;
+            }
+        }
+        return null; 
+    }
+
+
     
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Missions.Solution;
 import Robot.EXA;
+import Robot.ObjetOctopunk;
 import UI.gameplay.ExaInfo;
 import UI.gameplay.InitialisedGame;
 import UI.gameplay.ShowRegisters;
@@ -26,13 +27,14 @@ public class Compilator {
     private int level;
     private InitialisedGame game; 
     private EXA exa; 
+    private ObjetOctopunk objet; 
 
     /**
      * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
      * @param s Le texte à compiler.
      */
     public Compilator(String s, Terminal terminal,
-     ShowRegisters sr, ExaInfo exaInfo, int level,InitialisedGame ga, EXA ex) {
+     ShowRegisters sr, ExaInfo exaInfo, int level,InitialisedGame ga, EXA ex,ObjetOctopunk obj) {
         this.game = ga; 
         this.exa = ex; 
         this.terminal = terminal;
@@ -43,10 +45,11 @@ public class Compilator {
         lines = new Command[text.length];
         this.lineNumber = text.length;
         this.registers = new ArrayList<Register>();
+        this.objet = obj; 
         initRegisters();
         sr.setRegisters(registers);
         sr.updateRegisters(registers);
-        l = new LexicalAnalyser(registers,game,exa);
+        l = new LexicalAnalyser(registers,game,exa,objet);
         this.level = level;
         this.currentLine = 0;
     }
