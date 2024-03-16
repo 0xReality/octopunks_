@@ -19,15 +19,21 @@ import UI.Loader;
 import UI.SceneSwitch;
 import UI.ShowsLevels;
 import javafx.geometry.Pos;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import Robot.*;
 
 
@@ -70,7 +76,8 @@ public class Game {
 
     private InitialisedGame game; 
 
-    
+    // private Image image = new Image("file:resources/cursor/cursor.png");
+    // private ImageCursor cursor = new ImageCursor(image,76.5,76.5);
 
     public Game(int level,Stage stage) {
 
@@ -297,10 +304,39 @@ public class Game {
     private void popUpWin(){
 
         Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.setTitle("FÉLICITATIONS !");
+        
+        //popup.initModality(Modality.APPLICATION_MODAL);
+        //popup.setTitle("FÉLICITATIONS !");
+        //popup.initStyle(StageStyle.UNDECORATED);
 
-        Label label = new Label("Bien jouer !"); 
+        Label label1 = new Label("FÉLICITATIONS !");
+        label1.setStyle(
+                    "-fx-text-fill: limegreen; " +
+                    "-fx-font-weight: bold;"+
+                    "-fx-font-size: 40px; " 
+                    
+                    );
+
+        VBox textExaInfo = new VBox();
+        Label cycle = new Label("Cycles : "+ exaInfo.getCycles());
+        Label size = new Label("Size : "+ exaInfo.getSize()+" / 50");
+        Label activity = new Label("Activity : " + exaInfo.getActivity());
+
+        cycle.setStyle("-fx-text-fill: white; "+
+                        "-fx-font-size: 16px; " );
+        size.setStyle("-fx-text-fill: white; "+
+                        "-fx-font-size: 16px; " );
+        activity.setStyle("-fx-text-fill: white; "+
+                        "-fx-font-size: 16px; " );
+        textExaInfo.setAlignment(Pos.CENTER);
+        textExaInfo.getChildren().addAll(cycle,size,activity);
+
+        Text label = new Text("Bien jouer !");
+        Font font = Font.font("Verdana", FontWeight.BOLD,30);
+        label.setFont(font);
+        label.setStyle("-fx-text-fill: white; ");
+        label.setFill(Color.WHITE);
+        
 
         Button closeButton = new Button("Fermer"); 
         closeButton.setOnAction(e->{popup.close();
@@ -312,11 +348,21 @@ public class Game {
 
         
         
-        VBox layout = new VBox(10); 
-        layout.getChildren().addAll(label, closeButton); 
+        VBox layout = new VBox(20); 
+        layout.getChildren().addAll(label1,textExaInfo,label,closeButton); 
         layout.setAlignment(Pos.CENTER);
-
-        Scene popupScene = new Scene(layout, 300,200); 
+        layout.setStyle("-fx-background-color: rgba(10,10,10);"
+                        + "-fx-background-radius: 25;"
+                     /*    + "-fx-border-style: solid inside;"*/
+                        + "-fx-border-width: 2;"
+                        + "-fx-border-insets: 5;"
+                        + "-fx-border-radius: 20;"
+                        + "-fx-border-color: white;" );
+        // Utils.applyImageCursor(layout,cursor);
+        Scene popupScene = new Scene(layout, 550,450);
+        popup.initStyle(StageStyle.TRANSPARENT);
+        popupScene.setFill(Color.TRANSPARENT);
+        
         popup.setScene(popupScene);
         popup.showAndWait();
 
