@@ -3,7 +3,7 @@ package UI.gameplay;
 import java.util.HashMap;
 import java.util.Map;
 
-
+import Fonctions.MetaFichier.File;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -91,6 +91,22 @@ public class InitialisedGame {
         grille.add(argenImageView, ArgentColumn, ArgentRow);
         GridPane.setHalignment(argenImageView, HPos.CENTER);
         GridPane.setValignment(argenImageView, VPos.CENTER);
+
+        //Ajout du file
+        Image File = new Image("file:resources/file.png"); 
+        ImageView fileImageView = new ImageView(File);
+        fileImageView.setFitWidth(100);
+        fileImageView.setFitWidth(100);
+        int fileColumn = 4; 
+        int fileRow = 4; 
+
+        grille.add(fileImageView, fileColumn, fileRow);
+        GridPane.setHalignment(fileImageView, HPos.CENTER);
+        GridPane.setValignment(fileImageView, VPos.CENTER);
+
+        addLabelPos("400", 4, 4);
+
+        File f1 = new File(400, 100);   
 
         //Ajout du Robot
         Image robotImage = new Image("file:resources/icon.png"); 
