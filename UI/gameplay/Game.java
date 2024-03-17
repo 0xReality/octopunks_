@@ -18,12 +18,11 @@ import Data.LevelData;
 import UI.Loader;
 import UI.SceneSwitch;
 import UI.ShowsLevels;
+import UI.Utils;
 import javafx.geometry.Pos;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -90,8 +89,7 @@ public class Game {
 
         startMusicLoop();
         
-        Image cursor = new Image("file:resources/cursor/cursor.png");
-        root.setCursor(new ImageCursor(cursor, 0, 0));
+        
         
         data = new LevelData(level);
         exa = new NewExa(data, exaInfo, setButtons);
@@ -212,9 +210,9 @@ public class Game {
             }
         });
 
-
+        Utils.setCustomCursor(root);
         sceneGame = new Scene(root,1920,1080);
-
+        Utils.setCustomCursor(sceneGame);
 
 
        

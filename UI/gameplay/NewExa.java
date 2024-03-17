@@ -6,6 +6,7 @@ import java.util.List;
 import Data.LevelData;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -96,6 +97,7 @@ public class NewExa extends VBox{
         this.setPadding(new Insets(0));
         this.setAlignment(Pos.TOP_CENTER);
         this.getChildren().addAll(topBox,middleBox,createBox);
+        
         createExa();
         
     }

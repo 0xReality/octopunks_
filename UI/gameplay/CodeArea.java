@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import Data.LevelData;
+import UI.Utils;
 
 public class CodeArea extends VBox {
     private TextArea textArea;
@@ -82,9 +83,9 @@ public class CodeArea extends VBox {
 
 
         //VBox header = new VBox(5, label,deleteButton);
-        
-        Image cursor = new Image("file:resources/cursor/cursor.png");
-        this.setCursor(new ImageCursor(cursor, 0, 0));
+        Utils.setCustomCursor(this);
+        // Image cursor = new Image("file:resources/cursor/cursor.png");
+        // this.setCursor(new ImageCursor(cursor,76.5,76.5));
         // this.setBorder(new Border(new BorderStroke(Color.RED, 
         //     BorderStrokeStyle.SOLID, null, BorderStroke.THIN)));
         this.getChildren().addAll(textArea);

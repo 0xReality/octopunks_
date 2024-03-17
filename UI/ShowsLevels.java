@@ -3,8 +3,10 @@ package UI;
 import Data.CompletedLevels;
 import UI.gameplay.Game;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -47,9 +49,13 @@ public class ShowsLevels{
             new SceneSwitch(stage, ma.getMainScene()); 
         });
         
-        levelslayout.getChildren().add(ReturnButton); 
 
+        levelslayout.getChildren().add(ReturnButton); 
+        Utils.setCustomCursor(levelslayout);
+        
         scene2 = new Scene(levelslayout,1920,1080);
+        Utils.setCustomCursor(scene2);
+        
 
     }
 

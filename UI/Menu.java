@@ -19,7 +19,7 @@ public class Menu{
 
     private Button playButton;
     private Button logoutButton; 
-    private Button settingsButton; 
+    private Button settingsButton;
     
     public Menu(Stage stage){
         this.stage = stage;
@@ -27,9 +27,8 @@ public class Menu{
         mainScene = createSceneOne();
         scene2 = createSceneTwo();
         
-        Image cursor = new Image("file:resources/cursor/cursor.png");
-        scene2.setCursor(new ImageCursor(cursor, 0, 0));
-        mainScene.setCursor(new ImageCursor(cursor, 0, 0));
+        
+        
         
     }
 
@@ -68,7 +67,9 @@ public class Menu{
         // StackPane.setAlignment(vBox,Pos.CENTER);
         // stackPane1.getChildren().addAll(vBox);
         // mainScene = new Scene(stackPane1,0,0);
+        Utils.setCustomCursor(stack);
         mainScene = new Scene(stack,1920,1080);
+        // Utils.setCustomCursor(mainScene);
         return mainScene;
     }
 
@@ -79,6 +80,7 @@ public class Menu{
             new SceneSwitch(stage,mainScene);
 
         });
+        
         return sl.getScene2();
         
     }
