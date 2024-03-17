@@ -77,11 +77,19 @@ public class InitialisedGame {
 
         //Ajout de nombre pour pouvoir se déplacer dans la piéce 
         Label labelLink = new Label("800");
+
+        Label labelLinkLivre = new Label("400"); 
+
+        Label LabelLinkFile = new Label("300"); 
         
         GridPane.setHalignment(labelLink, HPos.CENTER);
         GridPane.setValignment(labelLink, VPos.CENTER);
         grille.add(labelLink, 2, 2);
+        grille.add(LabelLinkFile, 3, 3);
+        grille.add(labelLinkLivre,4,4);
         addLabelPos("800", 2, 2);
+        addLabelPos("400", 4, 4);
+        addLabelPos("300", 3, 3);
 
         //Ajout objet Livre 
         Image Livre = new Image("file:resources/livre_objet.png");
@@ -89,7 +97,7 @@ public class InitialisedGame {
         LivreView.setFitWidth(100); 
         LivreView.setPreserveRatio(true);
 
-        ObjetOctoPunk OLivre = new ObjetOctoPunk("Livre", 2, LivreView, 4, 1, 100); 
+        ObjetOctoPunk OLivre = new ObjetOctoPunk("Livre", 2, LivreView, 4, 4, 100); 
         ajouterObjetALaGrille(OLivre,OLivre.getCol(), OLivre.getRow());
 
         
@@ -107,16 +115,12 @@ public class InitialisedGame {
         //Ajout du file
         Image File = new Image("file:resources/file.png"); 
         ImageView fileImageView = new ImageView(File);
-        fileImageView.setFitWidth(100);
+        fileImageView.setFitWidth(50);
         fileImageView.setPreserveRatio(true);
 
-        //ObjetOctoPunk OFile = new ObjetOctoPunk("argnet", 1, argenImageView, 4, 4);
+        ObjetOctoPunk OFile = new ObjetOctoPunk("File", 20, fileImageView, 3, 3, 100);
 
-        //ajouterObjetALaGrille(OFile, OFile.getCol(), OFile.getRow());
-
-        addLabelPos("400", 4, 4);
-
-        // File f1 = new File(400, 100);   
+        ajouterObjetALaGrille(OFile, OFile.getCol(), OFile.getRow());
 
         //Ajout du Robot
         Image robotImage = new Image("file:resources/icon.png"); 
