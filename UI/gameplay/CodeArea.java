@@ -1,9 +1,7 @@
 package UI.gameplay;
 
-import javafx.scene.ImageCursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import Data.LevelData;
 import UI.Utils;

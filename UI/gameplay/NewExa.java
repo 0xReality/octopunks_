@@ -6,7 +6,6 @@ import java.util.List;
 import Data.LevelData;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -142,8 +141,7 @@ public class NewExa extends VBox{
             ShowRegisters registers = new ShowRegisters(0, 0);
             
             HBox exaContainer = new HBox();
-            //HBox.setMargin(exaContainer, new Insets(2,2,2,2));
-            //exaContainer.setAlignment(Pos.CENTER);
+
 
             if (exaCount == 0) {
                 registers1 = registers;

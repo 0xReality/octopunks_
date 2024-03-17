@@ -1,10 +1,9 @@
 package UI;
 
 import javafx.geometry.Pos;
-import javafx.scene.ImageCursor;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;

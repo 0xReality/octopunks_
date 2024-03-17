@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Fonctions.MetaFichier.File;
+// import Fonctions.MetaFichier.File;
 import Robot.ObjetOctoPunk;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -106,7 +106,7 @@ public class InitialisedGame {
 
         addLabelPos("400", 4, 4);
 
-        File f1 = new File(400, 100);   
+        // File f1 = new File(400, 100);   
 
         //Ajout du Robot
         Image robotImage = new Image("file:resources/icon.png"); 

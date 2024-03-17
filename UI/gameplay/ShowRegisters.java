@@ -50,7 +50,7 @@ public class ShowRegisters extends VBox {
     
     
          double newWidth = 105/* 211 * 0.62 */;
-         double newHeight = 30/* newWidth / aspectRatio */ ;
+         double newHeight = 36/* newWidth / aspectRatio */ ;
     
         BackgroundSize backgroundSize = new BackgroundSize(
             newWidth, newHeight, false, false, false, false
