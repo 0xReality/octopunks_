@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Missions.Solution;
 import Robot.EXA;
+import Robot.ObjetOctopunk;
 import UI.gameplay.ExaInfo;
 import UI.gameplay.InitialisedGame;
 import UI.gameplay.ShowRegisters;
@@ -26,7 +27,6 @@ public class Compilator {
     private int level;
     private InitialisedGame game; 
     private EXA exa; 
-
     /**
      * Constructeur de Compilator. Compile toutes les lignes d'un texte donné.
      * @param s Le texte à compiler.
@@ -42,7 +42,7 @@ public class Compilator {
         this.text = s.split("\n");
         lines = new Command[text.length];
         this.lineNumber = text.length;
-        this.registers = new ArrayList<Register>();
+        this.registers = new ArrayList<Register>(); 
         initRegisters();
         sr.setRegisters(registers);
         sr.updateRegisters(registers);

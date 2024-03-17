@@ -27,7 +27,6 @@ public class LINK {
         game.setImageView(newColumn, newRow);
         exa.setPositon(label);
                  
-
     }
     
 }

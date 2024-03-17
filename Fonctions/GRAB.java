@@ -9,7 +9,8 @@ public class GRAB{
     public GRAB(int label, EXA exa)
     {
         //verifier si il a quelque chose si oui le drop
-        
+        label = 800;
+
         int x = 3;
         int y = 2;
 
@@ -21,7 +22,7 @@ public class GRAB{
             if(o.getCol() == x && o.getRow() == y){
                 leGrab = o; 
                 exa.getInventaire().ajouter(leGrab);
-                new LINK(game).Link(exa, label);
+                //new LINK(game).Link(exa, label);
                 break;
             }
         }

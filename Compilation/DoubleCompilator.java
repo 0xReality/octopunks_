@@ -3,6 +3,7 @@ package Compilation;
 import java.util.Random;
 
 import Robot.EXA;
+import Robot.ObjetOctopunk;
 import UI.gameplay.ExaInfo;
 import UI.gameplay.InitialisedGame;
 import UI.gameplay.ShowRegisters;
@@ -15,6 +16,7 @@ public class DoubleCompilator {
     private InitialisedGame game; 
     private EXA exa; 
     protected Terminal terminal;
+    private ObjetOctopunk objet; 
     
 
     /**
@@ -27,7 +29,7 @@ public class DoubleCompilator {
      */
     public DoubleCompilator(
         String s1, String s2, Terminal terminal,
-        ShowRegisters sr1, ShowRegisters sr2, ExaInfo exaInfo, int level,InitialisedGame ga, EXA ex) { 
+        ShowRegisters sr1, ShowRegisters sr2, ExaInfo exaInfo, int level,InitialisedGame ga, EXA ex) {
         this.game = ga; 
         this.exa = ex; 
         this.terminal = terminal;
