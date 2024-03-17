@@ -31,6 +31,7 @@ public class CompletedLevels {
     }
 
     public void setCompletedLevel(int level){
+        if(level >= 3) return;
         this.completedLevels.set(level, true);
         saveCompletedLevels();
     }

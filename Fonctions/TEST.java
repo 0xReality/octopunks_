@@ -38,7 +38,7 @@ public class TEST{
     
     public void updateReg(){
         if(retval == true){
-            r.get(2).setValeur(1);
+            r.get(1).setValeur(1);
         }
     }
 

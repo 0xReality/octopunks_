@@ -1,4 +1,7 @@
-L'Exa doit tous ranger dans le camion avec le chauffeur pour cela il doit avancer d'une case faire 200-100 pour X et le copier dans F, calculer le modulo 3 de X dans T
-, Diviser X par T dans X, et il recule d'une case . Ensuite, Le Chauffeur doit faire 100+100 dans F, diviser F par 5 dans T, echanger la position des deux chiffres du resultat de T dans X,
- et Tester la valeur de X si elle est correcte alors on peut s'enfuire !!!
-
+Recuperer le fichier F, DIVISER par 3 F dans le registre M
+aller a la pos de depart et deposer le fichier
+puis Copier la valeur de M dans X
+calculer une valeur aleatoire entre 1 et 10 dans T puis l'ajouter a X 
+recuperer le livre
+multiplier par F par M et enregistrer dans M
+si M vaut 0 on fait 8 + 8 a X sinon 1 + 1 a X

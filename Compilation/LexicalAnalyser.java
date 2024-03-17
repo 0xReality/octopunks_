@@ -76,6 +76,8 @@ public class LexicalAnalyser {
                 return new Command(Command.Instruction.DROP, Arrays.copyOfRange(s, 1, s.length), line);
             case "RAND":
                 return new Command(Command.Instruction.RAND, Arrays.copyOfRange(s, 1, s.length), line);
+            case "TEST":
+                return new Command(Command.Instruction.TEST, Arrays.copyOfRange(s, 1, s.length), line);
             default:
                 return new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
@@ -183,6 +185,9 @@ public class LexicalAnalyser {
                     break;
                 case DROP:
                     new DROP(exa, k.getRegisters());
+                    break;
+                case TEST:
+                    new TEST(args[0].getValeur(),args[2].getValeur(), c.getArgs()[1], registers);
                     break;
                 default:
                     break;

@@ -16,9 +16,7 @@ import UI.gameplay.InitialisedGame;
 public class CommandHandler {
     private ArrayList<Register> registers;
     private Exceptions exp;
-    @SuppressWarnings("unused")
     private InitialisedGame game; 
-    @SuppressWarnings("unused")
     private EXA exa; 
 
     /**

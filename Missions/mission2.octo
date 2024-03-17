@@ -1,3 +1,4 @@
-L'Exa avance d'une case et doit trouver le code secret en suivant les instructions : 6+2 pour X, 21 ÷ 7 pour F, et 3 × 3 pour T. 
-Le code pourrait être en lien avec ses calcules. Ensuite, récupérer de l'argent dans la salle secrète en évitant de prendre plus de 200 pièces pour ne pas déclencher l'alarme. 
-Enfin, retourner au point de départ.
+6+2 pour X, 21 ÷ 7 pour M. 
+récupérer ensuite la pièce en OR
+stocker la difference de X et M dans T, puis ajouter a T la valeur de F
+retourner et deposer la pièce, puis laisser aucune traçe.
