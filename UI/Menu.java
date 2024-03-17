@@ -1,5 +1,6 @@
 package UI;
 
+
 import javafx.geometry.Pos;
 
 import javafx.scene.Scene;
@@ -19,7 +20,7 @@ public class Menu{
     private Button playButton;
     private Button logoutButton; 
     private Button settingsButton;
-    
+
     public Menu(Stage stage){
         this.stage = stage;
         //Scene Principale
@@ -45,7 +46,7 @@ public class Menu{
         vBox.setSpacing(10);
         vBox.setMinSize(400, 400);
         vBox.setMaxSize(400, 400);
-        Loader menu= new Loader("file:resources/MENU.png");
+        Loader menu= new Loader("file:resources/menu/MenuLeVrai.png");
 
         playButton = new Button("Play");
         settingsButton = new Button("Settings");

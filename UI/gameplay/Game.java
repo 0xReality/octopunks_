@@ -16,6 +16,7 @@ import Compilation.DoubleCompilator;
 import Data.CompletedLevels;
 import Data.LevelData;
 import UI.Loader;
+import UI.OctoPunksMenu;
 import UI.SceneSwitch;
 import UI.ShowsLevels;
 import UI.Utils;
@@ -69,7 +70,7 @@ public class Game {
         new File("resources/sounds/octo1.wav"),
         new File("resources/sounds/octo2.wav"),
         new File("resources/sounds/octo3.wav"),
-        new File("resources/sounds/octo4.wav")
+        new File("resources/sounds/octo4.wav"),
     };
 
     private InitialisedGame game; 
@@ -86,7 +87,7 @@ public class Game {
         this.level = level;
         // this.root = (AnchorPane) this.getRoot();
         root = new AnchorPane();
-
+        OctoPunksMenu.stopMenuMusic();
         startMusicLoop();
         
         
@@ -195,6 +196,7 @@ public class Game {
 
         setButtons.getBtnExit().setOnAction(e -> {
             stopBackgroundMusic();
+            OctoPunksMenu.PlayMenuMusic();
             ShowsLevels a = new ShowsLevels(stage); 
             new SceneSwitch(stage, a.getScene2()); 
         });

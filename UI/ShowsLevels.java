@@ -22,7 +22,6 @@ public class ShowsLevels{
     private VBox levelslayout; 
 
     public ShowsLevels(Stage stage){
-
         //super(new VBox(10));
         //this.stage = stage;
 
@@ -39,7 +38,6 @@ public class ShowsLevels{
         level3Button = createLevelButton(3, stage, scene2);
         
         levelslayout.getChildren().addAll(level1Button,level2Button, level3Button);
-
         //Return Button 
         ReturnButton = new Button("Return"); 
         ReturnButton.setOnAction(e->{
@@ -50,7 +48,6 @@ public class ShowsLevels{
 
         levelslayout.getChildren().add(ReturnButton); 
         Utils.setCustomCursor(levelslayout);
-        
         scene2 = new Scene(levelslayout,1920,1080);
         Utils.setCustomCursor(scene2);
         
