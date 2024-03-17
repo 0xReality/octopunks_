@@ -103,8 +103,8 @@ public class Game {
         //initialisation grille de jeu 
         game = new InitialisedGame(stage); 
         game.InitializeGameGrille(); 
-        game.positionGameGrille(); 
-        root.getChildren().add(game.getGrille()); 
+        // game.positionGameGrille(); 
+        // root.getChildren().add(game.getGrille()); 
 
 
         try {
@@ -144,7 +144,7 @@ public class Game {
         AnchorPane.setRightAnchor(exaInfo, 350.0);
 
 
-        root.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,/*exa,*/exaInfo );
+        root.getChildren().addAll( loadMenu, terminal, helpTerminal, setButtons, exa,/*exa,*/exaInfo,game.getGrille());
 
         // victoire mission réussi 
         setButtons.getBtnRun().setOnAction(e -> {

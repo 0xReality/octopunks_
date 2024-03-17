@@ -57,7 +57,7 @@ public class InitialisedGame {
 
         for(int i = 0; i < 5; i++){
             for(int j = 0; j < 5; j++){
-                Rectangle rect = new Rectangle(260, 135); // taille de la cellulle de jeu
+                Rectangle rect = new Rectangle(259, 132); // taille de la cellulle de jeu
                 rect.setStroke(javafx.scene.paint.Color.BLACK);   // couleur du contour
                 rect.setFill(javafx.scene.paint.Color.BROWN);
                 //ici on doit ajouter tout les gestion du robot 
@@ -86,8 +86,8 @@ public class InitialisedGame {
         //Ajout objet dans la piéce 
         Image Argent = new Image("file:resources/monnaie_vrai.png"); 
         ImageView argenImageView = new ImageView(Argent);
-        argenImageView.setFitWidth(100);
-        argenImageView.setFitWidth(100);
+        argenImageView.setFitWidth(50);
+        argenImageView.setPreserveRatio(true);
 
         ObjetOctoPunk OMoney = new ObjetOctoPunk("argnet", 1, argenImageView, 2, 3);
 
@@ -98,7 +98,7 @@ public class InitialisedGame {
         Image File = new Image("file:resources/file.png"); 
         ImageView fileImageView = new ImageView(File);
         fileImageView.setFitWidth(100);
-        fileImageView.setFitWidth(100);
+        fileImageView.setPreserveRatio(true);
 
         //ObjetOctoPunk OFile = new ObjetOctoPunk("argnet", 1, argenImageView, 4, 4);
 
@@ -111,8 +111,8 @@ public class InitialisedGame {
         //Ajout du Robot
         Image robotImage = new Image("file:resources/icon.png"); 
         robotView = new ImageView(robotImage);
-        robotView.setFitWidth(100); // taille du robot
-        robotView.setFitHeight(100);
+        robotView.setFitWidth(80); // taille du robot
+        robotView.setPreserveRatio(true);
 
         //numero de case pour savoir ou le robot est situé 
         int robotColumn = 0; 
@@ -124,6 +124,8 @@ public class InitialisedGame {
         GridPane.setHalignment(robotView, HPos.CENTER);
         GridPane.setValignment(robotView, VPos.CENTER);
 
+        AnchorPane.setTopAnchor(grille, 74.5);
+        AnchorPane.setLeftAnchor(grille, 553.0);
 
         Scene scene = new Scene(grille); 
         stage.setScene(scene);
@@ -132,11 +134,12 @@ public class InitialisedGame {
     }
 
     //position de la grille de jeu dans la scene
-    public void positionGameGrille(){
-        AnchorPane.setTopAnchor(grille, 75.0);
-        AnchorPane.setRightAnchor(grille, 60.0);
-
-    }
+    // public void positionGameGrille(){
+    //     AnchorPane.setTopAnchor(grille, 75.0);
+    //     AnchorPane.setRightAnchor(grille, 60.0);
+    
+    // }
+    
 
     public ImageView getImageView(){
         return robotView; 

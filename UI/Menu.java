@@ -35,13 +35,13 @@ public class Menu{
 
     public Scene createSceneOne(){
         StackPane stack = new StackPane(); 
-        vBox = new VBox();
-        vBox.setStyle("-fx-padding: 5;" +
-                    "-fx-border-style: solid inside;" + 
-                    "-fx-border-width: 2;" +
-                    "-fx-border-insets: 5;" + 
-                    "-fx-border-radius: 5;" + 
-                    "-fx-border-color: blue;");
+        vBox = new VBox(5);
+        // vBox.setStyle("-fx-padding: 5;" +
+        //             "-fx-border-style: solid inside;" + 
+        //             "-fx-border-width: 2;" +
+        //             "-fx-border-insets: 5;" + 
+        //             "-fx-border-radius: 5;" + 
+        //             "-fx-border-color: blue;");
  
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(10);
