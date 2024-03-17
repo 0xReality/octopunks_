@@ -11,6 +11,7 @@ public class Solution {
     @SuppressWarnings("unused")
     private int mission;
     private File file;
+    @SuppressWarnings("unused")
     private File file2;
     private String fileName;
     private String fileName2;

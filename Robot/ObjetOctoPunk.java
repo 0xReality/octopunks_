@@ -10,8 +10,9 @@ public class ObjetOctoPunk {
         private ImageView image;
         private int row;
         private int col;
+        private Integer contenu;
     
-        public ObjetOctoPunk(String name, int id, ImageView image, int row, int col)
+        public ObjetOctoPunk(String name, int id, ImageView image, int row, int col, Integer contenu)
         {
             this.name = name; 
             this.id = id; 
@@ -19,6 +20,7 @@ public class ObjetOctoPunk {
             this.image = image;
             this.row = row;
             this.col = col;
+            this.contenu = contenu;
         }
     
         public int getId()
@@ -52,6 +54,10 @@ public class ObjetOctoPunk {
         
         public int getRow() {
             return row;
+        }
+
+        public Integer getContenu() {
+            return contenu;
         }
 
     

@@ -14,7 +14,9 @@ public enum ErrorCode {
     LABEL_NOTFOUND(8, "no label found."),
     INVALID_OPE(9, "Impossible Comparaison"),
     LOW_HIGH(10, "Lo value is higher than Hi"),
-    INVALID_DEST(11, "invalid dest");
+    INVALID_DEST(11, "invalid dest"),
+    HAND_USED(12, "tried to GRAB with a used hand"),
+    HAND_NOT_USED(13, "tried to DROP with a unused hand");
 
 
     private final int code;

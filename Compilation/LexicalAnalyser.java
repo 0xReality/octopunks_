@@ -8,7 +8,6 @@ import java.util.Collections;
 import Compilation.Command.Instruction;
 import Fonctions.*;
 import Robot.EXA;
-import Robot.ObjetOctopunk;
 import UI.gameplay.ExaInfo;
 import UI.gameplay.InitialisedGame;
 import UI.gameplay.Terminal;
@@ -23,8 +22,7 @@ public class LexicalAnalyser {
     private final ArrayList<Command.Instruction> validCommand;
     private final ArrayList<Register> registers;
     private InitialisedGame game; 
-    private EXA exa; 
-    private ObjetOctopunk objet; 
+    private EXA exa;  
 
     /**
      * Constructeur de LexicalAnalyser.
@@ -62,6 +60,8 @@ public class LexicalAnalyser {
                 return new Command(Command.Instruction.DIVI, Arrays.copyOfRange(s, 1, s.length), line);
             case "SWIZ":
                 return new Command(Command.Instruction.SWIZ, Arrays.copyOfRange(s, 1, s.length), line);
+            case "MODI":
+                return new Command(Command.Instruction.MODI, Arrays.copyOfRange(s, 1, s.length), line);
             case "JUMP":
                 return new Command(Command.Instruction.JUMP, Arrays.copyOfRange(s, 1, s.length), line);
             case "FJMP":
@@ -72,6 +72,10 @@ public class LexicalAnalyser {
                 return new Command(Command.Instruction.HALT, Arrays.copyOfRange(s, 1, s.length), line);            
             case "GRAB":
                 return new Command(Command.Instruction.GRAB, Arrays.copyOfRange(s, 1, s.length), line);
+            case "DROP":
+                return new Command(Command.Instruction.DROP, Arrays.copyOfRange(s, 1, s.length), line);
+            case "RAND":
+                return new Command(Command.Instruction.RAND, Arrays.copyOfRange(s, 1, s.length), line);
             default:
                 return new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
@@ -89,6 +93,9 @@ public class LexicalAnalyser {
             return false;
         }
         if(isNote(cmd)) return true;
+        if(cmd.getInstruction().toString().equals("DROP")){
+            return new CommandHandler(registers, exp,game,exa).handleCommand(cmd);
+        }
         if(isMissingCommand(cmd)){
             exp.sendError(cmd, 2);
             return false;
@@ -108,11 +115,12 @@ public class LexicalAnalyser {
      * @param c La commande dont l'instruction doit être exécutée.
      */
     public void callInstruction(Command c, Compilator k, ExaInfo exaInfo) {
-        if(c.getArgs() != null && c.getArgs().length >= c.getExpectedArgs()){
+        if(c.getArgs() != null){
             Register[] args = new Register[c.getExpectedArgs()];
             for (int i = 0; i < c.getExpectedArgs(); i++) {
                 args[i] = processArgument(c.getArgs()[i]);
             }
+            
 
             // si la commande attend au moins un argument, on obtient le dernier registre
             Register r  = null;  
@@ -142,6 +150,9 @@ public class LexicalAnalyser {
                 case SWIZ:
                     new SWIZ(args[0].getValeur(),args[1].getValeur() ,r);
                     break;
+                case RAND: 
+                    new RAND(args[0].getValeur(),args[1].getValeur() ,r);
+                    break;
                 case JUMP:
                     new JUMP(args[0].getValeur(), k);
                     break;
@@ -151,7 +162,7 @@ public class LexicalAnalyser {
                 case LINK:
                     isActivityInstruction = true;
                     String label = c.getArgs()[0]; 
-                    Integer newPosition = game.getPosForLabel(label); 
+                    Integer newPosition = game.getPosForLabel(label);
                     if(newPosition != null){
                         new LINK(game).Link(exa, newPosition);
                         return; 
@@ -163,10 +174,16 @@ public class LexicalAnalyser {
                     break;
                 case COPY:
                     new COPY(args[0], args[1]);
+                    break;
                 case HALT:
-                    new HALT(exa);  
+                    new HALT(exa); 
+                    break; 
                 case GRAB:
-                    new GRAB(args[0].getValeur(), exa); 
+                    new GRAB(args[0].getValeur(), exa, k.getRegisters()); 
+                    break;
+                case DROP:
+                    new DROP(exa, k.getRegisters());
+                    break;
                 default:
                     break;
             }

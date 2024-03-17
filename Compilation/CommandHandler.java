@@ -61,6 +61,8 @@ public class CommandHandler {
                 return handleGrabCommand(cmd);
             case TEST:
                 return handleTestCommand(cmd);
+            case DROP:
+                return handleDropCommand(cmd);
             default:
                 exp.sendError(cmd, 1);  
                 return false;
@@ -233,6 +235,10 @@ public class CommandHandler {
     
     private boolean handleGrabCommand(Command cmd){
         int dest;
+        if(exa.isHandUsed()){
+            exp.sendError(cmd, 12); 
+            return false;
+        }
         try {
             int arg0 = Integer.parseInt(cmd.getArgs()[0]);
             if (numberVerification(arg0)) {
@@ -248,8 +254,11 @@ public class CommandHandler {
             dest = stringToRegister(cmd.getArgs()[0], registers).getValeur();
         }
 
-        int x = 3;
-        int y = 2;
+        dest = game.getPosForLabel(Integer.toString(dest));
+
+
+        int x = dest % 5;
+        int y = dest / 5;
 
         for (ObjetOctoPunk o : game.getObjetsDansLeJeu()) {
             if(o.getCol() == x && o.getRow() == y){
@@ -338,6 +347,16 @@ public class CommandHandler {
                 }
             }
         }
+        return true;
+    }
+
+
+    public boolean handleDropCommand(Command cmd){
+        if(!exa.isHandUsed()){
+            exp.sendError(cmd, 13); 
+            return false;
+        }
+        
         return true;
     }
 

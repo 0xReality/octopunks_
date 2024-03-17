@@ -16,7 +16,8 @@ public class EXA {
     private int memory; 
     private int position; 
     private String lastMessage; 
-    private boolean isActive = true; 
+    private boolean isActive = true;
+    private boolean HandUsed = false; 
     private InitialisedGame game;
 
     /* Constructeur EXA */
@@ -92,10 +93,12 @@ public class EXA {
     public void addObjet(ObjetOctoPunk nfile)
     {
         inventaire.ajouter(nfile);
+        setHandUsed(true);
     }
 
-    public void removeObjet(ObjetOctoPunk obj){
-        inventaire.retirer(obj);
+    public void removeObjet(ObjetOctoPunk obj, int x, int y){
+        inventaire.retirer(obj, x, y);
+        setHandUsed(false);
     }
 
 
@@ -155,6 +158,14 @@ public class EXA {
 
     public InitialisedGame getGame() {
         return game;
+    }
+
+    public void setHandUsed(boolean isHandUsed) {
+        this.HandUsed = isHandUsed;
+    }
+
+    public boolean isHandUsed() {
+        return HandUsed;
     }
     
 }

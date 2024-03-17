@@ -3,7 +3,6 @@ package Compilation;
 import java.util.Random;
 
 import Robot.EXA;
-import Robot.ObjetOctopunk;
 import UI.gameplay.ExaInfo;
 import UI.gameplay.InitialisedGame;
 import UI.gameplay.ShowRegisters;
@@ -15,9 +14,7 @@ public class DoubleCompilator {
     private Random random;
     private InitialisedGame game; 
     private EXA exa; 
-    protected Terminal terminal;
-    private ObjetOctopunk objet; 
-    
+    protected Terminal terminal;    
 
     /**
      * Constructeur pour DoubleCompilator. Compile toutes les lignes de deux textes donnés.

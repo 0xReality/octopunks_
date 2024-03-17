@@ -28,6 +28,7 @@ public class Command {
         HALT(0),
         NOTE(0),
         GRAB(1),
+        DROP(0),
         TEST(3),
         RAND(3);
         

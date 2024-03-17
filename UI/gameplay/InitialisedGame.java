@@ -7,6 +7,7 @@ import java.util.Map;
 
 // import Fonctions.MetaFichier.File;
 import Robot.ObjetOctoPunk;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -89,7 +90,7 @@ public class InitialisedGame {
         argenImageView.setFitWidth(50);
         argenImageView.setPreserveRatio(true);
 
-        ObjetOctoPunk OMoney = new ObjetOctoPunk("argnet", 1, argenImageView, 2, 3);
+        ObjetOctoPunk OMoney = new ObjetOctoPunk("argnet", 1, argenImageView, 2, 2, 55);
 
         ajouterObjetALaGrille(OMoney, OMoney.getCol(), OMoney.getRow());
 
@@ -164,6 +165,23 @@ public class InitialisedGame {
         GridPane.setValignment(objet.getImage(), VPos.CENTER);
         objetsDansLeJeu.add(objet);
         }
+    }
+
+    public void ajouterObjetALaGrille(ObjetOctoPunk objet, int colonne, int ligne, Integer l) {
+        if (objet != null && objet.getImage() != null) {
+            Platform.runLater(() -> {
+                if (!grille.getChildren().contains(objet.getImage())) {
+                    grille.add(objet.getImage(), colonne, ligne);
+                    GridPane.setHalignment(objet.getImage(), HPos.CENTER);
+                    GridPane.setValignment(objet.getImage(), VPos.CENTER);
+                    objetsDansLeJeu.add(objet);  
+                } else {
+                    GridPane.setColumnIndex(objet.getImage(), colonne);
+                    GridPane.setRowIndex(objet.getImage(), ligne);
+                }
+            });
+        }
+        
     }
        
     public void supprimerObjetDeLaGrille(ObjetOctoPunk objet) {
