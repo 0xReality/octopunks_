@@ -1,0 +1,7 @@
+Recuperer le fichier F, DIVISER par 3 F dans le registre M
+aller a la pos de depart et deposer le fichier
+puis Copier la valeur de M dans X
+calculer une valeur aleatoire entre 1 et 10 dans T puis l'ajouter a X 
+recuperer le livre
+multiplier par F par M et enregistrer dans M
+si M vaut 0 on fait 8 + 8 a X sinon 1 + 1 a X

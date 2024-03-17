@@ -1,0 +1,4 @@
+6+2 pour X, 21 ÷ 7 pour M. 
+récupérer ensuite la pièce en OR
+stocker la difference de X et M dans T, puis ajouter a T la valeur de F
+retourner et deposer la pièce, puis laisser aucune traçe.
