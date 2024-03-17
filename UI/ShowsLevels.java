@@ -38,7 +38,7 @@ public class ShowsLevels{
 
         levelslayout = new VBox(10);
         levelslayout.setMaxSize(300, 300);
-        levelslayout.setStyle("-fx-background-color: rgba(28,24,31,255);" +
+        levelslayout.setStyle("-fx-background-color: rgba(71,170,245,0.8);" +
                                     "-fx-border-color: white; " +
                                     "-fx-border-width: 2px;" +
                                     "-fx-border-radius: 10;"+

@@ -44,8 +44,8 @@ public class Menu{
  
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(10);
-        vBox.setMinSize(400, 400);
-        vBox.setMaxSize(400, 400);
+        
+        vBox.setMaxSize(200, 200);
         Loader menu= new Loader("file:resources/menu/MenuLeVrai.png");
 
         playButton = new Button("Play");
@@ -60,7 +60,12 @@ public class Menu{
                 new SceneSwitch(stage,scene2);
         });
 
-        
+        vBox.setStyle("-fx-background-color: rgba(218,44,167,0.9);" +
+                        "-fx-border-color: rgba(251,203,210,255); " +
+                        "-fx-border-width: 2px;" +
+                        "-fx-border-radius: 10;"+
+                        "-fx-border-insets: 10;"+
+                        "-fx-background-radius:15;");
         vBox.getChildren().addAll(playButton,settingsButton,logoutButton);
         stack.getChildren().addAll(menu, vBox); 
         // stackPane1 = new StackPane();
