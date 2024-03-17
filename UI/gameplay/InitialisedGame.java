@@ -83,6 +83,15 @@ public class InitialisedGame {
         grille.add(labelLink, 2, 2);
         addLabelPos("800", 2, 2);
 
+        //Ajout objet Livre 
+        Image Livre = new Image("file:resources/livre_objet.png");
+        ImageView LivreView = new ImageView(Livre); 
+        LivreView.setFitWidth(100); 
+        LivreView.setPreserveRatio(true);
+
+        ObjetOctoPunk OLivre = new ObjetOctoPunk("Livre", 2, LivreView, 4, 1, 100); 
+        ajouterObjetALaGrille(OLivre,OLivre.getCol(), OLivre.getRow());
+
         
         //Ajout objet dans la piéce 
         Image Argent = new Image("file:resources/monnaie_vrai.png"); 
