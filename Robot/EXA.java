@@ -2,45 +2,38 @@ package Robot;
 
 import java.util.ArrayList;
 import java.util.Queue;
-import java.util.Collections;
+
+import UI.gameplay.InitialisedGame;
+
 import java.util.LinkedList;
 import java.util.Objects; 
 
 public class EXA {
-    private static final int MAX_INVENTAIRE = 3; // limite d'objet dans l'inventaire. 
-    private ArrayList<ObjetOctopunk> inventaire; 
+    private Inventaire inventaire; 
     private String name; /* Options qu'on pourrait rajouter qui serait + fun (personnnaliser son Exa) */
     private Queue<String> messageQueue; /* Les messages pour intéragir avec les deux EXA */
     private ArrayList<String> script; 
     private int memory; 
     private int position; 
-    private ObjetOctopunk Crypto; 
     private String lastMessage; 
     private boolean isActive = true; 
+    private InitialisedGame game;
 
     /* Constructeur EXA */
-    public EXA(int maxMemory, String name)
-    {
+    public EXA(int maxMemory, String name, InitialisedGame game)
+    {  
+        this.game = game;
         this.name = name; 
         memory = maxMemory; 
         lastMessage = null; 
         script = new ArrayList<String>(); 
-        inventaire = new ArrayList<ObjetOctopunk>(); 
+        inventaire = new Inventaire(game);
         this.script = new ArrayList<>(); 
         this.messageQueue = new LinkedList<>(); 
     }
 
-    public String getInventaire()
-    {
-        StringBuilder tmp = new StringBuilder(); 
-        for(ObjetOctopunk o : inventaire)
-        {
-            if(o != null)
-            {
-                tmp.append(o.toString()).append("\n"); 
-            }
-        }
-        return tmp.toString(); 
+    public Inventaire getInventaire() {
+        return inventaire;
     }
 
     public String getName(){
@@ -96,34 +89,13 @@ public class EXA {
         lastMessage = message; 
     }
 
-    public void addObjet(ObjetOctopunk obj)
+    public void addObjet(ObjetOctoPunk nfile)
     {
-        if(inventaire.size() < MAX_INVENTAIRE && obj != null)
-        {
-            inventaire.add(obj); 
-            trierListe();
-        }
+        inventaire.ajouter(nfile);
     }
 
-    public void removeObjet(ObjetOctopunk obj){
-        inventaire.remove(obj); 
-        trierListe();
-    }
-
-    public void removeObjet(ObjetOctopunk obj, int x)
-    {
-        while(x > 0)
-        {
-            inventaire.remove(obj); 
-            x--; 
-        }
-        trierListe();
-    }
-
-    /* Trie l'inventaire de sorte à ce que les objets soit afficher par ordre alphabétique. */
-    public void trierListe()
-    {
-        Collections.sort(inventaire, (obj1, obj2) -> obj1.getName().compareToIgnoreCase(obj2.getName())); 
+    public void removeObjet(ObjetOctoPunk obj){
+        inventaire.retirer(obj);
     }
 
 
@@ -169,7 +141,6 @@ public class EXA {
                 "\n memory : " + getMemory()+
                 "\n position : " + getPosition() +
                 "\n inventaire : " + getInventaire() +
-                "\n portefeuille crypto : " + Crypto + "bitcoin" +
                 "\n script = " + getScript() + 
                 '}'; 
     }
@@ -180,6 +151,10 @@ public class EXA {
 
     public boolean getActive(){
         return this.isActive; 
+    }
+
+    public InitialisedGame getGame() {
+        return game;
     }
     
 }

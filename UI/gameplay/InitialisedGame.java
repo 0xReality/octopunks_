@@ -1,10 +1,12 @@
 package UI.gameplay;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import Fonctions.MetaFichier.File;
-
+import Robot.ObjetOctoPunk;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -27,6 +29,8 @@ public class InitialisedGame {
     // pour pouvoir gérer les positions du robot sur la grille (Commande LINK)
     private Map<String,Integer> labelPos; 
 
+    private List<ObjetOctoPunk> objetsDansLeJeu;
+
 
     public void addLabelPos(String label, int column, int row){
         int position = row * 5 + column; 
@@ -48,7 +52,7 @@ public class InitialisedGame {
 
       //initialise la grille de jeu
     public void InitializeGameGrille(){
-        
+        objetsDansLeJeu = new ArrayList<>();
        grille = new GridPane(); 
 
         for(int i = 0; i < 5; i++){
@@ -85,24 +89,20 @@ public class InitialisedGame {
         argenImageView.setFitWidth(100);
         argenImageView.setFitWidth(100);
 
-        int ArgentColumn = 2; 
-        int ArgentRow = 3; 
+        ObjetOctoPunk OMoney = new ObjetOctoPunk("argnet", 1, argenImageView, 2, 3);
 
-        grille.add(argenImageView, ArgentColumn, ArgentRow);
-        GridPane.setHalignment(argenImageView, HPos.CENTER);
-        GridPane.setValignment(argenImageView, VPos.CENTER);
+        ajouterObjetALaGrille(OMoney, OMoney.getCol(), OMoney.getRow());
+
 
         //Ajout du file
         Image File = new Image("file:resources/file.png"); 
         ImageView fileImageView = new ImageView(File);
         fileImageView.setFitWidth(100);
         fileImageView.setFitWidth(100);
-        int fileColumn = 4; 
-        int fileRow = 4; 
 
-        grille.add(fileImageView, fileColumn, fileRow);
-        GridPane.setHalignment(fileImageView, HPos.CENTER);
-        GridPane.setValignment(fileImageView, VPos.CENTER);
+        //ObjetOctoPunk OFile = new ObjetOctoPunk("argnet", 1, argenImageView, 4, 4);
+
+        //ajouterObjetALaGrille(OFile, OFile.getCol(), OFile.getRow());
 
         addLabelPos("400", 4, 4);
 
@@ -153,6 +153,27 @@ public class InitialisedGame {
     public GridPane getGrille(){
         return grille; 
     }
+
+    public void ajouterObjetALaGrille(ObjetOctoPunk objet, int colonne, int ligne) {
+    if (objet != null && objet.getImage() != null) {
+        grille.add(objet.getImage(), colonne, ligne);
+        GridPane.setHalignment(objet.getImage(), HPos.CENTER);
+        GridPane.setValignment(objet.getImage(), VPos.CENTER);
+        objetsDansLeJeu.add(objet);
+        }
+    }
+       
+    public void supprimerObjetDeLaGrille(ObjetOctoPunk objet) {
+        if (objet != null && objet.getImage() != null) {
+            grille.getChildren().remove(objet.getImage());
+            objetsDansLeJeu.remove(objet);
+        }
+    }
+
+    public List<ObjetOctoPunk> getObjetsDansLeJeu() {
+        return objetsDansLeJeu;
+    }
+
 
 }
 

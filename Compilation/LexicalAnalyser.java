@@ -68,7 +68,13 @@ public class LexicalAnalyser {
             case "HALT":
                 return new Command(Command.Instruction.HALT, Arrays.copyOfRange(s, 1, s.length), line); 
             case "NOTE":
-                return new Command(Command.Instruction.NOTE, Arrays.copyOfRange(s, 1, s.length), line);      
+                return new Command(Command.Instruction.NOTE, Arrays.copyOfRange(s, 1, s.length), line);   
+            case "TEST":
+                return new Command(Command.Instruction.TEST, Arrays.copyOfRange(s, 1, s.length), line); 
+            case "RAND":
+                return new Command(Command.Instruction.RAND, Arrays.copyOfRange(s, 1, s.length), line);
+            case "GRAB":
+                return new Command(Command.Instruction.GRAB, Arrays.copyOfRange(s, 1, s.length), line);
             default:
                 return new Command(Command.Instruction.INVALID, Arrays.copyOfRange(s, 1, s.length), line);
         }
@@ -166,6 +172,12 @@ public class LexicalAnalyser {
                     new COPY(args[0], args[1]);
                 case HALT:
                     new HALT(exa); 
+                case TEST:
+                    new TEST(args[0].getValeur(),args[2].getValeur(),c.getArgs()[1],k.getRegisters());
+                case RAND:
+                    new RAND(args[0].getValeur(),args[1].getValeur() ,r);
+                case GRAB:
+                    new GRAB(args[0].getValeur(), exa);
                 default:
                     break;
             }

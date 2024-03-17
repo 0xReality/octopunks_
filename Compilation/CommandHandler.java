@@ -2,7 +2,9 @@ package Compilation;
 
 import java.util.ArrayList;
 
+import Compilation.Command.Instruction;
 import Robot.EXA;
+import Robot.ObjetOctoPunk;
 import UI.gameplay.InitialisedGame;
 
 
@@ -38,13 +40,16 @@ public class CommandHandler {
      */
     public boolean handleCommand(Command cmd) {
         switch (cmd.getInstruction()) {
+            case KILL:
             case HALT: 
-                return true;  
+                return true;
             case ADDI:
             case MULI:
             case DIVI:
             case SWIZ:
             case SUBI:
+            case MODI:
+            case RAND:
                 return handleArithmeticCommands(cmd);
             case LINK:
             case JUMP:
@@ -53,7 +58,9 @@ public class CommandHandler {
             case COPY:
                 return handleCopyCommand(cmd);
             case GRAB:
-                return handleGrabCommand(cmd); 
+                return handleGrabCommand(cmd);
+            case TEST:
+                return handleTestCommand(cmd);
             default:
                 exp.sendError(cmd, 1);  
                 return false;
@@ -93,6 +100,10 @@ public class CommandHandler {
                     exp.sendError(cmd, 4); 
                     return false;
                 }
+                if(cmd.getInstruction().equals(Instruction.RAND) && arg0 > arg1){
+                    exp.sendError(cmd, 10); 
+                    return false;
+                }
             //si on arrive a ce catch cela signifie que arg1 est un chiffre et arg2 un registre
             } catch (NumberFormatException e) {
                 if (!isRegister(cmd.getArgs()[1])) {
@@ -103,6 +114,10 @@ public class CommandHandler {
                 // Verification que les 2 chiffres sont entre -9999 et 9999
                 if (numberVerification(arg0) || numberVerification(regArg1.getValeur())) {
                     exp.sendError(cmd, 4); 
+                    return false;
+                }
+                if(cmd.getInstruction().equals(Instruction.RAND) && arg0 > regArg1.getValeur()){
+                    exp.sendError(cmd, 10); 
                     return false;
                 }
             }
@@ -129,6 +144,11 @@ public class CommandHandler {
                     exp.sendError(cmd, 4); 
                     return false;
                 }
+
+                if(cmd.getInstruction().equals(Instruction.RAND) && regArg0.getValeur() > arg1){
+                    exp.sendError(cmd, 10); 
+                    return false;
+                }
             //si on arrive a ce catch cela signifie que arg1 est un registre et arg2 un registre
             } catch (NumberFormatException n) {
                 if (!isRegister(cmd.getArgs()[0])) {
@@ -148,6 +168,11 @@ public class CommandHandler {
                 // Verification que les 2 chiffres sont entre -9999 et 9999
                 if (numberVerification(regArg0.getValeur()) || numberVerification(regArg1.getValeur())) {
                     exp.sendError(cmd, 4); 
+                    return false;
+                }
+
+                if(cmd.getInstruction().equals(Instruction.RAND) && regArg0.getValeur() > regArg1.getValeur()){
+                    exp.sendError(cmd, 10); 
                     return false;
                 }
             }
@@ -207,8 +232,32 @@ public class CommandHandler {
 
     
     private boolean handleGrabCommand(Command cmd){
-        return true;
-        //implémenter la logique pour attrapper un objet dans la salle. 
+        int dest;
+        try {
+            int arg0 = Integer.parseInt(cmd.getArgs()[0]);
+            if (numberVerification(arg0)) {
+                exp.sendError(cmd, 4);
+                return false;
+            }
+            dest = arg0;
+        } catch (NumberFormatException e) {
+            if(!isRegister(cmd.getArgs()[0])){
+                exp.sendError(cmd, 6); 
+                return false;
+            }
+            dest = stringToRegister(cmd.getArgs()[0], registers).getValeur();
+        }
+
+        int x = 3;
+        int y = 2;
+
+        for (ObjetOctoPunk o : game.getObjetsDansLeJeu()) {
+            if(o.getCol() == x && o.getRow() == y){
+                return true;
+            }
+        }
+        exp.sendError(cmd,11); 
+        return false;
     }
 
     private boolean isRegister(String nom){
@@ -228,6 +277,68 @@ public class CommandHandler {
             if(register.getName().equals(nom)) return register;
         }
         return null;
+    }
+
+    public boolean handleTestCommand(Command cmd){
+        if(!cmd.getArgs()[1].equals(">") &&
+            !cmd.getArgs()[1].equals("<") &&
+            !cmd.getArgs()[1].equals("==") &&
+            !cmd.getArgs()[1].equals("!=") &&
+            !cmd.getArgs()[1].equals("<=")  &&
+            !cmd.getArgs()[1].equals(">=")  
+        ){
+            exp.sendError(cmd, 9);
+            return false;
+        }
+        
+
+        try {
+            int arg0 = Integer.parseInt(cmd.getArgs()[0]);
+    
+            if (numberVerification(arg0)) {
+                exp.sendError(cmd, 4);
+                return false;
+            }
+
+            try {
+                int arg2 = Integer.parseInt(cmd.getArgs()[2]);
+        
+                if (numberVerification(arg2)) {
+                    exp.sendError(cmd, 4);
+                    return false;
+                }
+    
+            } catch (NumberFormatException e) {
+                if(!isRegister(cmd.getArgs()[2])){
+                    exp.sendError(cmd, 6); 
+                    return false;
+                }
+            }
+        } catch (NumberFormatException e) {
+            try {
+                int arg2 = Integer.parseInt(cmd.getArgs()[2]);
+        
+                if (numberVerification(arg2)) {
+                    exp.sendError(cmd, 4);
+                    return false;
+                }
+
+                if(!isRegister(cmd.getArgs()[0])){
+                    exp.sendError(cmd, 6); 
+                    return false;
+                }
+            } catch (NumberFormatException e2) {
+                if(!isRegister(cmd.getArgs()[0])){
+                    exp.sendError(cmd, 6); 
+                    return false;
+                }
+                if(!isRegister(cmd.getArgs()[2])){
+                    exp.sendError(cmd, 6); 
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

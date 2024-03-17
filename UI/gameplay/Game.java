@@ -237,7 +237,7 @@ public class Game {
         boolean returnCall;
 
         String exa1 = ca1.getTextArea().getText();
-        EXA exaInstance = new EXA(0, "exa1");
+        EXA exaInstance = new EXA(0, "exa1", game);
 
 
         if(ca2 == null){

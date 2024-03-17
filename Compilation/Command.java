@@ -27,7 +27,9 @@ public class Command {
         KILL(0),
         HALT(0),
         NOTE(0),
-        GRAB(1);
+        GRAB(1),
+        TEST(3),
+        RAND(3);
         
         
 
@@ -96,6 +98,9 @@ public class Command {
             case DIVI:
                 correctSyntax = String.format("usage: %s a(R/N) b(R/N) dest(R)", instruction.toString());
                 break;
+            case RAND:
+                correctSyntax = String.format("usage: %s lo(R/N) hi(R/N) dest(R)", instruction.toString());
+                break;
             case JUMP:
             case FJMP:
                 correctSyntax = String.format("usage: %s dest(R)", instruction.toString());
@@ -107,7 +112,7 @@ public class Command {
                 correctSyntax = String.format("usage: %s source(R/N) dest(R)", instruction.toString());  
                 break;
             default:
-                correctSyntax = " ";
+                correctSyntax = "";
                 break;
         }
 

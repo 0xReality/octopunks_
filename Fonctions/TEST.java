@@ -1,14 +1,45 @@
 package Fonctions;
 
-/* Permet de vérifier si un code rentrer dans le jeu est correct afin de rentrer dans une piéce */
-public class TEST {
+import java.util.ArrayList;
 
-    public boolean testCode(int code, int vrai_code)
-    {
-        if(code == vrai_code)
-        {
-            return true;
+import Compilation.Register;
+
+
+public class TEST{
+
+    private boolean retval;
+    private ArrayList<Register> r;
+    public TEST(int val1, int val2, String ope, ArrayList<Register> r){
+        this.r = r;
+        switch (ope) {
+            case ">":
+                retval = (val1 > val2);
+                break;
+            case "<":
+                retval = (val1 < val2);
+                break;
+            case "==":
+                retval = (val1 == val2);
+                break;
+            case "!=":
+                retval = (val1 != val2);
+                break;
+            case ">=":
+                retval = (val1 >= val2);
+                break;
+            case "<=":
+                retval = (val1 <= val2);
+                break;
+            default:
+                break;
         }
-        return false; 
+        updateReg();
     }
+    
+    public void updateReg(){
+        if(retval == true){
+            r.get(2).setValeur(1);
+        }
+    }
+
 }
