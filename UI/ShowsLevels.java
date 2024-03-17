@@ -5,6 +5,9 @@ import UI.gameplay.Game;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -26,10 +29,28 @@ public class ShowsLevels{
         //this.stage = stage;
 
        //this.mainMenu = MainMenu; 
-        
-        // levelslayout = (VBox) this.getRoot(); 
-        levelslayout = new VBox();
+        StackPane panel = new StackPane();
+        // levelslayout = (VBox) this.getRoot();
+        Image levelBackgroundImage = new Image("file:resources/menu/ShowLevel.png"); 
+        ImageView showMenuImageView = new ImageView(levelBackgroundImage);
+        showMenuImageView.setFitWidth(1920);
+        showMenuImageView.setPreserveRatio(true);
+
+        levelslayout = new VBox(10);
+        levelslayout.setMaxSize(300, 300);
+        levelslayout.setStyle("-fx-background-color: rgba(28,24,31,255);" +
+                                    "-fx-border-color: white; " +
+                                    "-fx-border-width: 2px;" +
+                                    "-fx-border-radius: 10;"+
+                                     "-fx-border-insets: 5;"+
+                                    "-fx-background-radius:10;");
         levelslayout.setAlignment(Pos.CENTER);
+        //Return Button 
+        ReturnButton = new Button("Return"); 
+        ReturnButton.setOnAction(e->{
+            Menu ma = new Menu(stage); 
+            new SceneSwitch(stage, ma.getMainScene()); 
+        });
 
         level1Button = createLevelButton(1, stage, scene2);
 
@@ -37,18 +58,16 @@ public class ShowsLevels{
 
         level3Button = createLevelButton(3, stage, scene2);
         
-        levelslayout.getChildren().addAll(level1Button,level2Button, level3Button);
-        //Return Button 
-        ReturnButton = new Button("Return"); 
-        ReturnButton.setOnAction(e->{
-            Menu ma = new Menu(stage); 
-            new SceneSwitch(stage, ma.getMainScene()); 
-        });
+        levelslayout.getChildren().addAll(level1Button,level2Button, level3Button,ReturnButton);
+        
+        
         
 
-        levelslayout.getChildren().add(ReturnButton); 
-        Utils.setCustomCursor(levelslayout);
-        scene2 = new Scene(levelslayout,1920,1080);
+        panel.getChildren().addAll(showMenuImageView,levelslayout);
+
+        Utils.setCustomCursor(panel);
+
+        scene2 = new Scene(panel,1920,1080);
         Utils.setCustomCursor(scene2);
         
 
