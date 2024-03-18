@@ -31,6 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Robot.*;
@@ -307,9 +308,9 @@ public class Game {
 
         Stage popup = new Stage();
         
-        //popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initModality(Modality.APPLICATION_MODAL);
         //popup.setTitle("FÉLICITATIONS !");
-        //popup.initStyle(StageStyle.UNDECORATED);
+        popup.initStyle(StageStyle.UNDECORATED);
 
         Label label1 = new Label("FÉLICITATIONS !");
         label1.setStyle(
@@ -360,7 +361,7 @@ public class Game {
                         + "-fx-border-insets: 5;"
                         + "-fx-border-radius: 20;"
                         + "-fx-border-color: white;" );
-        // Utils.applyImageCursor(layout,cursor);
+        Utils.setCustomCursor(layout);
         Scene popupScene = new Scene(layout, 550,450);
         popup.initStyle(StageStyle.TRANSPARENT);
         popupScene.setFill(Color.TRANSPARENT);
